@@ -64,10 +64,18 @@ export const NavBar: React.FC<Props> = ({ className }) => {
                     <Trash />
                   </div>
                 </div>
-                <div className='mt-10'>
+                <div className='mt-10 flex flex-col items-center justify-center gap-3'>
                   <p className='text-black'>
                     Итого:<span className='font-bold'> 33999 лей</span>
                   </p>
+                  <Link href='/cart'>
+                    <Button
+                      variant='outline'
+                      className='cursor-pointer hover:bg-gray-500 transition-all delay-75'
+                    >
+                      в корзину
+                    </Button>
+                  </Link>
                 </div>
               </PopoverContent>
             </Popover>
