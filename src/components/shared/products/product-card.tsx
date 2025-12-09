@@ -30,7 +30,7 @@ export const ProductCard: React.FC<Props> = ({
     >
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}
       <div className='relative'>
-        <Link href='product/dsdsds'>
+        <Link href={`http://localhost:3000/product/${id}`}>
           <img src={image} alt={name} className='rounded-lg' />
         </Link>
         <button
@@ -58,7 +58,7 @@ export const ProductCard: React.FC<Props> = ({
 
       {/* Название товара */}
       <Link
-        href='product/dsdsdsd'
+        href={`http://localhost:3000/product/${id}`}
         className='text-black font-semibold text-[16px] cursor-pointer hover:text-red-600 transition-colors duration-200'
       >
         {name}

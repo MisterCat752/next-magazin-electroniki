@@ -140,13 +140,16 @@ import ProductView from '@/components/shared/products/product-view';
 import { prisma } from '@/prisma/prisma-client';
 
 interface ProductPageProps {
-  params: { slug: string };
+  params: { id: string };
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { id } = params;
+
+  // Преобразуем id в число, если в БД int
+  const productId = parseInt(id, 10);
   const product = await prisma.product.findUnique({
-    where: { slug },
+    where: { id: productId },
     include: {
       variants: {
         include: {
