@@ -18,30 +18,22 @@ export const CategoryContent: React.FC<Props> = ({
   const [products, setProducts] = useState<IProduct[]>(initialProducts);
   const selectedFilters = useFilterStore((state) => state.selected);
 
-  const mapProducts = (productsData: any[]): IProduct[] =>
-    productsData.map((p: any) => ({
-      id: p.id,
-      name: p.name,
-      price: Math.min(...(p.variants.map((v: any) => v.price) || [0])),
-      variants: p.variants,
-      image: p.image ?? undefined,
-    }));
-
   useEffect(() => {
     async function fetchFilteredProducts() {
       const params = new URLSearchParams();
-      params.append('category', category);
-      selectedFilters.forEach((id) => params.append('filters', String(id)));
+      params.set('category', category);
+      params.set('filters', selectedFilters.join(',')); // <-- ВАЖНО
 
       const res = await fetch(`/api/products?${params.toString()}`);
       const data = await res.json();
-      setProducts(mapProducts(data.products));
+
+      setProducts(data.products);
     }
 
     if (selectedFilters.length > 0) fetchFilteredProducts();
     else setProducts(initialProducts);
   }, [selectedFilters, category, initialProducts]);
-
+  console.log(products, 'products');
   return (
     <main className='bg-white flex gap-4 items-start justify-center'>
       <Filters filters={filters} />

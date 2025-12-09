@@ -63,6 +63,15 @@ async function main() {
     include: { values: true },
   });
 
+  // Добавим дополнительные цветовые значения, которые есть в ваших примерах
+  await prisma.optionValue.createMany({
+    data: [
+      { value: 'Тёмно-синий', optionId: colorOption.id },
+      { value: 'Синий', optionId: colorOption.id }, // "Icy"
+      { value: 'Черный', optionId: colorOption.id }, // альтернативное написание
+    ],
+  });
+
   // --- Создаём категории ---
   const electronics = await prisma.category.create({
     data: { name: 'Электроника', slug: 'electronics' },
@@ -112,16 +121,19 @@ async function main() {
     include: { groups: true },
   });
 
-  function findOptionValue(
-    option: Option & { values: OptionValue[] },
-    value: string
-  ): number {
-    const found = option.values.find((v) => v.value === value);
-    if (!found) throw new Error(`Option value "${value}" not found`);
+  // Хелпер для поиска id optionValue по optionId и значению
+  async function findOptionValueId(optionId: number, value: string) {
+    const found = await prisma.optionValue.findFirst({
+      where: { optionId, value },
+    });
+    if (!found)
+      throw new Error(
+        `Option value "${value}" for optionId ${optionId} not found`
+      );
     return found.id;
   }
 
-  // --- Сидинг продуктов ---
+  // --- Существующие продукты из вашего примера (оставляем как были) ---
   const productData = [
     {
       name: 'Apple iPhone 12',
@@ -204,15 +216,35 @@ async function main() {
         variants: {
           create: [
             {
-              sku: `${p.slug}-${p.memory}-${p.color}`,
+              sku: `${p.slug}-${p.memory.replace(/\s/g, '')}-${p.color.replace(
+                /\s|\|/g,
+                ''
+              )}`,
               price: Math.floor(Math.random() * 1000) + 8000,
               stock: Math.floor(Math.random() * 10) + 5,
               optionValues: {
                 create: [
-                  { optionValueId: findOptionValue(memoryOption, p.memory) },
-                  { optionValueId: findOptionValue(colorOption, p.color) },
+                  {
+                    optionValueId: await findOptionValueId(
+                      memoryOption.id,
+                      p.memory
+                    ),
+                  },
+                  {
+                    optionValueId: await findOptionValueId(
+                      colorOption.id,
+                      p.color
+                    ),
+                  },
                   ...(p.sim
-                    ? [{ optionValueId: findOptionValue(simOption, p.sim) }]
+                    ? [
+                        {
+                          optionValueId: await findOptionValueId(
+                            simOption.id,
+                            p.sim
+                          ),
+                        },
+                      ]
                     : []),
                 ],
               },
@@ -246,53 +278,205 @@ async function main() {
     });
   }
 
-  // --- Сидинг фильтров ---
-  const appleLaptopProcessorFilter = await prisma.filter.create({
+  // --- Добавляем Samsung Galaxy S25 FE (несколько вариантов) ---
+  const s25 = {
+    name: 'Samsung Galaxy S25 FE',
+    slug: 'samsung-galaxy-s25-fe',
+    categoryId: samsung.id,
+    memories: ['256 ГБ', '512 ГБ'],
+    colors: ['Тёмно-синий', 'Черный', 'Синий', 'Белый'],
+    ram: '8 ГБ',
+    display: '6.7"',
+    mainCamera: '50 Мп',
+    ultraWide: '12 Мп',
+    telephoto: '8 Мп',
+    frontCamera: '12 Мп',
+    weight: '190 г',
+    cpu: 'Exynos 2400',
+    cpuCores: '8',
+    cpuFreq: '3.2 ГГц',
+    gpu: 'Samsung Xclipse 940',
+    battery: '4900 мАч',
+    fastCharge: '45 ВТ',
+    resolution: '1080 x 2340',
+    refreshRate: '120 Гц',
+  };
+
+  // Создадим продукт
+  const samsungProduct = await prisma.product.create({
     data: {
-      name: 'Процессор',
-      category: { connect: { id: appleLaptops.id } },
-      values: { create: [{ value: 'Apple M1' }, { value: 'Intel i7' }] },
+      name: s25.name,
+      slug: s25.slug,
+      category: { connect: { id: s25.categoryId } },
     },
-    include: { values: true },
   });
 
-  const memoryFilter = await prisma.filter.create({
+  // Для каждого сочетания памяти + цвета создаём вариант
+  for (const mem of s25.memories) {
+    for (const color of s25.colors) {
+      const sku = `${s25.slug}-${mem.replace(/\s/g, '')}-${color.replace(
+        /\s|\|/g,
+        ''
+      )}`;
+      // Установим условно цены: 256 ГБ — 12099, 512 ГБ — 13399 (как в примере)
+      const price = mem === '256 ГБ' ? 12099 : 13399;
+      const stock = Math.floor(Math.random() * 20) + 1;
+
+      // Найдём optionValue id'шники
+      const memId = await findOptionValueId(memoryOption.id, mem);
+      const colorId = await findOptionValueId(colorOption.id, color);
+      const simId = await findOptionValueId(simOption.id, 'Dual SIM');
+
+      await prisma.productVariant.create({
+        data: {
+          sku,
+          price,
+          stock,
+          product: { connect: { id: samsungProduct.id } },
+          optionValues: {
+            create: [
+              { optionValueId: memId },
+              { optionValueId: colorId },
+              { optionValueId: simId },
+            ],
+          },
+          specifications: {
+            create: [
+              {
+                name: 'Диагональ экрана',
+                value: s25.display,
+                group: { connect: { id: displaySection.groups[0].id } },
+              },
+              {
+                name: 'Разрешение основной камеры',
+                value: s25.mainCamera,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Разрешение сверхширокой камеры',
+                value: s25.ultraWide,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Разрешение телефотообъектива',
+                value: s25.telephoto,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Фронтальная камера',
+                value: s25.frontCamera,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Вес',
+                value: s25.weight,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Процессор',
+                value: s25.cpu,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Количество ядер',
+                value: s25.cpuCores,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Максимальная частота процессора',
+                value: s25.cpuFreq,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Модель видеокарты',
+                value: s25.gpu,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Объём аккумулятора',
+                value: s25.battery,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Быстрая зарядка',
+                value: s25.fastCharge,
+                group: { connect: { id: baseSection.groups[0].id } },
+              },
+              {
+                name: 'Разрешение дисплея',
+                value: s25.resolution,
+                group: { connect: { id: displaySection.groups[0].id } },
+              },
+              {
+                name: 'Частота обновления',
+                value: s25.refreshRate,
+                group: { connect: { id: displaySection.groups[0].id } },
+              },
+            ],
+          },
+        },
+      });
+    }
+  }
+
+  // --- Создаём фильтры для Samsung категории и привязываем значения ---
+  const samsungMemoryFilter = await prisma.filter.create({
     data: {
       name: 'Память',
-      category: { connect: { id: appleLaptops.id } },
+      category: { connect: { id: samsung.id } },
       values: {
-        create: [{ value: '8 GB' }, { value: '16 GB' }, { value: '32 GB' }],
+        create: [{ value: '256 ГБ' }, { value: '512 ГБ' }],
       },
     },
     include: { values: true },
   });
 
-  const colorFilterSamsung = await prisma.filter.create({
+  const samsungColorFilter = await prisma.filter.create({
     data: {
       name: 'Цвет',
       category: { connect: { id: samsung.id } },
-      values: { create: [{ value: 'Чёрный' }, { value: 'Белый' }] },
+      values: {
+        create: [
+          { value: 'Тёмно-синий' },
+          { value: 'Черный' },
+          { value: 'Синий' },
+          { value: 'Белый' },
+        ],
+      },
     },
     include: { values: true },
   });
 
-  // --- Привязка фильтров к продукту (пример) ---
-  const firstAppleLaptop = await prisma.product.findFirst({
-    where: { categoryId: appleLaptops.id },
+  const samsungRamFilter = await prisma.filter.create({
+    data: {
+      name: 'RAM',
+      category: { connect: { id: samsung.id } },
+      values: { create: [{ value: '8 ГБ' }] },
+    },
+    include: { values: true },
   });
-  if (firstAppleLaptop) {
-    await prisma.product.update({
-      where: { id: firstAppleLaptop.id },
-      data: {
-        filters: {
-          connect: [
-            { id: appleLaptopProcessorFilter.values[0].id }, // Apple M1
-            { id: memoryFilter.values[1].id }, // 16 GB
-          ],
-        },
+
+  // --- Привязка фильтров к продукту Samsung ---
+  await prisma.product.update({
+    where: { id: samsungProduct.id },
+    data: {
+      filters: {
+        connect: [
+          {
+            id: samsungMemoryFilter.values.find((v) => v.value === '256 ГБ')!
+              .id,
+          },
+          { id: samsungRamFilter.values[0].id },
+          // Цвет фильтры можно подключать динамически, но подключим первый цвет как пример
+          {
+            id: samsungColorFilter.values.find(
+              (v) => v.value === 'Тёмно-синий'
+            )!.id,
+          },
+        ],
       },
-    });
-  }
+    },
+  });
 
   console.log('✅ Seed completed!');
 }

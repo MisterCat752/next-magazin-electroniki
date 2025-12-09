@@ -10,6 +10,6 @@ export type IProduct = {
   id: number;
   name: string;
   price: number;
-  image?: string;
+  imageUrl?: string;
   variants: IProductVariants[];
 };

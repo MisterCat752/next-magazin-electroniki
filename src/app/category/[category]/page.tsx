@@ -36,11 +36,11 @@ export default async function Page({ params }: Props) {
         stock: v.stock,
         productId: v.productId,
       })) as IProductVariants[],
-      image: p.image ?? undefined,
+      imageUrl: p.imageUrl ?? undefined,
     }));
 
   const initialProducts = mapProducts(categoryData?.products || []);
-
+  console.log(initialProducts, 'initialProducts');
   return (
     <div>
       <h2 className='mt-25'> </h2>
