@@ -1,64 +1,78 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { CheckboxFilterGroup } from './index';
-import { Input, RangeSlider, Title } from '@/components/ui';
+import { Title, Input } from '@/components/ui';
+import { useFilterStore } from '@/store/filterStore';
+
+export interface FilterValueType {
+  id: number;
+  value: string;
+}
+
+export interface FilterType {
+  id: number;
+  name: string; // Например: Цвет, Память, Процессор
+  values: FilterValueType[];
+}
 
 interface Props {
   className?: string;
+  filters: FilterType[];
 }
 
-export const Filters: React.FC<Props> = ({ className }) => {
+export const Filters: React.FC<Props> = ({ className, filters }) => {
+  const { selected, toggleFilter } = useFilterStore();
+  const [searchTerms, setSearchTerms] = useState<Record<number, string>>({});
+
+  const handleSearchChange = (filterId: number, value: string) => {
+    setSearchTerms((prev) => ({ ...prev, [filterId]: value }));
+  };
+  console.log(filters, 'filters');
   return (
-    <div className={cn(className, 'max-w-[250px]   p-4 w-full')}>
+    <div className={cn(className, 'max-w-[250px] p-4 w-full')}>
       <Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
 
-      {/* Тип пицц */}
-      <CheckboxFilterGroup
-        title='Тип теста'
-        className='mt-2'
-        items={[
-          { text: 'Тонкое', value: '1' },
-          { text: 'Традиционное', value: '2' },
-        ]}
-      />
+      {filters.map((filter) => {
+        const filteredItems = filter.values
+          .filter((v) =>
+            searchTerms[filter.id] || ''
+              ? v.value
+                  .toLowerCase()
+                  .includes(searchTerms[filter.id].toLowerCase())
+              : true
+          )
+          .map((v) => ({
+            text: v.value,
+            value: String(v.id),
+          }));
 
-      {/* Размеры */}
-      <CheckboxFilterGroup
-        title='Размеры'
-        className='mt-3'
-        items={[
-          { text: '20 см', value: '20' },
-          { text: '30 см', value: '30' },
-          { text: '40 см', value: '40' },
-        ]}
-      />
+        return (
+          <div key={filter.id} className='mb-6'>
+            <CheckboxFilterGroup
+              title={filter.name}
+              items={filteredItems}
+              selectedIds={new Set(selected.map(String))} // <--- здесь приводим числа к строкам
+              onClickCheckBox={(id) => toggleFilter(Number(id))} // обратно в number
+              className='mt-2'
+            />
 
-      <div className='mt-6 py-6 pb-7 border-y border-y-neutral-100 '>
-        {/* Цена слидер от до */}
-        <p className='font-bold mb-3'>Цена от и до</p>
-        <div className='flex gap-3 mb-5'>
-          <Input type='number' min={0} max={1000} placeholder='0 ' />
-          <Input type='number' min={0} max={1000} placeholder='1000' />
-        </div>
-        <div className='mt-10'>
-          <RangeSlider min={0} max={1000} step={1} />
-        </div>
-
-        {/*Ингридиенты */}
-        <div>
-          <CheckboxFilterGroup
-            title='Ингридиенты'
-            className='mt-12'
-            limit={6}
-            items={[
-              { text: '20 см', value: '20' },
-              { text: '30 см', value: '30' },
-              { text: '40 см', value: '40' },
-            ]}
-          />
-        </div>
-      </div>
+            {filter.values.length > 5 && (
+              <div className='mt-2'>
+                <Input
+                  type='text'
+                  placeholder='Поиск...'
+                  value={searchTerms[filter.id] || ''}
+                  onChange={(e) =>
+                    handleSearchChange(filter.id, e.target.value)
+                  }
+                  className='border-none bg-gray-50'
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

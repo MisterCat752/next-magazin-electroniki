@@ -1,7 +1,5 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { Filters, ProductGroupList } from '@/components/shared';
 import { prisma } from '@/prisma/prisma-client';
+import { CategoryContent } from '@/components/shared/category-component';
 import type { IProduct, IProductVariants } from '@/types/products.types';
 
 interface Props {
@@ -11,59 +9,46 @@ interface Props {
 function getMinPriceFromVariants(
   variants?: { price: number }[] | null
 ): number {
-  if (!variants || variants.length === 0) return 0; // fallback — можно сделать null, если нужно
+  if (!variants || variants.length === 0) return 0;
   return Math.min(...variants.map((v) => v.price));
 }
 
 export default async function Page({ params }: Props) {
   const { category } = params;
 
-  // Берём категорию вместе с продуктами и вариантами
   const categoryData = await prisma.category.findUnique({
     where: { slug: category },
-    include: { products: { include: { variants: true } } },
+    include: {
+      products: { include: { variants: true, filters: true } },
+      filters: { include: { values: true } },
+    },
   });
 
-  const productsFromDb = categoryData?.products || [];
-
-  // Маппим в IProduct[], вычисляем price (минимальная цена варианта)
-  const items: IProduct[] = productsFromDb.map((p: any) => {
-    const price = getMinPriceFromVariants(p.variants);
-
-    // приводим variants к виду IProductVariants[]
-    const variants: IProductVariants[] = (p.variants || []).map((v: any) => ({
-      id: v.id,
-      sku: v.sku,
-      price: v.price,
-      stock: v.stock,
-      productId: v.productId,
-    }));
-
-    return {
+  const mapProducts = (products: any[]): IProduct[] =>
+    products.map((p: any) => ({
       id: p.id,
       name: p.name,
-      price,
-      image: (p as any).image ?? undefined, // если есть поле image в модели — используем, иначе undefined
-      variants,
-    };
-  });
+      price: getMinPriceFromVariants(p.variants),
+      variants: p.variants.map((v: any) => ({
+        id: v.id,
+        sku: v.sku,
+        price: v.price,
+        stock: v.stock,
+        productId: v.productId,
+      })) as IProductVariants[],
+      image: p.image ?? undefined,
+    }));
 
-  console.log(categoryData, 'productdto');
-  console.log(items, 'mappedItems');
+  const initialProducts = mapProducts(categoryData?.products || []);
 
   return (
-    <>
-      <h2 className='mt-25'>каталог</h2>
-      <main className='bg-white flex gap-4 items-center justify-center'>
-        <Filters />
-
-        <div>
-          <ProductGroupList
-            title={categoryData?.name || 'Товары'}
-            items={items}
-          />
-        </div>
-      </main>
-    </>
+    <div>
+      <h2 className='mt-25'> </h2>
+      <CategoryContent
+        category={category}
+        initialProducts={initialProducts}
+        filters={categoryData?.filters || []}
+      />
+    </div>
   );
 }

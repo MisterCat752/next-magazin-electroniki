@@ -9,11 +9,13 @@ async function main() {
     prisma.specification.deleteMany(),
     prisma.productVariant.deleteMany(),
     prisma.product.deleteMany(),
+    prisma.filterValue.deleteMany(),
+    prisma.filter.deleteMany(),
     prisma.optionValue.deleteMany(),
     prisma.option.deleteMany(),
     prisma.specGroup.deleteMany(),
     prisma.specSection.deleteMany(),
-    prisma.category.deleteMany(), // очистка категорий
+    prisma.category.deleteMany(),
   ]);
 
   console.log('✅ База очищена, начинаем сидинг...');
@@ -101,6 +103,7 @@ async function main() {
     data: { name: 'Основные', groups: { create: [{ name: 'Основные' }] } },
     include: { groups: true },
   });
+
   const displaySection = await prisma.specSection.create({
     data: {
       name: 'Отображение',
@@ -118,236 +121,122 @@ async function main() {
     return found.id;
   }
 
-  // --- iOS / Apple iPhone ---
-  const iphoneProducts = [
-    { name: 'Apple iPhone 12', slug: 'apple-iphone-12' },
-    { name: 'Apple iPhone 13', slug: 'apple-iphone-13' },
-    { name: 'Apple iPhone 14', slug: 'apple-iphone-14' },
+  // --- Сидинг продуктов ---
+  const productData = [
+    {
+      name: 'Apple iPhone 12',
+      slug: 'apple-iphone-12',
+      categoryId: applePhones.id,
+      memory: '128 ГБ',
+      color: 'Чёрный',
+      sim: 'Dual SIM',
+      display: '6.1"',
+      weight: '164 г',
+    },
+    {
+      name: 'Apple iPhone 13',
+      slug: 'apple-iphone-13',
+      categoryId: applePhones.id,
+      memory: '128 ГБ',
+      color: 'Чёрный',
+      sim: 'Dual SIM',
+      display: '6.1"',
+      weight: '164 г',
+    },
+    {
+      name: 'Samsung Galaxy S21',
+      slug: 'samsung-galaxy-s21',
+      categoryId: samsung.id,
+      memory: '256 ГБ',
+      color: 'Чёрный',
+      sim: 'Dual SIM',
+      display: '6.2"',
+      weight: '169 г',
+    },
+    {
+      name: 'Xiaomi Mi 11',
+      slug: 'xiaomi-mi-11',
+      categoryId: xiaomi.id,
+      memory: '256 ГБ',
+      color: 'Серебристый',
+      sim: 'Dual SIM',
+      display: '6.81"',
+      weight: '196 г',
+    },
+    {
+      name: 'OnePlus 9',
+      slug: 'oneplus-9',
+      categoryId: oneplus.id,
+      memory: '128 ГБ',
+      color: 'Чёрный',
+      sim: 'Dual SIM',
+      display: '6.55"',
+      weight: '180 г',
+    },
+    {
+      name: 'MacBook Air M1',
+      slug: 'macbook-air-m1',
+      categoryId: appleLaptops.id,
+      memory: '256 ГБ',
+      color: 'Серебристый',
+      processor: 'Apple M1',
+      display: '13.3"',
+      weight: '1.29 кг',
+    },
+    {
+      name: 'Dell XPS 13',
+      slug: 'dell-xps-13',
+      categoryId: windowsLaptops.id,
+      memory: '512 ГБ',
+      color: 'Серый',
+      processor: 'Intel i7',
+      display: '13.4"',
+      weight: '1.2 кг',
+    },
   ];
 
-  for (const p of iphoneProducts) {
+  for (const p of productData) {
     await prisma.product.create({
       data: {
         name: p.name,
         slug: p.slug,
-        category: { connect: { id: applePhones.id } },
+        category: { connect: { id: p.categoryId } },
         variants: {
           create: [
             {
-              sku: `${p.slug}-128-BLACK-DSIM`,
-              price: Math.floor(Math.random() * 1000) + 10000,
-              stock: Math.floor(Math.random() * 10) + 5,
-              optionValues: {
-                create: [
-                  { optionValueId: findOptionValue(memoryOption, '128 ГБ') },
-                  { optionValueId: findOptionValue(colorOption, 'Чёрный') },
-                  { optionValueId: findOptionValue(simOption, 'Dual SIM') },
-                ],
-              },
-              specifications: {
-                create: [
-                  {
-                    name: 'Диагональ дисплея',
-                    value: '6.1"',
-                    group: { connect: { id: displaySection.groups[0].id } },
-                  },
-                  {
-                    name: 'Вес',
-                    value: '164 г',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    });
-  }
-
-  // --- Android / Samsung ---
-  const samsungProducts = [
-    { name: 'Samsung Galaxy S21', slug: 'samsung-galaxy-s21' },
-    { name: 'Samsung Galaxy S22', slug: 'samsung-galaxy-s22' },
-  ];
-
-  for (const p of samsungProducts) {
-    await prisma.product.create({
-      data: {
-        name: p.name,
-        slug: p.slug,
-        category: { connect: { id: samsung.id } },
-        variants: {
-          create: [
-            {
-              sku: `${p.slug}-256-BLACK-DSIM`,
+              sku: `${p.slug}-${p.memory}-${p.color}`,
               price: Math.floor(Math.random() * 1000) + 8000,
               stock: Math.floor(Math.random() * 10) + 5,
               optionValues: {
                 create: [
-                  { optionValueId: findOptionValue(memoryOption, '256 ГБ') },
-                  { optionValueId: findOptionValue(colorOption, 'Чёрный') },
-                  { optionValueId: findOptionValue(simOption, 'Dual SIM') },
-                ],
-              },
-              specifications: {
-                create: [
-                  {
-                    name: 'Диагональ дисплея',
-                    value: '6.2"',
-                    group: { connect: { id: displaySection.groups[0].id } },
-                  },
-                  {
-                    name: 'Вес',
-                    value: '169 г',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    });
-  }
-
-  // --- Android / Xiaomi ---
-  const xiaomiProducts = [
-    { name: 'Xiaomi Mi 11', slug: 'xiaomi-mi-11' },
-    { name: 'Xiaomi Mi 12', slug: 'xiaomi-mi-12' },
-  ];
-
-  for (const p of xiaomiProducts) {
-    await prisma.product.create({
-      data: {
-        name: p.name,
-        slug: p.slug,
-        category: { connect: { id: xiaomi.id } },
-        variants: {
-          create: [
-            {
-              sku: `${p.slug}-256-SILVER`,
-              price: Math.floor(Math.random() * 1000) + 7000,
-              stock: Math.floor(Math.random() * 10) + 5,
-              optionValues: {
-                create: [
-                  { optionValueId: findOptionValue(memoryOption, '256 ГБ') },
-                  {
-                    optionValueId: findOptionValue(colorOption, 'Серебристый'),
-                  },
-                  { optionValueId: findOptionValue(simOption, 'Dual SIM') },
-                ],
-              },
-              specifications: {
-                create: [
-                  {
-                    name: 'Диагональ дисплея',
-                    value: '6.81"',
-                    group: { connect: { id: displaySection.groups[0].id } },
-                  },
-                  {
-                    name: 'Вес',
-                    value: '196 г',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    });
-  }
-
-  // --- Android / OnePlus ---
-  const oneplusProducts = [
-    { name: 'OnePlus 9', slug: 'oneplus-9' },
-    { name: 'OnePlus 10', slug: 'oneplus-10' },
-  ];
-
-  for (const p of oneplusProducts) {
-    await prisma.product.create({
-      data: {
-        name: p.name,
-        slug: p.slug,
-        category: { connect: { id: oneplus.id } },
-        variants: {
-          create: [
-            {
-              sku: `${p.slug}-128-BLACK-DSIM`,
-              price: Math.floor(Math.random() * 1000) + 6000,
-              stock: Math.floor(Math.random() * 10) + 5,
-              optionValues: {
-                create: [
-                  { optionValueId: findOptionValue(memoryOption, '128 ГБ') },
-                  { optionValueId: findOptionValue(colorOption, 'Чёрный') },
-                  { optionValueId: findOptionValue(simOption, 'Dual SIM') },
-                ],
-              },
-              specifications: {
-                create: [
-                  {
-                    name: 'Диагональ дисплея',
-                    value: '6.55"',
-                    group: { connect: { id: displaySection.groups[0].id } },
-                  },
-                  {
-                    name: 'Вес',
-                    value: '180 г',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    });
-  }
-
-  // --- Ноутбуки / Apple ---
-  const appleLaptopProducts = [
-    { name: 'MacBook Air M1', slug: 'macbook-air-m1' },
-    { name: 'MacBook Pro M1', slug: 'macbook-pro-m1' },
-  ];
-
-  for (const p of appleLaptopProducts) {
-    await prisma.product.create({
-      data: {
-        name: p.name,
-        slug: p.slug,
-        category: { connect: { id: appleLaptops.id } },
-        variants: {
-          create: [
-            {
-              sku: `${p.slug}-256-SILVER`,
-              price: Math.floor(Math.random() * 10000) + 25000,
-              stock: Math.floor(Math.random() * 5) + 3,
-              optionValues: {
-                create: [
-                  { optionValueId: findOptionValue(memoryOption, '256 ГБ') },
-                  {
-                    optionValueId: findOptionValue(colorOption, 'Серебристый'),
-                  },
+                  { optionValueId: findOptionValue(memoryOption, p.memory) },
+                  { optionValueId: findOptionValue(colorOption, p.color) },
+                  ...(p.sim
+                    ? [{ optionValueId: findOptionValue(simOption, p.sim) }]
+                    : []),
                 ],
               },
               specifications: {
                 create: [
                   {
                     name: 'Диагональ экрана',
-                    value: '13.3"',
+                    value: p.display,
                     group: { connect: { id: displaySection.groups[0].id } },
                   },
                   {
                     name: 'Вес',
-                    value: '1.29 кг',
+                    value: p.weight,
                     group: { connect: { id: baseSection.groups[0].id } },
                   },
-                  {
-                    name: 'Процессор',
-                    value: 'Apple M1',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
+                  ...(p.processor
+                    ? [
+                        {
+                          name: 'Процессор',
+                          value: p.processor,
+                          group: { connect: { id: baseSection.groups[0].id } },
+                        },
+                      ]
+                    : []),
                 ],
               },
             },
@@ -357,50 +246,48 @@ async function main() {
     });
   }
 
-  // --- Ноутбуки / Windows ---
-  const windowsLaptopProducts = [
-    { name: 'Dell XPS 13', slug: 'dell-xps-13' },
-    { name: 'HP Spectre x360', slug: 'hp-spectre-x360' },
-  ];
+  // --- Сидинг фильтров ---
+  const appleLaptopProcessorFilter = await prisma.filter.create({
+    data: {
+      name: 'Процессор',
+      category: { connect: { id: appleLaptops.id } },
+      values: { create: [{ value: 'Apple M1' }, { value: 'Intel i7' }] },
+    },
+    include: { values: true },
+  });
 
-  for (const p of windowsLaptopProducts) {
-    await prisma.product.create({
+  const memoryFilter = await prisma.filter.create({
+    data: {
+      name: 'Память',
+      category: { connect: { id: appleLaptops.id } },
+      values: {
+        create: [{ value: '8 GB' }, { value: '16 GB' }, { value: '32 GB' }],
+      },
+    },
+    include: { values: true },
+  });
+
+  const colorFilterSamsung = await prisma.filter.create({
+    data: {
+      name: 'Цвет',
+      category: { connect: { id: samsung.id } },
+      values: { create: [{ value: 'Чёрный' }, { value: 'Белый' }] },
+    },
+    include: { values: true },
+  });
+
+  // --- Привязка фильтров к продукту (пример) ---
+  const firstAppleLaptop = await prisma.product.findFirst({
+    where: { categoryId: appleLaptops.id },
+  });
+  if (firstAppleLaptop) {
+    await prisma.product.update({
+      where: { id: firstAppleLaptop.id },
       data: {
-        name: p.name,
-        slug: p.slug,
-        category: { connect: { id: windowsLaptops.id } },
-        variants: {
-          create: [
-            {
-              sku: `${p.slug}-512-SILVER`,
-              price: Math.floor(Math.random() * 10000) + 22000,
-              stock: Math.floor(Math.random() * 5) + 3,
-              optionValues: {
-                create: [
-                  { optionValueId: findOptionValue(memoryOption, '512 ГБ') },
-                  { optionValueId: findOptionValue(colorOption, 'Серый') },
-                ],
-              },
-              specifications: {
-                create: [
-                  {
-                    name: 'Диагональ экрана',
-                    value: '13.4"',
-                    group: { connect: { id: displaySection.groups[0].id } },
-                  },
-                  {
-                    name: 'Вес',
-                    value: '1.2 кг',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                  {
-                    name: 'Процессор',
-                    value: 'Intel i7',
-                    group: { connect: { id: baseSection.groups[0].id } },
-                  },
-                ],
-              },
-            },
+        filters: {
+          connect: [
+            { id: appleLaptopProcessorFilter.values[0].id }, // Apple M1
+            { id: memoryFilter.values[1].id }, // 16 GB
           ],
         },
       },

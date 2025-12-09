@@ -16,6 +16,23 @@ model Category {
   children Category[] @relation("CategoryToParent")
 
   products Product[] // Товары, привязанные к этой категории
+  filters  Filter[] // Товары, привязанные к этой категории
+}
+
+model Filter {
+  id         Int           @id @default(autoincrement())
+  name       String // Процессор, Цвет, Память
+  categoryId String? // К какой категории этот фильтр относится
+  category   Category?     @relation(fields: [categoryId], references: [id])
+  values     FilterValue[]
+}
+
+model FilterValue {
+  id       Int       @id @default(autoincrement())
+  value    String // Intel i7, Красный, 16GB
+  filter   Filter    @relation(fields: [filterId], references: [id])
+  filterId Int
+  products Product[] @relation("ProductFilters")
 }
 
 model Product {
@@ -25,6 +42,7 @@ model Product {
   variants   ProductVariant[]
   categoryId String?
   category   Category?        @relation(fields: [categoryId], references: [id])
+  filters    FilterValue[]    @relation("ProductFilters")
 }
 
 model ProductVariant {
