@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       String     @id @default(cuid())
+  name     String
+  slug     String     @unique
+  parentId String?
+  parent   Category?  @relation("CategoryToParent", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryToParent")
+
+  products Product[] // Товары, привязанные к этой категории
+}
+
+model Product {
+  id         Int              @id @default(autoincrement())
+  name       String
+  slug       String           @unique
+  variants   ProductVariant[]
+  categoryId String?
+  category   Category?        @relation(fields: [categoryId], references: [id])
+}
+
+model ProductVariant {
+  id             Int                         @id @default(autoincrement())
+  sku            String                      @unique
+  product        Product                     @relation(fields: [productId], references: [id])
+  productId      Int
+  price          Float
+  stock          Int
+  optionValues   ProductVariantOptionValue[]
+  specifications Specification[]
+}
+
+model Option {
+  id     Int           @id @default(autoincrement())
+  name   String // Цвет, Память, SIM
+  values OptionValue[]
+}
+
+model OptionValue {
+  id            Int                         @id @default(autoincrement())
+  value         String
+  option        Option                      @relation(fields: [optionId], references: [id])
+  optionId      Int
+  variantValues ProductVariantOptionValue[]
+}
+
+model ProductVariantOptionValue {
+  id            Int            @id @default(autoincrement())
+  variant       ProductVariant @relation(fields: [variantId], references: [id])
+  variantId     Int
+  optionValue   OptionValue    @relation(fields: [optionValueId], references: [id])
+  optionValueId Int
+}
+
+model SpecSection {
+  id     Int         @id @default(autoincrement())
+  name   String
+  groups SpecGroup[]
+}
+
+model SpecGroup {
+  id        Int             @id @default(autoincrement())
+  name      String // Основные, Отображение и т.д.
+  section   SpecSection     @relation(fields: [sectionId], references: [id])
+  sectionId Int
+  specs     Specification[]
+}
+
+model Specification {
+  id        Int            @id @default(autoincrement())
+  name      String
+  value     String
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+  variantId Int
+  group     SpecGroup      @relation(fields: [groupId], references: [id])
+  groupId   Int
+}
