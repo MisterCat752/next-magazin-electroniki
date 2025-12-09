@@ -5,3 +5,4 @@ export { Skeleton } from './skeleton';
 export { Title } from './title';
 export { RangeSlider } from './range-slider';
 export * from './popover';
+export * from './dialog';
