@@ -59,14 +59,14 @@ export const ProductCard: React.FC<Props> = ({
       {/* Название товара */}
       <Link
         href={`http://localhost:3000/product/${id}`}
-        className='text-black font-semibold text-[16px] cursor-pointer hover:text-red-600 transition-colors duration-200'
+        className='text-white font-semibold text-[16px] cursor-pointer hover:text-red-600 transition-colors duration-200'
       >
         {name}
       </Link>
 
       {/* Нижняя часть карточки */}
       <div className='mt-auto flex flex-col gap-2'>
-        <p className='font-black text-black'>{price} лей</p>
+        <p className='text-2xl text-primary font-bold'>{price} лей</p>
         <div className='flex items-center gap-2'>
           <Button
             variant='outline'

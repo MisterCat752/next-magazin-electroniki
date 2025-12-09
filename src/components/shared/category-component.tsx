@@ -35,7 +35,7 @@ export const CategoryContent: React.FC<Props> = ({
   }, [selectedFilters, category, initialProducts]);
   console.log(products, 'products');
   return (
-    <main className='bg-white flex gap-4 items-start justify-center'>
+    <main className='bg-[#000] py-30 flex gap-4 items-start justify-center'>
       <Filters filters={filters} />
       <div>
         <ProductGroupList title='Товары' items={products} />

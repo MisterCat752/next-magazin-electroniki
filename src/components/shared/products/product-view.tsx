@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import ProductOptions from './product-options';
 import ProductSpecifications from './product-specs';
+import { Container } from '@/components/layout/container';
 
 interface ProductViewProps {
   product: any;
@@ -94,30 +95,34 @@ export default function ProductView({ product }: ProductViewProps) {
     });
   };
   return (
-    <main className='pt-[100px]'>
-      <div className='flex gap-6'>
-        {/* Изображение */}
-        <div className='w-1/2 bg-neutral-900 p-4 rounded'>
-          <img
-            src='/iphone12.png'
-            alt='Product'
-            className='rounded w-full object-contain'
-          />
+    <main className='pt-[100px] pb-[100px] bg-[#000]'>
+      <Container>
+        <div className='flex gap-6'>
+          {/* Изображение */}
+          <div className='w-1/2 bg-neutral-900 p-4 rounded'>
+            <img
+              src='/iphone12.png'
+              alt='Product'
+              className='rounded w-full object-contain'
+            />
+          </div>
+
+          {/* Правая часть: опции */}
+          <div className='bg-gray-dark p-3 rounded-md text-white'>
+            <ProductOptions
+              product={product}
+              activeVariant={activeVariant}
+              allOptions={allOptions}
+              selectedOptions={selectedOptions}
+              availableValues={availableValues}
+              onSelect={handleSelect}
+            />
+          </div>
         </div>
 
-        {/* Правая часть: опции */}
-        <ProductOptions
-          product={product}
-          activeVariant={activeVariant}
-          allOptions={allOptions}
-          selectedOptions={selectedOptions}
-          availableValues={availableValues}
-          onSelect={handleSelect}
-        />
-      </div>
-
-      {/* Характеристики */}
-      <ProductSpecifications activeVariant={activeVariant} />
+        {/* Характеристики */}
+        <ProductSpecifications activeVariant={activeVariant} />
+      </Container>
     </main>
   );
 }

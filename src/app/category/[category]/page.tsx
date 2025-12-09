@@ -42,8 +42,7 @@ export default async function Page({ params }: Props) {
   const initialProducts = mapProducts(categoryData?.products || []);
   console.log(initialProducts, 'initialProducts');
   return (
-    <div>
-      <h2 className='mt-25'> </h2>
+    <div className=''>
       <CategoryContent
         category={category}
         initialProducts={initialProducts}

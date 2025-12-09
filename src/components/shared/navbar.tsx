@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui';
+import { Login } from './login';
 
 interface Props {
   className?: string;
@@ -81,53 +82,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             </Popover>
 
             <Heart />
-            <Dialog>
-              <form>
-                <DialogTrigger asChild>
-                  <Button variant='outline'>
-                    {' '}
-                    <User />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className='sm:max-w-[425px] bg-white'>
-                  <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                      Make changes to your profile here. Click save when
-                      you&apos;re done.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className='grid gap-4'>
-                    <div className='grid gap-3'>
-                      <Input
-                        id='name-1'
-                        name='email'
-                        type='email'
-                        defaultValue='Эл. почта'
-                      />
-                    </div>
-                    <div className='grid gap-3'>
-                      <Input
-                        id='username-1'
-                        name='password'
-                        defaultValue='Пароль'
-                        type='password'
-                      />
-                    </div>
-                  </div>
-                  <div className='flex bg-gray-300 gap-2 w-full max-w-[425px]'>
-                    <div className='w-full py-15 px-20'>G</div>
-                    <div className='w-full py-15 px-20'>A</div>
-                  </div>
-                  <DialogFooter className='flex flex-col gap-3 '>
-                    <DialogClose asChild>
-                      <Button variant='outline'>Cancel</Button>
-                    </DialogClose>
-                    <Button type='submit'>Save changes</Button>
-                  </DialogFooter>
-                </DialogContent>
-              </form>
-            </Dialog>
+            <Login />
           </div>
         </div>
       </Container>

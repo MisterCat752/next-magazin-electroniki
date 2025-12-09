@@ -30,7 +30,12 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
   };
   console.log(filters, 'filters');
   return (
-    <div className={cn(className, 'max-w-[250px] p-4 w-full')}>
+    <div
+      className={cn(
+        className,
+        'max-w-[250px]  text-white rounded-md bg-[#1c1c1ed2] p-4 w-full'
+      )}
+    >
       <Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
 
       {filters.map((filter) => {
