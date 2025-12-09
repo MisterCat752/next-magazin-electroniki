@@ -8,7 +8,7 @@ interface Props {
   className?: string;
   id: number;
   name: string;
-  image: string;
+  image?: string;
   price: number;
   discount?: number;
 }

@@ -19,6 +19,7 @@ export const ProductGroupList: React.FC<Props> = ({
   items,
   listClassName,
 }) => {
+  console.log(items, 'items');
   return (
     <div id={title} className={cn(className)}>
       <Title text={title} size='lg' className='font-extrabold mb-5 ' />
@@ -29,9 +30,9 @@ export const ProductGroupList: React.FC<Props> = ({
             <ProductCard
               key={product.id}
               id={product.id}
-              price={product.price}
+              price={product.variants[0].price}
               name={product.name}
-              image={product.image}
+              image={product?.image}
             />
           );
         })}

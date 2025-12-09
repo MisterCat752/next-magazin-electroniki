@@ -78,7 +78,12 @@ export function CatalogMenu() {
   const NestedList: React.FC<{ node: Category }> = ({ node }) => {
     return (
       <li>
-        <div className='cursor-pointer hover:underline'>{node.name}</div>
+        <a
+          href={`http://localhost:3000/category/${node.slug}`}
+          className='cursor-pointer hover:underline'
+        >
+          {node.name}
+        </a>
         {node.children && node.children.length > 0 && (
           <ul className='ml-4 mt-1 space-y-1'>
             {node.children.map((ch) => (
