@@ -144,7 +144,7 @@ interface ProductPageProps {
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   // Преобразуем id в число, если в БД int
   const productId = parseInt(id, 10);

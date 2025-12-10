@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChecboxProps, FilterCheckbox } from './checkbox-filter';
@@ -15,7 +13,8 @@ interface Props {
   limit?: number;
   loading?: boolean;
   searchInputPlaceHolder?: string;
-  onClickCheckBox?: (id: string) => void;
+  // onClick теперь получает весь item, чтобы можно было взять text и value
+  onClickCheckBox?: (item: Items) => void;
   defaultValue?: string[];
   className?: string;
   selectedIds?: Set<string>;
@@ -85,8 +84,8 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
               name={item.text}
               value={item.value}
               checked={selectedIds?.has(item.value)}
-              endAdornment={item.endAdornment}
-              onCheckedChange={() => onClickCheckBox?.(item.value)}
+              // передаём весь item в обработчик
+              onCheckedChange={() => onClickCheckBox?.(item)}
             />
           );
         })}

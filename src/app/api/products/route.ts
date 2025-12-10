@@ -2,64 +2,107 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma/prisma-client';
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-
-  const categorySlug = searchParams.get('category');
-  const filtersParam = searchParams.get('filters');
-
-  if (!categorySlug) {
-    return NextResponse.json(
-      { error: 'Category is required' },
-      { status: 400 }
-    );
-  }
-
-  // --- parse filters ---
-  const filterIds = filtersParam
-    ? filtersParam.split(',').map((id) => Number(id))
-    : [];
-
   try {
+    const { searchParams } = new URL(req.url);
+
+    const categorySlug = searchParams.get('category');
+    const filtersParam = searchParams.get('filters'); // product-level FilterValue.id
+    const specParam = searchParams.get('specs'); // specifications: "Цвет:Синий,Память:16GB" (URLEncoded)
+
+    if (!categorySlug)
+      return NextResponse.json({ error: 'Category required' }, { status: 400 });
+
+    const filterIds =
+      filtersParam?.split(',').map(Number).filter(Boolean) || [];
+
+    // Парсим specs и декодируем компоненты
+    // Пример входа (клиент отправляет): encodeURIComponent(name):encodeURIComponent(value),...
+    const specFilters = specParam
+      ? (specParam
+          .split(',')
+          .map((s) => {
+            const idx = s.indexOf(':');
+            if (idx === -1) return null;
+            const rawName = s.slice(0, idx);
+            const rawValue = s.slice(idx + 1);
+            try {
+              const name = decodeURIComponent(rawName);
+              const value = decodeURIComponent(rawValue);
+              return { name, value };
+            } catch (e) {
+              // если decodeURIComponent упадёт — пропускаем
+              return null;
+            }
+          })
+          .filter(Boolean) as { name: string; value: string }[])
+      : [];
+
     const category = await prisma.category.findUnique({
       where: { slug: categorySlug },
+      select: { id: true },
     });
+    if (!category) return NextResponse.json({ products: [] });
 
-    if (!category) {
-      return NextResponse.json({ products: [] });
+    const whereClause: any = { categoryId: category.id };
+
+    // Product-level filters — требуем, чтобы все выбранные значения были у продукта (AND)
+    if (filterIds.length > 0) {
+      whereClause.AND = filterIds.map((id) => ({ filters: { some: { id } } }));
+    }
+
+    // Variant-level specs
+    if (specFilters.length > 0) {
+      // Группируем по имени спецификации: внутри одной группы — OR по значениям,
+      // между группами — AND. И всё это в рамках одного variant (то есть одна вариация должна иметь все группы).
+      const specsByName: Record<string, Set<string>> = {};
+      for (const { name, value } of specFilters) {
+        specsByName[name] = specsByName[name] || new Set();
+        specsByName[name].add(value);
+      }
+
+      const variantConditions = Object.entries(specsByName).map(
+        ([name, valuesSet]) => ({
+          specifications: {
+            some: {
+              name,
+              value: { in: Array.from(valuesSet) },
+            },
+          },
+        })
+      );
+
+      // Важный момент: здесь мы ставим AND — т.е. одна вариация должна удовлетворять всем условием
+      whereClause.variants = {
+        some: {
+          AND: variantConditions,
+        },
+      };
     }
 
     const products = await prisma.product.findMany({
-      where: {
-        categoryId: category.id,
-        ...(filterIds.length > 0 && {
-          filters: {
-            some: { id: { in: filterIds } }, // товары, содержащие хотя бы один фильтр
-          },
-        }),
-      },
+      where: whereClause,
       include: {
-        variants: true,
+        variants: {
+          include: { specifications: true },
+        },
         filters: true,
       },
     });
 
-    // transform for client:
-    const mapProducts = (items: any[]) =>
-      items.map((p) => ({
+    return NextResponse.json({
+      products: products.map((p) => ({
         id: p.id,
         name: p.name,
-        image: p.image,
+        imageUrl: p.imageUrl,
         variants: p.variants,
-        price: Math.min(
-          ...(p.variants.map((v: { price: any }) => v.price) || [0])
-        ),
-      }));
-
-    return NextResponse.json({
-      products: mapProducts(products),
+        price: p.variants.length
+          ? Math.min(...p.variants.map((v) => v.price))
+          : 0,
+        filters: p.filters,
+      })),
     });
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

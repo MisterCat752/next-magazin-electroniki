@@ -20,6 +20,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui';
 import { Login } from './login';
+import { SearchInput } from './nav/search';
 
 interface Props {
   className?: string;
@@ -38,8 +39,9 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             <CatalogMenu />
           </div>
           <div className='max-w-[646px] w-full relative'>
-            <Input className='' />
-            <Search className='absolute top-2 right-2' width={20} height={20} />
+            <SearchInput />
+            {/* <Input className='' />
+            <Search className='absolute top-2 right-2' width={20} height={20} /> */}
           </div>
           <div className='text-white flex gap-4 items-center'>
             <Popover>
@@ -81,7 +83,9 @@ export const NavBar: React.FC<Props> = ({ className }) => {
               </PopoverContent>
             </Popover>
 
-            <Heart />
+            <Link href='/wishlist'>
+              <Heart />
+            </Link>
             <Login />
           </div>
         </div>

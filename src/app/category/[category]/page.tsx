@@ -14,7 +14,7 @@ function getMinPriceFromVariants(
 }
 
 export default async function Page({ params }: Props) {
-  const { category } = params;
+  const { category } = await params;
 
   const categoryData = await prisma.category.findUnique({
     where: { slug: category },
@@ -40,7 +40,6 @@ export default async function Page({ params }: Props) {
     }));
 
   const initialProducts = mapProducts(categoryData?.products || []);
-  console.log(initialProducts, 'initialProducts');
   return (
     <div className=''>
       <CategoryContent

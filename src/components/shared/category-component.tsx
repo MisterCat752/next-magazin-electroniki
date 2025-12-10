@@ -16,24 +16,33 @@ export const CategoryContent: React.FC<Props> = ({
   filters,
 }) => {
   const [products, setProducts] = useState<IProduct[]>(initialProducts);
-  const selectedFilters = useFilterStore((state) => state.selected);
+  const selectedSpecs = useFilterStore((state) => state.selectedSpecs);
 
   useEffect(() => {
     async function fetchFilteredProducts() {
       const params = new URLSearchParams();
       params.set('category', category);
-      params.set('filters', selectedFilters.join(',')); // <-- ВАЖНО
+
+      if (selectedSpecs.length > 0) {
+        // Формируем "Цвет:Синий,Память:16GB"
+        const specsStr = selectedSpecs
+          .map(
+            (s) =>
+              `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
+          )
+          .join(',');
+        console.log('specsStr', specsStr);
+        params.set('specs', specsStr);
+      }
 
       const res = await fetch(`/api/products?${params.toString()}`);
       const data = await res.json();
-
       setProducts(data.products);
     }
 
-    if (selectedFilters.length > 0) fetchFilteredProducts();
-    else setProducts(initialProducts);
-  }, [selectedFilters, category, initialProducts]);
-  console.log(products, 'products');
+    fetchFilteredProducts();
+  }, [category, selectedSpecs]);
+
   return (
     <main className='bg-[#000] py-30 flex gap-4 items-start justify-center'>
       <Filters filters={filters} />
