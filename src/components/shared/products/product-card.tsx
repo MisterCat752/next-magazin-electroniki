@@ -1,8 +1,11 @@
+'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui';
 import { Eye, EyeClosed, Heart, Scale } from 'lucide-react';
 import Link from 'next/link';
+import { useCartStore } from '@/store/cartStore';
+import { useFavoriteStore } from '@/store/favoriteStore';
 
 interface Props {
   className?: string;
@@ -21,6 +24,9 @@ export const ProductCard: React.FC<Props> = ({
   price,
   discount,
 }) => {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const addToWishList = useFavoriteStore((state) => state.addToFavorite);
+
   return (
     <div
       className={cn(
@@ -70,12 +76,35 @@ export const ProductCard: React.FC<Props> = ({
         <div className='flex items-center gap-2'>
           <Button
             variant='outline'
+            onClick={() =>
+              addToCart({
+                id,
+                name,
+                price,
+                imageUrl: image,
+              })
+            }
             className='flex-1 transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white'
           >
             В корзину
           </Button>
+
+          <Heart
+            className='cursor-pointer'
+            color='white'
+            height={20}
+            width={20}
+            onClick={() =>
+              addToWishList({
+                id,
+                name,
+                price,
+                imageUrl: image,
+              })
+            }
+          />
+
           <Scale className='cursor-pointer' height={20} width={20} />
-          <Heart className='cursor-pointer' height={20} width={20} />
         </div>
       </div>
     </div>

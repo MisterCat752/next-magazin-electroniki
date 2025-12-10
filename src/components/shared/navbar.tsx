@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Container } from '../layout/container';
@@ -21,12 +22,15 @@ import {
 } from '@/components/ui';
 import { Login } from './login';
 import { SearchInput } from './nav/search';
+import { useCartStore } from '@/store/cartStore';
+import { CartNavBAr } from './nav/cart-navBar';
 
 interface Props {
   className?: string;
 }
 
 export const NavBar: React.FC<Props> = ({ className }) => {
+  const items = useCartStore((state) => state.items);
   return (
     <div className={cn(className, 'bg-blue fixed top-0 w-full z-10 ')}>
       <Container>
@@ -50,23 +54,12 @@ export const NavBar: React.FC<Props> = ({ className }) => {
                 <ShoppingCart />
               </PopoverTrigger>
               <PopoverContent className='  mt-7 w-full bg-white max-w-[520px]'>
-                <div className='flex items-center gap-3 w-full border-b border-gray-500 p-2 '>
-                  <div className='border border-gray p-2 max-w-[115px] rounded-'>
-                    <img src='/samsung-25-fe.webp' alt='' />
+                {items.map((item) => (
+                  <div key={item.id} className='border p-4 mb-2'>
+                    <CartNavBAr name={item.name} imageUrl={item.imageUrl} />
                   </div>
-                  <div>
-                    <h2 className='text-[16px] text-black'>samsung 25 fe</h2>
-                    <p className='text-[15px] text-gray-600'>
-                      12 GB / 256 GB / Graygreen
-                    </p>
-                    <p className='text-[18px] font-medium text-black'>
-                      33 199 лей
-                    </p>
-                  </div>
-                  <div>
-                    <Trash />
-                  </div>
-                </div>
+                ))}
+
                 <div className='mt-10 flex flex-col items-center justify-center gap-3'>
                   <p className='text-black'>
                     Итого:<span className='font-bold'> 33999 лей</span>
