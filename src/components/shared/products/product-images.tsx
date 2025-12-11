@@ -22,7 +22,7 @@ export const ProductImages: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'flex',
+        'flex bg-white rounded-2xl',
         isVertical ? 'flex-row items-start' : 'flex-col items-center',
         className
       )}
@@ -41,7 +41,7 @@ export const ProductImages: React.FC<Props> = ({
         direction={direction}
         selectedIndex={selectedIndex}
         onSelect={setSelectedIndex}
-        itemClassName='w-20 h-20 m-1'
+        itemClassName='w-20 h-20 m-1 mt-3'
       >
         {images.map((img, idx) => (
           <img

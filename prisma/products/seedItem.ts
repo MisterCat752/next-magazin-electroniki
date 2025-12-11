@@ -23,6 +23,7 @@ export async function seedSamsungProductItem(
     slug: string;
     variants: VariantInput[];
     imageUrl?: string;
+    sliderUrls?: string[];
   }
 ) {
   // Создаём продукт
@@ -32,6 +33,7 @@ export async function seedSamsungProductItem(
       slug: productItem.slug,
       categoryId: categories.samsung.id,
       imageUrl: productItem.imageUrl,
+      sliderUrls: productItem.sliderUrls,
     },
   });
 

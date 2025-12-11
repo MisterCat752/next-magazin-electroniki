@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import ProductOptions from './product-options';
 import ProductSpecifications from './product-specs';
 import { Container } from '@/components/layout/container';
+import { ProductImages } from './product-images';
 
 interface ProductViewProps {
   product: any;
@@ -99,12 +100,8 @@ export default function ProductView({ product }: ProductViewProps) {
       <Container>
         <div className='flex gap-6'>
           {/* Изображение */}
-          <div className='w-1/2 bg-neutral-900 p-4 rounded'>
-            <img
-              src='/iphone12.png'
-              alt='Product'
-              className='rounded w-full object-contain'
-            />
+          <div className='w-full    '>
+            <ProductImages images={product.sliderUrls} />
           </div>
 
           {/* Правая часть: опции */}

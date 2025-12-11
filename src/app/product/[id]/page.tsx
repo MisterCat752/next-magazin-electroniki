@@ -161,7 +161,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       },
     },
   });
-
+  console.log(product, 'product1');
   if (!product) return <p>Товар не найден</p>;
 
   return <ProductView product={product} />;

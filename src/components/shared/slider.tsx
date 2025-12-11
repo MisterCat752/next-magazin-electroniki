@@ -46,11 +46,7 @@ export function Slider({
               <div
                 key={i}
                 className={`${itemClassName ?? ''} ${
-                  isThumbs
-                    ? `cursor-pointer border rounded ${
-                        isSelected ? 'border-red-600' : 'border-gray-300'
-                      }`
-                    : ''
+                  isThumbs ? `cursor-pointer   rounded  ` : ''
                 }`}
                 onClick={() => isThumbs && onSelect?.(i)}
               >

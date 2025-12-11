@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui';
+
 interface ProductOptionsProps {
   product: any;
   activeVariant: any;
@@ -16,7 +18,7 @@ export default function ProductOptions({
   onSelect,
 }: ProductOptionsProps) {
   return (
-    <div className='w-1/2 space-y-4'>
+    <div className='max-w-[305px]'>
       <h1 className='text-2xl font-semibold'>
         {activeVariant.options.map((o: any) => o.value).join(' ')}{' '}
         {product.name}
@@ -51,13 +53,13 @@ export default function ProductOptions({
         </div>
       ))}
 
-      <p className='text-xl font-bold'>
+      <p className='text-xl font-bold mt-40'>
         {activeVariant.price.toLocaleString()} лей
       </p>
 
-      <button className='bg-green-500 px-5 py-2 rounded text-white font-semibold'>
+      <Button className='bg-green mt-2  py-[24px] px-[16px]  w-[281px] text-[16px] text-center rounded text-black font-semibold'>
         Купить
-      </button>
+      </Button>
     </div>
   );
 }

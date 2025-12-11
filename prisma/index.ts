@@ -37,6 +37,12 @@ async function main() {
       name: 'Samsung Galaxy S25 FE',
       slug: 'samsung-galaxy-s25-fe',
       imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
       variants: [
         {
           memory: '256 ГБ',
