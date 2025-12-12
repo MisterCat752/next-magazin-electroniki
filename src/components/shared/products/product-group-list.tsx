@@ -22,7 +22,11 @@ export const ProductGroupList: React.FC<Props> = ({
   console.log(items, 'items');
   return (
     <div id={title} className={cn(className)}>
-      <Title text={title} size='lg' className='font-extrabold mb-5 ' />
+      <Title
+        text={title}
+        size='lg'
+        className='font-extrabold text-white text-[18px] mb-5 '
+      />
 
       <div className={cn('grid grid-cols-4 gap-[20px]', listClassName)}>
         {items.map((product, id) => {

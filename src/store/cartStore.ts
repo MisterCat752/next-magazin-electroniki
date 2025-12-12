@@ -12,10 +12,13 @@ interface CartStore {
   items: CartItem[];
   addToCart: (product: Omit<CartItem, 'count'>) => void;
   removeFromCart: (id: number) => void;
+  increaseCount: (id: number) => void; // 👈 добавили
+  decreaseCount: (id: number) => void;
   clearCart: () => void;
+  totalPrice: () => number; //
 }
 
-export const useCartStore = create<CartStore>((set) => ({
+export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
 
   addToCart: (product) =>
@@ -36,6 +39,34 @@ export const useCartStore = create<CartStore>((set) => ({
         items: [...state.items, { ...product, count: 1 }],
       };
     }),
+  // 👉 увеличить count
+  increaseCount: (id) =>
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === id ? { ...i, count: i.count + 1 } : i
+      ),
+    })),
+
+  // 👉 уменьшить count
+  decreaseCount: (id) =>
+    set((state) => {
+      const current = state.items.find((i) => i.id === id);
+      if (!current) return state;
+
+      // если осталось 1 — удаляем
+      if (current.count === 1) {
+        return {
+          items: state.items.filter((i) => i.id !== id),
+        };
+      }
+
+      // иначе уменьшаем
+      return {
+        items: state.items.map((i) =>
+          i.id === id ? { ...i, count: i.count - 1 } : i
+        ),
+      };
+    }),
 
   removeFromCart: (id) =>
     set((state) => ({
@@ -43,4 +74,8 @@ export const useCartStore = create<CartStore>((set) => ({
     })),
 
   clearCart: () => set({ items: [] }),
+  totalPrice: () => {
+    const { items } = get();
+    return items.reduce((sum, item) => sum + item.price * item.count, 0);
+  },
 }));

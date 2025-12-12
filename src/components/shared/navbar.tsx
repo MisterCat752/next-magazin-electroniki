@@ -31,9 +31,10 @@ interface Props {
 
 export const NavBar: React.FC<Props> = ({ className }) => {
   const items = useCartStore((state) => state.items);
+  const total = useCartStore((s) => s.totalPrice());
   return (
     <div
-      className={cn(className, 'bg-gray-dark-medium fixed top-0 w-full z-10 ')}
+      className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[100] ')}
     >
       <Container>
         <div className='py-5 flex justify-between items-center'>
@@ -53,18 +54,27 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             <Popover>
               <PopoverTrigger>
                 {' '}
-                <ShoppingCart />
+                <ShoppingCart className='text-white hover:text-green cursor-pointer' />
               </PopoverTrigger>
-              <PopoverContent className='  mt-7 w-full bg-white max-w-[520px]'>
+              <PopoverContent className='  mt-7 w-full bg-gray-dark max-w-[520px]'>
                 {items.map((item) => (
-                  <div key={item.id} className='border p-4 mb-2'>
-                    <CartNavBAr name={item.name} imageUrl={item.imageUrl} />
+                  <div
+                    key={item.id}
+                    className='  bg-gray-medium rounded-[14px] gap-3 relative p-3 mb-2'
+                  >
+                    <CartNavBAr
+                      name={item.name}
+                      imageUrl={item.imageUrl}
+                      price={item.price}
+                      id={item.id}
+                      count={item.count}
+                    />
                   </div>
                 ))}
 
                 <div className='mt-10 flex flex-col items-center justify-center gap-3'>
-                  <p className='text-black'>
-                    Итого:<span className='font-bold'> 33999 лей</span>
+                  <p className='text-white text-[18px] font-medium'>
+                    <div>Итого: {total} MDL</div>
                   </p>
                   <Link href='/cart'>
                     <Button
@@ -79,7 +89,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             </Popover>
 
             <Link href='/profile'>
-              <Heart />
+              <Heart className='text-white hover:text-green cursor-pointer' />
             </Link>
             <Login />
           </div>

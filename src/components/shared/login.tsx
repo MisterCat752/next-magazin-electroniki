@@ -27,10 +27,7 @@ export const Login: React.FC<Props> = ({ className }) => {
     <div className={cn(className, '')}>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant='outline'>
-            {' '}
-            <User />
-          </Button>
+          <User className='text-white hover:text-green cursor-pointer' />
         </DialogTrigger>
         <DialogContent className='sm:max-w-[425px] py-5 border-none text-white bg-[#1c1c1e]'>
           <DialogHeader className='mt-15'>

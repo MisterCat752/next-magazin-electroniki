@@ -26,21 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <NavBar />
-        <main className='bg-[#000] pt-25 flex gap-4    justify-between '>
-          <div className='w-[300px] min-h-[900px] p-5 rounded-[16px] bg-gray-dark-medium '>
-            <ProfileSideBar />
-          </div>
-
-          <div className='w-full'>{children}</div>
-        </main>
-
-        <Footer />
-      </body>
-    </html>
+    <div className=''>
+      <NavBar />
+      <main className='bg-[#000] pt-25 flex gap-4    justify-between '>
+        <div className='w-[300px] min-h-[900px] p-5 rounded-[16px] bg-gray-dark-medium '>
+          <ProfileSideBar />
+        </div>
+        <div className='w-full'>{children}</div>
+      </main>
+      <Footer />
+    </div>
   );
 }

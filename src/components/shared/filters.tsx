@@ -37,10 +37,10 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
     <div
       className={cn(
         className,
-        'max-w-[250px] text-white rounded-md bg-[#1c1c1ed2] p-4 w-full'
+        'max-w-[250px] text-white rounded-md  bg-[#1c1c1ed2] p-6 w-full'
       )}
     >
-      <Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
+      <Title text='Фильтрация' size='sm' className='mb-7 font-bold' />
 
       {filters.map((filter) => {
         const filteredItems = filter.values
@@ -63,7 +63,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
         );
 
         return (
-          <div key={filter.id} className='mb-6'>
+          <div key={filter.id} className='mb-6 mt-3 '>
             <CheckboxFilterGroup
               title={filter.name}
               items={filteredItems}

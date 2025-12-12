@@ -61,8 +61,11 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
     : (defaultItem || items).slice(0, limit);
 
   return (
-    <div className={cn(className)}>
-      <div className='border-b border-b-gray mb-2 pb-2 flex justify-between items-center'>
+    <div className={cn(className, ' ')}>
+      <div
+        onClick={() => setOpen((prev) => !prev)}
+        className='cursor-pointer      flex justify-between items-center'
+      >
         <p className='text-[16px] font-bold text-white'>{title} </p>
         <div
           className={`text-white transition-transform duration-200 ${
@@ -73,7 +76,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
         </div>
       </div>
       {showAll && (
-        <div className='mb-2'>
+        <div className=' '>
           <Input
             onChange={onChangeSearchInput}
             value={searchValue}
@@ -84,20 +87,21 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
         </div>
       )}
 
-      <div className='flex flex-col overflow-auto gap-3 max-h-96 py-5 scrollbar'>
-        {list.map((item, idx) => {
-          return (
-            <FilterCheckbox
-              key={idx}
-              text={item.text}
-              name={item.text}
-              value={item.value}
-              checked={selectedIds?.has(item.value)}
-              // передаём весь item в обработчик
-              onCheckedChange={() => onClickCheckBox?.(item)}
-            />
-          );
-        })}
+      <div className='flex flex-col mt-2 overflow-auto gap-3 max-h-96 py-2 scrollbar'>
+        {open &&
+          list.map((item, idx) => {
+            return (
+              <FilterCheckbox
+                key={idx}
+                text={item.text}
+                name={item.text}
+                value={item.value}
+                checked={selectedIds?.has(item.value)}
+                // передаём весь item в обработчик
+                onCheckedChange={() => onClickCheckBox?.(item)}
+              />
+            );
+          })}
       </div>
       {items.length > limit && (
         <div className={showAll ? ' border-t border-t-neutral-100  mt-4' : ''}>

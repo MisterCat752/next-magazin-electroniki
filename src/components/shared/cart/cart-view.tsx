@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Container } from '@/components/layout/container';
@@ -5,18 +6,31 @@ import { Button, Input } from '@/components/ui';
 import { Trash } from 'lucide-react';
 import { CartProduct } from './cart-product';
 import { CartSum } from './cart-sum';
+import { useCartStore } from '@/store/cartStore';
 
 interface Props {
   className?: string;
 }
 
 export const CartView: React.FC<Props> = ({ className }) => {
+  const items = useCartStore((state) => state.items);
+  const total = useCartStore((s) => s.totalPrice());
   return (
     <div className={cn(className, '  py-20 pb-100 bg-[#000] ')}>
       <Container className=''>
         <h1 className='text-2xl font-bold text-white'>Корзина</h1>
         <div className='flex mt-10 gap-10 justify-between'>
-          <CartProduct />
+          <div className='flex flex-col gap-7 w-full'>
+            {items.map((item) => (
+              <CartProduct
+                name={item.name}
+                imageUrl={item.imageUrl}
+                price={item.price}
+                id={item.id}
+                count={item.count}
+              />
+            ))}
+          </div>
           <div className='bg-gray-dark  p-13 w-full rounded-2xl'>
             <div className='flex  gap-3'>
               <div className='w-full'>
@@ -54,8 +68,8 @@ export const CartView: React.FC<Props> = ({ className }) => {
         <div className='mt-10 max-w-[623px] bg-gray-dark  p-13 w-full rounded-2xl'>
           <CartSum
             bonusReceived={942}
-            productCost={44798}
-            discount={13400}
+            productCost={total}
+            discount={1000}
             deliveryCost={0}
             appliedBonus={0}
             currency='лей'

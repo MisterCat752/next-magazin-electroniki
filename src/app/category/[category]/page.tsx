@@ -41,7 +41,7 @@ export default async function Page({ params }: Props) {
 
   const initialProducts = mapProducts(categoryData?.products || []);
   return (
-    <div className=''>
+    <div className='min-h-[100vh]'>
       <CategoryContent
         category={category}
         initialProducts={initialProducts}

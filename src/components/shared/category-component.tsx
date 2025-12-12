@@ -44,8 +44,9 @@ export const CategoryContent: React.FC<Props> = ({
   }, [category, selectedSpecs]);
 
   return (
-    <main className='bg-[#000] py-30 flex gap-4 items-start justify-center'>
+    <main className='bg-[#000]  py-30 flex relative gap-4 items-start justify-end'>
       <Filters filters={filters} />
+
       <div>
         <ProductGroupList title='Товары' items={products} />
       </div>
