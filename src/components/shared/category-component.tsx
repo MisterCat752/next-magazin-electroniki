@@ -31,7 +31,7 @@ export const CategoryContent: React.FC<Props> = ({
               `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
           )
           .join(',');
-        console.log('specsStr', specsStr);
+
         params.set('specs', specsStr);
       }
 

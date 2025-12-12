@@ -2,7 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui';
-import { Eye, EyeClosed, Heart, Scale } from 'lucide-react';
+import { Eye, EyeClosed, Heart, Scale, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useCartStore } from '@/store/cartStore';
 import { useFavoriteStore } from '@/store/favoriteStore';
@@ -26,72 +26,33 @@ export const ProductCard: React.FC<Props> = ({
 }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const addToWishList = useFavoriteStore((state) => state.addToFavorite);
-
+  const isInWishlist = useFavoriteStore((state) =>
+    state.items.some((item) => item.id === id)
+  );
+  const isAddedToCart = useCartStore((state) =>
+    state.items.some((item) => item.id === id)
+  );
   return (
     <div
       className={cn(
         className,
-        'group border border-gray-200 shadow-sm flex flex-col max-w-[250px] gap-2 min-h-[470px] rounded-2xl p-5 transition-all duration-300 hover:shadow-2xl hover:border-gray-300'
+        'group border bg-gray-dark-medium shadow-sm flex flex-col max-w-[226px] gap-2 min-h-[430px]   rounded-2xl px-[8px] py-3 transition-all duration-300  hover:shadow-lg hover:border-gray-medium   '
       )}
     >
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}
-      <div className='relative'>
+      <div className='relative bg-white rounded-2xl overflow-hidden mb-2 min-h-[210px] flex items-center justify-center'>
         <Link href={`http://localhost:3000/product/${id}`}>
           <img src={image} alt={name} className='rounded-lg' />
         </Link>
-        <button
-          className='absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                    flex items-center gap-2 bg-white/50 p-3 rounded-sm opacity-0 
-                    group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
+        <div
+          className={cn(
+            'cursor-pointer p-1 absolute top-2 right-2 bg-gray-dark-medium  rounded-[5px]    ',
+            isInWishlist ? 'bg-green' : ''
+          )}
         >
-          <span className='relative flex items-center'>
-            {/* Закрытый глаз */}
-            <EyeClosed
-              className='text-primary opacity-100 transition-opacity duration-[1.4s] group-hover:opacity-0'
-              height={20}
-              width={20}
-            />
-            {/* Открытый глаз с задержкой */}
-            <Eye
-              className='text-primary absolute top-0 left-0 opacity-0 transition-opacity duration-[1.4s] delay-150 group-hover:opacity-100'
-              height={20}
-              width={20}
-            />
-          </span>
-          <p className='text-primary ml-1'>Быстрый просмотр</p>
-        </button>
-      </div>
-
-      {/* Название товара */}
-      <Link
-        href={`http://localhost:3000/product/${id}`}
-        className='text-white font-semibold text-[16px] cursor-pointer hover:text-red-600 transition-colors duration-200'
-      >
-        {name}
-      </Link>
-
-      {/* Нижняя часть карточки */}
-      <div className='mt-auto flex flex-col gap-2'>
-        <p className='text-2xl text-primary font-bold'>{price} лей</p>
-        <div className='flex items-center gap-2'>
-          <Button
-            variant='outline'
-            onClick={() =>
-              addToCart({
-                id,
-                name,
-                price,
-                imageUrl: image,
-              })
-            }
-            className='flex-1 transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white'
-          >
-            В корзину
-          </Button>
-
           <Heart
-            className='cursor-pointer'
-            color='white'
+            className={cn('cursor-pointer   ', isInWishlist ? 'bg-green' : '')}
+            color={isInWishlist ? 'black' : 'white'}
             height={20}
             width={20}
             onClick={() =>
@@ -103,8 +64,41 @@ export const ProductCard: React.FC<Props> = ({
               })
             }
           />
+        </div>
+      </div>
 
-          <Scale className='cursor-pointer' height={20} width={20} />
+      {/* Название товара */}
+      <Link
+        href={`http://localhost:3000/product/${id}`}
+        className='text-white font-semibold text-[16px] cursor-pointer hover:text-red-600 transition-colors duration-200'
+      >
+        {name}
+      </Link>
+
+      <h2 className='text-[12px] text-gray  '>
+        6.3" | 48 Мп | 12 ГБ | Single SIM
+      </h2>
+      {/* Нижняя часть карточки Кэшбэк 825 лей */}
+      <div className='mt-auto flex flex-col gap-2'>
+        <div className='flex items-center justify-between gap-2'>
+          <p className='text-2xl text-white font-bold'>{price} лей</p>
+          <Button
+            className={cn(
+              '    p-1  rounded-[5px] bg-green cursor-pointer',
+              'hover:bg-orange hover:border-primary transition-colors duration-300',
+              isAddedToCart ? 'bg-orange  ' : ''
+            )}
+            onClick={() =>
+              addToCart({
+                id,
+                name,
+                price,
+                imageUrl: image,
+              })
+            }
+          >
+            <ShoppingCart color={'black'} height={23} width={23} />
+          </Button>
         </div>
       </div>
     </div>

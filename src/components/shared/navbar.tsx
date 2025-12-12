@@ -32,7 +32,9 @@ interface Props {
 export const NavBar: React.FC<Props> = ({ className }) => {
   const items = useCartStore((state) => state.items);
   return (
-    <div className={cn(className, 'bg-blue fixed top-0 w-full z-10 ')}>
+    <div
+      className={cn(className, 'bg-gray-dark-medium fixed top-0 w-full z-10 ')}
+    >
       <Container>
         <div className='py-5 flex justify-between items-center'>
           <Link href='/' className='flex gap-2 items-center'>

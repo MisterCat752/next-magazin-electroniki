@@ -98,13 +98,9 @@ export function CatalogMenu() {
   return (
     <>
       <button
-        className='flex items-center gap-2 px-4 py-2 bg-[#043652] text-white rounded'
+        className='flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
-        <svg width={24} height={24}>
-          <rect x='4' y='8' width='16' height='2' rx='1' fill='#fff' />
-          <rect x='4' y='14' width='16' height='2' rx='1' fill='#fff' />
-        </svg>
         <span className='font-bold'>Каталог</span>
       </button>
 
