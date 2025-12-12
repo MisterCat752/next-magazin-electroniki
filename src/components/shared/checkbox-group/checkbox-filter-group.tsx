@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChecboxProps, FilterCheckbox } from './checkbox-filter';
 import { Title } from '@/components/ui';
@@ -34,7 +35,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
 }) => {
   const [showAll, setShowAll] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
-
+  const [open, setOpen] = useState(false);
   const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -61,8 +62,16 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
 
   return (
     <div className={cn(className)}>
-      <Title text={title} size='sm' className='font-bold mb-1' />
-
+      <div className='border-b border-b-gray mb-2 pb-2 flex justify-between items-center'>
+        <p className='text-[16px] font-bold text-white'>{title} </p>
+        <div
+          className={`text-white transition-transform duration-200 ${
+            open ? 'rotate-180' : 'rotate-0'
+          }`}
+        >
+          ▼
+        </div>
+      </div>
       {showAll && (
         <div className='mb-2'>
           <Input

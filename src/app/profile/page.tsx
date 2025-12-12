@@ -5,9 +5,5 @@ import { ProfileContent } from '@/components/shared/profile/profile-content';
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
 
-  return (
-    <div className='pt-20'>
-      <ProfileContent session={session} />
-    </div>
-  );
+  return <ProfileContent session={session} />;
 }

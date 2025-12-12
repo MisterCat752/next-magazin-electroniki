@@ -11,13 +11,12 @@ export type FormField = {
 
 type DynamicFormProps = {
   fields: FormField[];
-  onSubmit: (values: Record<string, string>) => void | Promise<void>;
   submitLabel?: string;
 };
 
 export default function DynamicForm({
   fields,
-  onSubmit,
+
   submitLabel = 'Отправить',
 }: DynamicFormProps) {
   const initialState = fields.reduce(
@@ -32,7 +31,6 @@ export default function DynamicForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(values);
   };
 
   return (
@@ -55,7 +53,7 @@ export default function DynamicForm({
             required={field.required}
             value={values[field.name]}
             onChange={(e) => handleChange(field.name, e.target.value)}
-            className='   bg-gray text-white rounded-md py-4 px-[14px]  '
+            className='   bg-[#404040]  text-gray rounded-[14px] py-4 px-[14px]  '
           />
         </div>
       ))}

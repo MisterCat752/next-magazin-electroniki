@@ -79,12 +79,12 @@ export const ProductCard: React.FC<Props> = ({
         6.3" | 48 Мп | 12 ГБ | Single SIM
       </h2>
       {/* Нижняя часть карточки Кэшбэк 825 лей */}
-      <div className='mt-auto flex flex-col gap-2'>
+      <div className='mt-auto flex flex-col gap-2 px-2'>
         <div className='flex items-center justify-between gap-2'>
-          <p className='text-2xl text-white font-bold'>{price} лей</p>
+          <p className='text-[18px] text-white font-bold'>{price} лей</p>
           <Button
             className={cn(
-              '    p-1  rounded-[5px] bg-green cursor-pointer',
+              '       rounded-[11px] bg-green cursor-pointer',
               'hover:bg-orange hover:border-primary transition-colors duration-300',
               isAddedToCart ? 'bg-orange  ' : ''
             )}
@@ -97,7 +97,7 @@ export const ProductCard: React.FC<Props> = ({
               })
             }
           >
-            <ShoppingCart color={'black'} height={23} width={23} />
+            <ShoppingCart color={'black'} height={20} width={20} />
           </Button>
         </div>
       </div>

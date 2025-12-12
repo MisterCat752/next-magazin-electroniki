@@ -78,7 +78,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
               </PopoverContent>
             </Popover>
 
-            <Link href='/wishlist'>
+            <Link href='/profile'>
               <Heart />
             </Link>
             <Login />
