@@ -1,46 +1,39 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export interface CartItem {
+export interface FavoriteItem {
   id: number;
   name: string;
   price: number;
   imageUrl?: string;
-  count: number;
 }
 
 interface FavoriteStore {
-  items: CartItem[];
-  addToFavorite: (product: Omit<CartItem, 'count'>) => void;
-  removeFromFavorite: (id: number) => void;
+  items: FavoriteItem[];
+  toggleFavorite: (product: FavoriteItem) => void;
   clearFavorite: () => void;
 }
 
-export const useFavoriteStore = create<FavoriteStore>((set) => ({
-  items: [],
+export const useFavoriteStore = create<FavoriteStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
 
-  addToFavorite: (product) =>
-    set((state) => {
-      const existing = state.items.find((i) => i.id === product.id);
+      toggleFavorite: (product) =>
+        set((state) => {
+          const exists = state.items.some((i) => i.id === product.id);
 
-      if (existing) {
-        // если товар уже есть — увеличиваем count
-        return {
-          items: state.items.map((i) =>
-            i.id === product.id ? { ...i, count: i.count + 1 } : i
-          ),
-        };
-      }
+          return exists
+            ? { items: state.items.filter((i) => i.id !== product.id) }
+            : { items: [...state.items, product] };
+        }),
 
-      // если нет — добавляем новый
-      return {
-        items: [...state.items, { ...product, count: 1 }],
-      };
+      clearFavorite: () => set({ items: [] }),
     }),
 
-  removeFromFavorite: (id) =>
-    set((state) => ({
-      items: state.items.filter((i) => i.id !== id),
-    })),
-
-  clearFavorite: () => set({ items: [] }),
-}));
+    {
+      name: 'favorite-store',
+      partialize: (state) => ({ items: state.items }),
+    }
+  )
+);

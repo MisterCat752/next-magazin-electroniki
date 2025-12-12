@@ -1,11 +1,8 @@
 'use client';
 import React from 'react';
-import { cn } from '@/lib/utils';
-import { ProfileSideBar } from './profile-side-bar';
-import DynamicForm, { FormField } from './DynamicForm';
 import { Container } from '@/components/layout/container';
 import Link from 'next/link';
-import { WishLIshContent } from '../wishlist/wishLish-content';
+
 interface Props {
   className?: string;
   session?: any;

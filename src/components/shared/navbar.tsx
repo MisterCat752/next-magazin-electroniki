@@ -24,6 +24,7 @@ import { Login } from './login';
 import { SearchInput } from './nav/search';
 import { useCartStore } from '@/store/cartStore';
 import { CartNavBAr } from './nav/cart-navBar';
+import { useSession } from 'next-auth/react';
 
 interface Props {
   className?: string;
@@ -32,6 +33,7 @@ interface Props {
 export const NavBar: React.FC<Props> = ({ className }) => {
   const items = useCartStore((state) => state.items);
   const total = useCartStore((s) => s.totalPrice());
+
   return (
     <div
       className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[100] ')}
@@ -54,7 +56,14 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             <Popover>
               <PopoverTrigger>
                 {' '}
-                <ShoppingCart className='text-white hover:text-green cursor-pointer' />
+                <div className=' relative'>
+                  <ShoppingCart className='text-white hover:text-green cursor-pointer' />
+                  {items.length > 0 && (
+                    <div className=' absolute -top-2 -right-3 bg-green w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-black'>
+                      {items.length}
+                    </div>
+                  )}
+                </div>
               </PopoverTrigger>
               <PopoverContent className='  mt-7 w-full bg-gray-dark max-w-[520px]'>
                 {items.map((item) => (
@@ -73,9 +82,9 @@ export const NavBar: React.FC<Props> = ({ className }) => {
                 ))}
 
                 <div className='mt-10 flex flex-col items-center justify-center gap-3'>
-                  <p className='text-white text-[18px] font-medium'>
-                    <div>Итого: {total} MDL</div>
-                  </p>
+                  <div className='text-white text-[18px] font-medium'>
+                    <p>Итого: {total} MDL</p>
+                  </div>
                   <Link href='/cart'>
                     <Button
                       variant='outline'
@@ -89,7 +98,15 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             </Popover>
 
             <Link href='/profile'>
-              <Heart className='text-white hover:text-green cursor-pointer' />
+              <div className=' relative'>
+                <Heart className='text-white hover:text-green cursor-pointer' />
+
+                {items.length > 0 && (
+                  <div className=' absolute -top-2 -right-3 bg-green w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-black'>
+                    {items.length}
+                  </div>
+                )}
+              </div>
             </Link>
             <Login />
           </div>

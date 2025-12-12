@@ -8,7 +8,7 @@ interface Props {
 
 export default async function Page({ className }: Props) {
   return (
-    <div className={cn(className, 'mt-20')}>
+    <div className={cn(className, 'min-h-[100vh] bg-[#000]  mt-20')}>
       <CartView />
     </div>
   );

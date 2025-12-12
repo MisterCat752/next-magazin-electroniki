@@ -7,22 +7,28 @@ import { Trash } from 'lucide-react';
 import { CartProduct } from './cart-product';
 import { CartSum } from './cart-sum';
 import { useCartStore } from '@/store/cartStore';
+import { useHydrated } from '@/hooks/use-hydrated';
 
 interface Props {
   className?: string;
 }
 
 export const CartView: React.FC<Props> = ({ className }) => {
+  const hydrated = useHydrated();
   const items = useCartStore((state) => state.items);
   const total = useCartStore((s) => s.totalPrice());
+  if (!hydrated) {
+    return null; // или skeleton, или пустой div
+  }
   return (
-    <div className={cn(className, '  py-20 pb-100 bg-[#000] ')}>
+    <div className={cn(className, 'min-h-[100vh]  py-20 pb-100 bg-[#000] ')}>
       <Container className=''>
         <h1 className='text-2xl font-bold text-white'>Корзина</h1>
         <div className='flex mt-10 gap-10 justify-between'>
           <div className='flex flex-col gap-7 w-full'>
             {items.map((item) => (
               <CartProduct
+                key={item.id}
                 name={item.name}
                 imageUrl={item.imageUrl}
                 price={item.price}

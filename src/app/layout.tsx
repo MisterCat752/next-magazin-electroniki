@@ -5,6 +5,8 @@ import { Container } from '@/components/layout/container';
 import { Footer, ModalProductQuickView, NavBar } from '@/components/shared';
 import { products } from '@/data';
 import { products2 } from '@/data/products';
+import { SessionProvider } from 'next-auth/react';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,11 +33,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />
+        <AuthProvider>
+          <NavBar />
 
-        {children}
-        <ModalProductQuickView isOpen={false} product={products2[0]} />
-        <Footer />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

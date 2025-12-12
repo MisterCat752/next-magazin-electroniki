@@ -25,7 +25,7 @@ export const ProductCard: React.FC<Props> = ({
   discount,
 }) => {
   const addToCart = useCartStore((state) => state.addToCart);
-  const addToWishList = useFavoriteStore((state) => state.addToFavorite);
+  const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
   const isInWishlist = useFavoriteStore((state) =>
     state.items.some((item) => item.id === id)
   );
@@ -56,7 +56,7 @@ export const ProductCard: React.FC<Props> = ({
             height={20}
             width={20}
             onClick={() =>
-              addToWishList({
+              toggleFavorite({
                 id,
                 name,
                 price,
