@@ -1,7 +1,11 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
+import React from 'react';
 import { Filters, ProductGroupList } from '@/components/shared';
 import { useFilterStore } from '@/store/filterStore';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
+
+import { getProducts } from '@/lib/api/get-products';
 import type { IProduct } from '@/types/products.types';
 
 interface Props {
@@ -15,43 +19,32 @@ export const CategoryContent: React.FC<Props> = ({
   initialProducts,
   filters,
 }) => {
-  const [products, setProducts] = useState<IProduct[]>(initialProducts);
-  const selectedSpecs = useFilterStore((state) => state.selectedSpecs);
-  const selectedSort = useFilterStore((state) => state.sort);
-  const sort = useFilterStore((state) => state.sort);
-  useEffect(() => {
-    async function fetchFilteredProducts() {
-      const params = new URLSearchParams();
-      params.set('category', category);
+  const selectedSpecs = useFilterStore((s) => s.selectedSpecs);
+  const sort = useFilterStore((s) => s.sort);
 
-      if (selectedSpecs.length > 0) {
-        const specsStr = selectedSpecs
-          .map(
-            (s) =>
-              `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
-          )
-          .join(',');
-        params.set('specs', specsStr);
-      }
-
-      if (sort) {
-        params.set('sort', sort);
-      }
-
-      const res = await fetch(`/api/products?${params.toString()}`);
-      const data = await res.json();
-      setProducts(data.products);
-    }
-
-    fetchFilteredProducts();
-  }, [category, selectedSpecs, selectedSort]);
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ['products', category, selectedSpecs, sort],
+    queryFn: () =>
+      getProducts({
+        category,
+        specs: selectedSpecs,
+        sort,
+      }),
+    initialData: initialProducts, // 🔥 SSR + плавный UX
+    placeholderData: keepPreviousData,
+    staleTime: 1_000,
+  });
 
   return (
-    <main className='bg-[#000]  py-30 flex relative gap-4 items-start justify-end'>
+    <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
       <Filters filters={filters} />
 
-      <div>
-        <ProductGroupList title='Товары' items={products} />
+      <div className='w-full'>
+        {isLoading ? (
+          <p className='text-white'>Загрузка...</p>
+        ) : (
+          <ProductGroupList title='Товары' items={products} />
+        )}
       </div>
     </main>
   );

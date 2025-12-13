@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { FilterChecboxProps, FilterCheckbox } from './checkbox-filter';
 import { Title } from '@/components/ui';
 import { Input, Skeleton } from '@/components/ui';
+import { ArrowBigDownDash } from 'lucide-react';
 
 export type Items = FilterChecboxProps;
 
@@ -64,15 +65,17 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
     <div className={cn(className, ' ')}>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className='cursor-pointer      flex justify-between items-center'
+        className='cursor-pointer  hover:text-green transition duration-200    flex justify-between items-center'
       >
-        <p className='text-[16px] font-bold text-white'>{title} </p>
+        <p className='text-[16px] font-bold text-white hover:text-green transition duration-200'>
+          {title}{' '}
+        </p>
         <div
-          className={`text-white transition-transform duration-200 ${
+          className={`text-white hover:text-green transition   duration-200 ${
             open ? 'rotate-180' : 'rotate-0'
           }`}
         >
-          ▼
+          <ArrowBigDownDash className='text-white hover:text-green transition duration-200   ' />
         </div>
       </div>
       {showAll && (

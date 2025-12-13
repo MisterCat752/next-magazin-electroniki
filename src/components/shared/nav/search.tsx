@@ -67,8 +67,15 @@ export const SearchInput = () => {
               <Link href={`/product/${product.id}`} key={product.id}>
                 <div
                   onClick={onClickItem}
-                  className='px-3 py-2 hover:bg-primary/10 cursor-pointer'
+                  className='px-3 py-2 flex items-center gap-3 hover:bg-primary/10 cursor-pointer'
                 >
+                  <div className='max-w-[50px] max-h-[50px] mb-2'>
+                    <img
+                      className='w-full'
+                      src={product?.imageUrl ?? '/samsung-fe-25.webp'}
+                      alt={product?.name ?? 'product'}
+                    />
+                  </div>
                   {product.name}
                 </div>
               </Link>
