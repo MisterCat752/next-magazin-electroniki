@@ -6,14 +6,10 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
 
     const categorySlug = searchParams.get('category');
-    const filtersParam = searchParams.get('filters'); // product-level FilterValue.id
     const specParam = searchParams.get('specs'); // specifications: "Цвет:Синий,Память:16GB" (URLEncoded)
-
+    const sortParam = searchParams.get('sort');
     if (!categorySlug)
       return NextResponse.json({ error: 'Category required' }, { status: 400 });
-
-    const filterIds =
-      filtersParam?.split(',').map(Number).filter(Boolean) || [];
 
     // Парсим specs и декодируем компоненты
     // Пример входа (клиент отправляет): encodeURIComponent(name):encodeURIComponent(value),...
@@ -44,11 +40,6 @@ export async function GET(req: Request) {
     if (!category) return NextResponse.json({ products: [] });
 
     const whereClause: any = { categoryId: category.id };
-
-    // Product-level filters — требуем, чтобы все выбранные значения были у продукта (AND)
-    if (filterIds.length > 0) {
-      whereClause.AND = filterIds.map((id) => ({ filters: { some: { id } } }));
-    }
 
     // Variant-level specs
     if (specFilters.length > 0) {
@@ -89,17 +80,29 @@ export async function GET(req: Request) {
       },
     });
 
+    let mappedProducts = products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      imageUrl: p.imageUrl,
+      variants: p.variants,
+      price: p.variants.length
+        ? Math.min(...p.variants.map((v) => v.price))
+        : 0,
+      filters: p.filters,
+    }));
+
+    // 2. Сортируем
+    if (sortParam === 'price_asc') {
+      mappedProducts.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortParam === 'price_desc') {
+      mappedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    // 3. Отдаём результат
     return NextResponse.json({
-      products: products.map((p) => ({
-        id: p.id,
-        name: p.name,
-        imageUrl: p.imageUrl,
-        variants: p.variants,
-        price: p.variants.length
-          ? Math.min(...p.variants.map((v) => v.price))
-          : 0,
-        filters: p.filters,
-      })),
+      products: mappedProducts,
     });
   } catch (err) {
     console.error(err);

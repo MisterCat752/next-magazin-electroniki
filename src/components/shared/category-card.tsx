@@ -8,13 +8,13 @@ interface CategoryCardProps {
 
 export const CategoryCard = ({ name, image }: CategoryCardProps) => {
   return (
-    <div className='  rounded-2xl p-4 flex flex-col items-center justify-center hover:shadow-lg transition'>
+    <div className=' bg-gray-dark-medium cursor-pointer hover:text-green  duration-150  rounded-2xl p-4 flex flex-col items-center justify-center hover:shadow-lg transition'>
       <img
         src={image}
         alt={name}
-        className='w-24 h-24 object-cover rounded-lg'
+        className='w-24 h-24 object-cover bg-white rounded-lg'
       />
-      <p className='mt-2 font-medium'>{name}</p>
+      <p className='mt-2 font-medium '>{name}</p>
     </div>
   );
 };

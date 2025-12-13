@@ -3,6 +3,9 @@ import { cn } from '@/lib/utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/auth/auth';
 import Link from 'next/link';
+import { Button } from '@/components/ui';
+import { signOut } from 'next-auth/react';
+import { LogOut } from './logOut';
 interface Props {
   className?: string;
 }
@@ -36,6 +39,9 @@ export const ProfileSideBar: React.FC<Props> = async ({ className }) => {
           <Link href={item.link}>{item.label}</Link>
         </div>
       ))}
+      <div className='p-4'>
+        <LogOut />
+      </div>
     </div>
   );
 };

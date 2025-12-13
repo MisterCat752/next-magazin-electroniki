@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Title } from '@/components/ui';
 import { ProductCard } from './product-card';
 import { IProduct } from '@/types';
+import { SortSelect } from '../filter/SortSelect';
 
 interface Props {
   title: string;
@@ -22,12 +23,14 @@ export const ProductGroupList: React.FC<Props> = ({
   console.log(items, 'items');
   return (
     <div id={title} className={cn(className)}>
-      <Title
-        text={title}
-        size='lg'
-        className='font-extrabold text-white text-[18px] mb-5 '
-      />
-
+      <div className='flex justify-between mb-4 text-white'>
+        <Title
+          text={title}
+          size='lg'
+          className='font-extrabold text-white text-[18px] mb-5 '
+        />
+        <SortSelect />
+      </div>
       <div className={cn('grid grid-cols-4 gap-[20px]', listClassName)}>
         {items.map((product, id) => {
           return (

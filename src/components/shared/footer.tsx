@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className='bg-[#043652] text-white w-full py-12'>
+    <footer className='bg-gray-dark-medium text-white w-full py-12'>
       <div className='max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-16 px-6'>
         {/* Покупателям */}
         <div>

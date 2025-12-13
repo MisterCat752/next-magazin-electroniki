@@ -2,7 +2,7 @@ import { withAuth } from 'next-auth/middleware';
 
 export default withAuth({
   pages: {
-    signIn: '/login', // редирект если не авторизован
+    signIn: '/', // редирект если не авторизован
   },
   secret: process.env.NEXTAUTH_SECRET,
 });

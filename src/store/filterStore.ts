@@ -5,9 +5,11 @@ interface SpecFilter {
   name: string;
   value: string;
 }
-
+type SortType = 'price_asc' | 'price_desc' | null;
 interface FilterStore {
   selectedSpecs: SpecFilter[];
+  sort: SortType;
+  setSort: (sort: SortType) => void;
   toggleSpecFilter: (spec: SpecFilter) => void;
   clearFilters: () => void;
 }
@@ -16,7 +18,8 @@ export const useFilterStore = create<FilterStore>()(
   persist(
     (set, get) => ({
       selectedSpecs: [],
-
+      sort: null,
+      setSort: (sort) => set({ sort }),
       toggleSpecFilter: (spec: SpecFilter) => {
         const { selectedSpecs } = get();
         const exists = selectedSpecs.some(

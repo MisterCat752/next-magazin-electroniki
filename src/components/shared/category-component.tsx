@@ -17,22 +17,25 @@ export const CategoryContent: React.FC<Props> = ({
 }) => {
   const [products, setProducts] = useState<IProduct[]>(initialProducts);
   const selectedSpecs = useFilterStore((state) => state.selectedSpecs);
-
+  const selectedSort = useFilterStore((state) => state.sort);
+  const sort = useFilterStore((state) => state.sort);
   useEffect(() => {
     async function fetchFilteredProducts() {
       const params = new URLSearchParams();
       params.set('category', category);
 
       if (selectedSpecs.length > 0) {
-        // Формируем "Цвет:Синий,Память:16GB"
         const specsStr = selectedSpecs
           .map(
             (s) =>
               `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
           )
           .join(',');
-
         params.set('specs', specsStr);
+      }
+
+      if (sort) {
+        params.set('sort', sort);
       }
 
       const res = await fetch(`/api/products?${params.toString()}`);
@@ -41,7 +44,7 @@ export const CategoryContent: React.FC<Props> = ({
     }
 
     fetchFilteredProducts();
-  }, [category, selectedSpecs]);
+  }, [category, selectedSpecs, selectedSort]);
 
   return (
     <main className='bg-[#000]  py-30 flex relative gap-4 items-start justify-end'>

@@ -25,6 +25,7 @@ import { SearchInput } from './nav/search';
 import { useCartStore } from '@/store/cartStore';
 import { CartNavBAr } from './nav/cart-navBar';
 import { useSession } from 'next-auth/react';
+import { useFavoriteStore } from '@/store/favoriteStore';
 
 interface Props {
   className?: string;
@@ -32,8 +33,9 @@ interface Props {
 
 export const NavBar: React.FC<Props> = ({ className }) => {
   const items = useCartStore((state) => state.items);
+  const favorites = useFavoriteStore((state) => state.items);
   const total = useCartStore((s) => s.totalPrice());
-
+  const { data: session, status } = useSession();
   return (
     <div
       className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[100] ')}
@@ -97,13 +99,17 @@ export const NavBar: React.FC<Props> = ({ className }) => {
               </PopoverContent>
             </Popover>
 
-            <Link href='/profile'>
+            <Link
+              href={
+                status === 'authenticated' ? 'profile/favorites' : '/wishlist'
+              }
+            >
               <div className=' relative'>
                 <Heart className='text-white hover:text-green cursor-pointer' />
 
-                {items.length > 0 && (
+                {favorites.length > 0 && (
                   <div className=' absolute -top-2 -right-3 bg-green w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-black'>
-                    {items.length}
+                    {favorites.length}
                   </div>
                 )}
               </div>
