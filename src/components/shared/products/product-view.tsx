@@ -1,33 +1,54 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import ProductOptions from './product-options';
 import ProductSpecifications from './product-specs';
 import { Container } from '@/components/layout/container';
 import { ProductImages } from './product-images';
+import { axiosInstance } from '@/services/instance';
 
 interface ProductViewProps {
-  product: any;
+  productId: number;
 }
 
-export default function ProductView({ product }: ProductViewProps) {
-  // сделать хук
+async function fetchProduct(id: number) {
+  try {
+    const { data } = await axios.get(`/api/product/${id}`);
+    // API возвращает сам объект продукта
+    return data ?? null;
+  } catch (err: any) {
+    console.error(err);
+    return null;
+  }
+}
+
+export default function ProductView({ productId }: ProductViewProps) {
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['product', productId],
+    queryFn: () => fetchProduct(productId),
+    staleTime: 5 * 60 * 1000,
+  });
+
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
 
-  // Преобразуем варианты
-  const variants = product.variants.map((v: any) => ({
-    id: v.id,
-    price: v.price,
-    options: v.optionValues.map((ov: any) => ({
-      name: ov.optionValue.option.name,
-      value: ov.optionValue.value,
-    })),
-    specifications: v.specifications,
-  }));
+  const variants = useMemo(() => {
+    if (!product) return [];
+    return product.variants.map((v: any) => ({
+      id: v.id,
+      price: v.price,
+      options: v.options.map((o: any) => ({ name: o.name, value: o.value })),
+      specifications: v.specs,
+    }));
+  }, [product]);
 
-  // Собираем все доступные опции
   const allOptions = useMemo(() => {
     const map: Record<string, Set<string>> = {};
     variants.forEach((variant: any) => {
@@ -42,7 +63,6 @@ export default function ProductView({ product }: ProductViewProps) {
     }));
   }, [variants]);
 
-  // Активный вариант
   const activeVariant = useMemo(() => {
     return (
       variants.find((variant: any) =>
@@ -53,14 +73,11 @@ export default function ProductView({ product }: ProductViewProps) {
     );
   }, [selectedOptions, variants]);
 
-  // --- Вычисляем доступные значения для каждой опции ---
   const availableValues = useMemo(() => {
     const result: Record<string, Set<string>> = {};
-
     allOptions.forEach((opt) => {
       result[opt.name] = new Set();
-
-      variants.forEach((variant: { options: any[] }) => {
+      variants.forEach((variant: any) => {
         const match = Object.entries(selectedOptions).every(
           ([name, value]) =>
             name === opt.name ||
@@ -68,57 +85,55 @@ export default function ProductView({ product }: ProductViewProps) {
               (o: any) => o.name === name && o.value === value
             )
         );
-
         if (match) {
           const current = variant.options.find((o: any) => o.name === opt.name);
           if (current) result[opt.name].add(current.value);
         }
       });
     });
-
     return result;
   }, [selectedOptions, variants, allOptions]);
 
   const handleSelect = (name: string, value: string) => {
     setSelectedOptions((prev) => {
-      // если пользователь нажал повторно на уже выбранную опцию — убираем её
       if (prev[name] === value) {
         const updated = { ...prev };
         delete updated[name];
         return updated;
       }
-
-      // иначе — выбираем новую
-      return {
-        ...prev,
-        [name]: value,
-      };
+      return { ...prev, [name]: value };
     });
   };
+
+  console.log(activeVariant, 'activeVariant');
+  if (isLoading) return <p className='text-white mt-30'>Загрузка товара...</p>;
+  if (isError || !product)
+    return <p className='text-black mt-30'>Товар не найден</p>;
   return (
     <main className='pt-[100px] pb-[100px] bg-[#000]'>
       <Container>
-        <div className='flex gap-6'>
-          {/* Изображение */}
-          <div className='w-full    '>
-            <ProductImages images={product.sliderUrls} />
+        {isLoading && <p className='text-white mt-30'>Загрузка товара...</p>}
+        {isError && <p className='text-black mt-30'>Товар не найден</p>}
+        {!isLoading && !isError && product && (
+          <div className=''>
+            <div className='flex gap-6'>
+              <div className='w-full'>
+                <ProductImages images={product.sliderUrls} />
+              </div>
+              <div className='bg-gray-dark p-3 rounded-md text-white'>
+                <ProductOptions
+                  product={product}
+                  activeVariant={activeVariant}
+                  allOptions={allOptions}
+                  selectedOptions={selectedOptions}
+                  availableValues={availableValues}
+                  onSelect={handleSelect}
+                />
+              </div>
+            </div>
+            <ProductSpecifications activeVariant={activeVariant} />
           </div>
-
-          {/* Правая часть: опции */}
-          <div className='bg-gray-dark p-3 rounded-md text-white'>
-            <ProductOptions
-              product={product}
-              activeVariant={activeVariant}
-              allOptions={allOptions}
-              selectedOptions={selectedOptions}
-              availableValues={availableValues}
-              onSelect={handleSelect}
-            />
-          </div>
-        </div>
-
-        {/* Характеристики */}
-        <ProductSpecifications activeVariant={activeVariant} />
+        )}
       </Container>
     </main>
   );

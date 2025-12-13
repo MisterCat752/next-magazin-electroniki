@@ -4,9 +4,10 @@ export default function ProductSpecifications({
   activeVariant: any;
 }) {
   const groupedSpecs: Record<string, any[]> = {};
+
   activeVariant.specifications.forEach((spec: any) => {
-    if (!groupedSpecs[spec.group.name]) groupedSpecs[spec.group.name] = [];
-    groupedSpecs[spec.group.name].push(spec);
+    if (!groupedSpecs[spec.group]) groupedSpecs[spec.group] = [];
+    groupedSpecs[spec.group].push(spec);
   });
 
   return (

@@ -1,13 +1,19 @@
-// app/api/product/[slug]/route.ts
+// app/api/product/[id]/route.ts
 import { prisma } from '@/prisma/prisma-client';
 import { NextResponse } from 'next/server';
 
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: { id: string } } // params уже приходит как объект
 ) {
+  const productId = Number(params.id);
+
+  if (isNaN(productId)) {
+    return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+  }
+
   const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
+    where: { id: productId },
     include: {
       variants: {
         include: {
@@ -26,10 +32,11 @@ export async function GET(
     },
   });
 
-  if (!product)
+  if (!product) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
 
-  // Собираем уникальные опции (например, Цвет, Память, SIM)
+  // Преобразуем данные для клиента
   const optionsMap: Record<string, Set<string>> = {};
   product.variants.forEach((variant) => {
     variant.optionValues.forEach((ov) => {
@@ -43,6 +50,7 @@ export async function GET(
   return NextResponse.json({
     id: product.id,
     name: product.name,
+    sliderUrls: product.sliderUrls,
     variants: product.variants.map((v) => ({
       id: v.id,
       sku: v.sku,

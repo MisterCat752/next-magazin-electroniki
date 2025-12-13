@@ -11,7 +11,7 @@ interface Props {
   className?: string;
   id: number;
   name: string;
-  image?: string;
+  imageUrl?: string;
   price: number;
   discount?: number;
 }
@@ -19,7 +19,7 @@ interface Props {
 export const ProductCard: React.FC<Props> = ({
   className,
   name,
-  image,
+  imageUrl,
   id,
   price,
   discount,
@@ -42,7 +42,7 @@ export const ProductCard: React.FC<Props> = ({
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}
       <div className='relative bg-white rounded-2xl overflow-hidden mb-2 min-h-[210px] flex items-center justify-center'>
         <Link href={`http://localhost:3000/product/${id}`}>
-          <img src={image} alt={name} className='rounded-lg' />
+          <img src={imageUrl} alt={name} className='rounded-lg' />
         </Link>
         <div
           className={cn(
@@ -60,7 +60,7 @@ export const ProductCard: React.FC<Props> = ({
                 id,
                 name,
                 price,
-                imageUrl: image,
+                imageUrl,
               })
             }
           />
@@ -93,7 +93,7 @@ export const ProductCard: React.FC<Props> = ({
                 id,
                 name,
                 price,
-                imageUrl: image,
+                imageUrl,
               })
             }
           >
