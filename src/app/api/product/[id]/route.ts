@@ -6,7 +6,8 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } } // params уже приходит как объект
 ) {
-  const productId = Number(params.id);
+  const paramsId = await params;
+  const productId = Number(paramsId.id);
 
   if (isNaN(productId)) {
     return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });

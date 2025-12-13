@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 type Category = {
   id: string;
@@ -48,33 +49,32 @@ function IconBySlug(slug?: string) {
   );
 }
 
+async function fetchCategories(): Promise<Category[]> {
+  const res = await fetch('/api/categories');
+  if (!res.ok) throw new Error('Failed to fetch categories');
+  return res.json();
+}
+
 export function CatalogMenu() {
   const [open, setOpen] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  async function loadCategories() {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/categories');
-      const data = await res.json();
-      setCategories(data);
-      if (data.length) setHovered(data[0].id);
-    } catch (e) {
-      console.error('Failed to load categories', e);
-    } finally {
-      setLoading(false);
+  const { data: categories = [], isLoading } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+    staleTime: 10 * 60 * 1000, // 10 минут
+    enabled: open, // загружаем только когда меню открыто
+  });
+
+  // Сбрасываем hovered при открытии меню
+  React.useEffect(() => {
+    if (open && categories.length > 0 && !hovered) {
+      setHovered(categories[0].id);
     }
-  }
-
-  useEffect(() => {
-    if (open && categories.length === 0) loadCategories();
-  }, [open]);
+  }, [open, categories, hovered]);
 
   const current = categories.find((c) => c.id === hovered) ?? null;
 
-  // Рекурсивный компонент для произвольной вложенности
   const NestedList: React.FC<{ node: Category }> = ({ node }) => {
     return (
       <li>
@@ -107,11 +107,10 @@ export function CatalogMenu() {
       {open && (
         <div
           className='absolute inset-x-0 mx-auto top-36 max-w-[1200px] w-full h-[480px] bg-white shadow-2xl z-30 flex'
-          // очищаем hovered при уходе мыши
           onMouseLeave={() => setHovered(null)}
         >
           <div className='w-[320px] border-r border-gray-300 h-full bg-gray-50 overflow-y-auto'>
-            {loading && (
+            {isLoading && (
               <div className='px-5 py-3 text-sm text-gray-500'>Загрузка...</div>
             )}
 
@@ -134,16 +133,12 @@ export function CatalogMenu() {
 
           <div className='flex-1 flex flex-row h-full'>
             <div className='flex-1 px-7 py-7 overflow-y-auto grid grid-cols-3 gap-8'>
-              {!current ? (
-                <div className='text-gray-500'>Нет подкатегорий</div>
-              ) : current.children && current.children.length === 0 ? (
+              {!current || current.children?.length === 0 ? (
                 <div className='text-gray-500'>Нет подкатегорий</div>
               ) : (
-                // для каждого второго уровня показываем колонку, а внутри рекурсивно рендерим всех потомков
                 current.children!.map((sub) => (
                   <div key={sub.id}>
                     <div className='font-bold mb-2'>{sub.name}</div>
-
                     <ul className='space-y-1'>
                       {sub.children && sub.children.length > 0 ? (
                         sub.children.map((child) => (

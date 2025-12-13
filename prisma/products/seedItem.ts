@@ -31,7 +31,7 @@ export async function seedSamsungProductItem(
     data: {
       name: productItem.name,
       slug: productItem.slug,
-      categoryId: categories.samsung.id,
+      categoryId: categories,
       imageUrl: productItem.imageUrl,
       sliderUrls: productItem.sliderUrls,
     },

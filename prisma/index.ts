@@ -7,6 +7,8 @@ import { seedBaseProducts } from './products/base-products';
 import { seedSamsungS25 } from './products/samsung-s25';
 import { seedFilters } from './filters.seed';
 import { seedSamsungProductItem } from './products/seedItem';
+import { buildSamsungFESpecs } from './buildSamsungFESpecs';
+import { specSams } from './data/specification';
 
 const prisma = new PrismaClient();
 
@@ -31,11 +33,11 @@ async function main() {
   const samsungProduct3 = await seedSamsungProductItem(
     prisma,
     options,
-    categories,
+    categories.samsung.id,
     sections,
     {
       name: 'Samsung Galaxy S25 FE',
-      slug: 'samsung-galaxy-s25-fe',
+      slug: 'samsung-galaxy-s251-fe',
       imageUrl: '/samsung-25-fe.webp',
       sliderUrls: [
         '/phones/sams1.webp',
@@ -79,6 +81,419 @@ async function main() {
   );
   console.log('🎛 Seeding filters...');
   await seedFilters(prisma, categories, samsungProduct3);
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S219 FE',
+      slug: 'samsung-galaxy-s2213-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S218 FE',
+      slug: 'samsung-galaxy-s2214-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S216 FE',
+      slug: 'samsung-galaxy-s2215-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S215 FE',
+      slug: 'samsung-galaxy-s2216-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S214 FE',
+      slug: 'samsung-galaxy-s2217-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S213 FE',
+      slug: 'samsung-galaxy-s2218-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S2123 FE',
+      slug: 'samsung-galaxy-s2219-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S212 FE',
+      slug: 'samsung-galaxy-s2231-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams3.webp',
+        'https://darwin.md/media/808040/conversions/db88izxcxg_1756187833241-preview-webp.png',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: buildSamsungFESpecs({
+            sections,
+            model: 'S22 FE',
+            memory: '256 ГБ',
+            color: ' Черный',
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  console.log('🎛 Seeding filters...');
+
+  await seedSamsungProductItem(
+    prisma,
+    options,
+    categories.samsung.id,
+    sections,
+    {
+      name: 'Samsung Galaxy S21 FE',
+      slug: 'samsung-galaxy-s2132-fe',
+      imageUrl: '/samsung-25-fe.webp',
+      sliderUrls: [
+        '/phones/sams1.webp',
+        '/phones/sams2.webp',
+        '/phones/sams2.webp',
+      ],
+      variants: [
+        {
+          memory: '256 ГБ',
+          color: 'Черный',
+          sim: 'Dual SIM',
+          price: 12099,
+          specifications: specSams({
+            sections,
+          }),
+        },
+        {
+          memory: '512 ГБ',
+          color: 'Синий',
+          sim: 'Dual SIM',
+          price: 13399,
+          specifications: [
+            {
+              name: 'Диагональ экрана',
+              value: '6.7"',
+              groupId: sections.displayGroup.id,
+            },
+            { name: 'Цвет', value: 'Синий', groupId: sections.baseGroup.id },
+            { name: 'Вес', value: '190 г', groupId: sections.baseGroup.id },
+          ],
+        },
+      ],
+    }
+  );
+  console.log('🎛 Seeding filters...');
 
   console.log('🌱 Seed DONE!');
 }
