@@ -8,6 +8,10 @@ import ProductSpecifications from './product-specs';
 import { Container } from '@/components/layout/container';
 import { ProductImages } from './product-images';
 import { axiosInstance } from '@/services/instance';
+import { getProducts } from '@/lib/api/get-products';
+import { IProduct } from '@/types';
+import { ProductCard } from './product-card';
+import { Slider } from '../slider';
 
 interface ProductViewProps {
   productId: number;
@@ -38,7 +42,17 @@ export default function ProductView({ productId }: ProductViewProps) {
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-
+  const { data: latestProducts, isLoading: loadingLatest } = useQuery({
+    queryKey: ['products', 'latest'],
+    queryFn: () =>
+      getProducts({
+        category: 'samsung',
+        sort: 'createdAt_desc', // сортировка по дате добавления
+        limit: 5,
+        page: 1,
+      }),
+    staleTime: 5 * 60 * 1000, // кэшируем 5 минут
+  });
   const variants = useMemo(() => {
     if (!product) return [];
     return product.variants.map((v: any) => ({
@@ -120,7 +134,7 @@ export default function ProductView({ productId }: ProductViewProps) {
               <div className='w-full'>
                 <ProductImages images={product.sliderUrls} />
               </div>
-              <div className='bg-gray-dark p-3 rounded-md text-white'>
+              <div className='bg-gray-dark p-4 rounded-2xl text-white'>
                 <ProductOptions
                   product={product}
                   activeVariant={activeVariant}
@@ -132,6 +146,19 @@ export default function ProductView({ productId }: ProductViewProps) {
               </div>
             </div>
             <ProductSpecifications activeVariant={activeVariant} />
+            <div className=''>
+              {/* Последние товары */}
+              <h2 className='text-xl text-white font-bold'>Последние товары</h2>
+              {loadingLatest ? (
+                <p className='text-white'>Загрузка...</p>
+              ) : (
+                <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
+                  {latestProducts?.products?.map((p: IProduct) => (
+                    <ProductCard key={p.id} {...p} />
+                  ))}
+                </Slider>
+              )}
+            </div>
           </div>
         )}
       </Container>

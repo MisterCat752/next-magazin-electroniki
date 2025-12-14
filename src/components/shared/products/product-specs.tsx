@@ -15,8 +15,8 @@ export default function ProductSpecifications({
       <h2 className='text-xl font-semibold mb-3'>Характеристики</h2>
       <div className='grid grid-cols-2 gap-4'>
         {Object.entries(groupedSpecs).map(([group, specs]) => (
-          <div key={group} className='border p-3 rounded bg-neutral-800'>
-            <h3 className='font-bold text-green-400 mb-2'>{group}</h3>
+          <div key={group} className='  bg-gray-dark p-4 rounded-2xl'>
+            <h3 className='font-bold text-green  mb-2'>{group}</h3>
             <ul>
               {specs.map((s: any) => (
                 <li key={s.name}>
