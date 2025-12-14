@@ -12,19 +12,20 @@ export default function HomeContent() {
   const images = ['/iphone.webp', '/iphone.webp', '/xiamo.webp'];
 
   // Последние товары (новинки)
-  const { data: latestProducts = [], isLoading: loadingLatest } = useQuery({
+  const { data: latestProducts, isLoading: loadingLatest } = useQuery({
     queryKey: ['products', 'latest'],
     queryFn: () =>
       getProducts({
         category: 'samsung',
         sort: 'createdAt_desc', // сортировка по дате добавления
         limit: 8,
+        page: 1,
       }),
     staleTime: 5 * 60 * 1000, // кэшируем 5 минут
   });
 
   // Товары категории Samsung
-  const { data: samsungProducts = [], isLoading: loadingSamsung } = useQuery({
+  const { data: samsungProducts, isLoading: loadingSamsung } = useQuery({
     queryKey: ['products', 'samsung'],
     queryFn: () =>
       getProducts({
@@ -35,16 +36,15 @@ export default function HomeContent() {
   });
 
   // Товары категории Computers
-  const { data: computersProducts = [], isLoading: loadingComputers } =
-    useQuery({
-      queryKey: ['products', 'apple'],
-      queryFn: () =>
-        getProducts({
-          category: 'apple-phones',
-          limit: 8,
-        }),
-      staleTime: 5 * 60 * 1000,
-    });
+  const { data: computersProducts, isLoading: loadingComputers } = useQuery({
+    queryKey: ['products', 'apple'],
+    queryFn: () =>
+      getProducts({
+        category: 'apple-phones',
+        limit: 8,
+      }),
+    staleTime: 5 * 60 * 1000,
+  });
 
   return (
     <main className='p-6 space-y-10 bg-black'>
@@ -73,7 +73,7 @@ export default function HomeContent() {
         <p className='text-white'>Загрузка...</p>
       ) : (
         <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
-          {latestProducts.map((p: IProduct) => (
+          {latestProducts?.products?.map((p: IProduct) => (
             <ProductCard key={p.id} {...p} />
           ))}
         </Slider>
@@ -93,7 +93,7 @@ export default function HomeContent() {
         <p className='text-white'>Загрузка...</p>
       ) : (
         <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
-          {samsungProducts.map((p: IProduct) => (
+          {samsungProducts?.products.map((p: IProduct) => (
             <ProductCard key={p.id} {...p} />
           ))}
         </Slider>
@@ -105,7 +105,7 @@ export default function HomeContent() {
         <p className='text-white'>Загрузка...</p>
       ) : (
         <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
-          {computersProducts.map((p: IProduct) => (
+          {computersProducts?.products.map((p: IProduct) => (
             <ProductCard key={p.id} {...p} />
           ))}
         </Slider>

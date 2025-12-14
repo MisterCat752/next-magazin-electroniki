@@ -8,6 +8,11 @@ export async function GET(req: Request) {
     const categorySlug = searchParams.get('category');
     const specParam = searchParams.get('specs'); // specifications: "Цвет:Синий,Память:16GB" (URLEncoded)
     const sortParam = searchParams.get('sort');
+
+    const page = Number(searchParams.get('page') ?? 1);
+    const limit = Number(searchParams.get('limit') ?? 10);
+
+    const skip = (page - 1) * limit;
     if (!categorySlug)
       return NextResponse.json({ error: 'Category required' }, { status: 400 });
 
@@ -69,13 +74,15 @@ export async function GET(req: Request) {
         },
       };
     }
-
+    const total = await prisma.product.count({
+      where: whereClause,
+    });
     const products = await prisma.product.findMany({
       where: whereClause,
+      skip,
+      take: limit,
       include: {
-        variants: {
-          include: { specifications: true },
-        },
+        variants: { include: { specifications: true } },
         filters: true,
       },
     });
@@ -100,9 +107,14 @@ export async function GET(req: Request) {
       mappedProducts.sort((a, b) => b.price - a.price);
     }
 
-    // 3. Отдаём результат
     return NextResponse.json({
       products: mappedProducts,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
     });
   } catch (err) {
     console.error(err);

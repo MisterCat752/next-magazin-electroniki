@@ -1,34 +1,25 @@
 // lib/api/get-products.ts
-import type { IProduct } from '@/types/products.types';
+
+import { ProductsResponse } from '@/types/products/products.dto';
 
 export async function getProducts(params: {
-  category?: string; // теперь необязательное
+  category: string; // теперь необязательное
   specs?: { name: string; value: string }[]; // необязательное
   sort?: string | null;
+  page?: number;
   limit?: number;
-}): Promise<IProduct[]> {
-  const searchParams = new URLSearchParams();
+}): Promise<ProductsResponse> {
+  const query = new URLSearchParams();
 
-  if (params.category) searchParams.set('category', params.category);
-
-  if (params.specs && params.specs.length > 0) {
-    searchParams.set(
-      'specs',
-      params.specs
-        .map(
-          (s) => `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
-        )
-        .join(',')
-    );
+  query.set('category', params.category);
+  if (params.specs?.length) {
+    query.set('specs', params.specs.join(','));
   }
+  if (params.sort) query.set('sort', params.sort);
 
-  if (params.sort) searchParams.set('sort', params.sort);
+  query.set('page', String(params.page ?? 1));
+  query.set('limit', String(params.limit ?? 10));
 
-  if (params.limit) searchParams.set('limit', params.limit.toString());
-
-  const res = await fetch(`/api/products?${searchParams.toString()}`);
-  if (!res.ok) throw new Error('Failed to fetch products');
-
-  const data = await res.json();
-  return data.products;
+  const res = await fetch(`/api/products?${query.toString()}`);
+  return res.json();
 }

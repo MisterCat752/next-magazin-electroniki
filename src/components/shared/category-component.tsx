@@ -7,6 +7,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
 import { getProducts } from '@/lib/api/get-products';
 import type { IProduct } from '@/types/products.types';
+import { Pagination } from './pagination/pagination';
 
 interface Props {
   category: string;
@@ -21,20 +22,25 @@ export const CategoryContent: React.FC<Props> = ({
 }) => {
   const selectedSpecs = useFilterStore((s) => s.selectedSpecs);
   const sort = useFilterStore((s) => s.sort);
+  const [page, setPage] = React.useState(1);
 
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ['products', category, selectedSpecs, sort],
+  const { data, isLoading } = useQuery({
+    queryKey: ['products', category, selectedSpecs, sort, page],
     queryFn: () =>
       getProducts({
         category,
         specs: selectedSpecs,
         sort,
+        page,
+        limit: 5,
       }),
-    initialData: initialProducts, // 🔥 SSR + плавный UX
-    placeholderData: keepPreviousData,
-    staleTime: 1_000,
-  });
 
+    placeholderData: keepPreviousData,
+    staleTime: 3_000,
+  });
+  const totalPages = data?.meta.totalPages ?? 1;
+  const products = data?.products || [];
+  console.log('Rerender CategoryContent with products:', products);
   return (
     <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
       <Filters filters={filters} />
@@ -45,6 +51,13 @@ export const CategoryContent: React.FC<Props> = ({
         ) : (
           <ProductGroupList title='Товары' items={products} />
         )}
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onChange={(e: number) => {
+            setPage(e);
+          }}
+        />
       </div>
     </main>
   );
