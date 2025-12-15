@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import DynamicForm, {
   FormField,
 } from '@/components/shared/profile/DynamicForm';
+import { OpenSideButton } from '@/components/shared/profile/open-side-button';
 
 interface Props {
   className?: string;
@@ -36,6 +37,7 @@ export default async function Page({ className }: Props) {
         'p-8 bg-gray-dark w-full max-w-[800px] min-h-[500px] rounded-[16px] '
       )}
     >
+      <OpenSideButton />
       <DynamicForm fields={fields} submitLabel='Сохранить изменения' />
     </div>
   );

@@ -32,12 +32,12 @@ export default function ProductView({ productId }: { productId: number }) {
   return (
     <main className='pt-[100px] pb-[100px] bg-[#000]'>
       <Container>
-        <div className='flex gap-6'>
+        <div className='flex flex-wrap gap-6'>
           <div className='w-full'>
             <ProductImages images={product.sliderUrls} />
           </div>
 
-          <div className='bg-gray-dark p-4 rounded-2xl text-white'>
+          <div className='bg-gray-dark w-full p-4 rounded-2xl text-white'>
             <ProductOptions
               product={product}
               activeVariant={activeVariant}

@@ -5,13 +5,27 @@ interface SpecFilter {
   name: string;
   value: string;
 }
+
 type SortType = 'price_asc' | 'price_desc' | null;
+
 interface FilterStore {
+  // filters
   selectedSpecs: SpecFilter[];
   sort: SortType;
+
+  // mobile ui
+  mobileFiltersOpen: boolean;
+  profileSideBar: boolean;
+
+  // actions
   setSort: (sort: SortType) => void;
   toggleSpecFilter: (spec: SpecFilter) => void;
   clearFilters: () => void;
+
+  openMobileFilters: () => void;
+  closeMobileFilters: () => void;
+  toggleMobileFilters: () => void;
+  toggleProfile: () => void;
 }
 
 export const useFilterStore = create<FilterStore>()(
@@ -19,8 +33,13 @@ export const useFilterStore = create<FilterStore>()(
     (set, get) => ({
       selectedSpecs: [],
       sort: null,
+
+      mobileFiltersOpen: true,
+      profileSideBar: true,
+
       setSort: (sort) => set({ sort }),
-      toggleSpecFilter: (spec: SpecFilter) => {
+
+      toggleSpecFilter: (spec) => {
         const { selectedSpecs } = get();
         const exists = selectedSpecs.some(
           (s) => s.name === spec.name && s.value === spec.value
@@ -35,12 +54,24 @@ export const useFilterStore = create<FilterStore>()(
         });
       },
 
-      clearFilters: () => set({ selectedSpecs: [] }),
+      clearFilters: () =>
+        set({
+          selectedSpecs: [],
+          sort: null,
+        }),
+      toggleMobileFilters: () =>
+        set((state) => ({ mobileFiltersOpen: !state.mobileFiltersOpen })),
+      toggleProfile: () =>
+        set((state) => ({ profileSideBar: !state.profileSideBar })),
+      openMobileFilters: () => set({ mobileFiltersOpen: true }),
+      closeMobileFilters: () => set({ mobileFiltersOpen: false }),
     }),
-
     {
-      name: 'filter-store', // ключ в localStorage
-      partialize: (state) => ({ selectedSpecs: state.selectedSpecs }), // сохраняем только фильтры
+      name: 'filter-store',
+      partialize: (state) => ({
+        selectedSpecs: state.selectedSpecs,
+        sort: state.sort,
+      }),
     }
   )
 );

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Container } from '@/components/layout/container';
 import Link from 'next/link';
+import { OpenSideButton } from './open-side-button';
 
 interface Props {
   className?: string;
@@ -13,6 +14,7 @@ export const ProfileContent: React.FC<Props> = ({ className, session }) => {
     <main className='bg-[#000] w-full py-10 flex gap-4    justify-between '>
       <Container className='w-full'>
         <div className='flex items-center gap-2 mb-5'>
+          <OpenSideButton />
           <Link
             href='/'
             className='  text-gray-medium font-semibold text-[15px] hover:text-green transition-all duration-[0.3s] '

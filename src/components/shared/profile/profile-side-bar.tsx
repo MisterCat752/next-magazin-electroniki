@@ -1,13 +1,14 @@
+'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/auth/auth';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { signOut } from 'next-auth/react';
 import { LogOut } from './logOut';
+import { useFilterStore } from '@/store/filterStore';
 interface Props {
   className?: string;
+  session?: any;
 }
 const sidebarItems = [
   { label: 'Личный кабинет', link: '/profile' },
@@ -15,10 +16,16 @@ const sidebarItems = [
   { label: 'Настройки', link: '/profile/settings' },
   { label: 'Список избраных', link: '/profile/favorites' },
 ];
-export const ProfileSideBar: React.FC<Props> = async ({ className }) => {
-  const session = await getServerSession(authOptions);
+export const ProfileSideBar: React.FC<Props> = ({ className, session }) => {
+  const profileSideBar = useFilterStore((s) => s.profileSideBar);
   return (
-    <div className={cn(className, 'text-white')}>
+    <div
+      className={cn(
+        className,
+        profileSideBar ? 'hidden lg:block' : '',
+        'text-white w-[300px] min-h-[900px] p-5 rounded-[16px] bg-gray-dark-medium '
+      )}
+    >
       <h1 className='text-2xl my-4 font-bold'>Профиль пользователя</h1>
 
       <div className='flex gap-2'>

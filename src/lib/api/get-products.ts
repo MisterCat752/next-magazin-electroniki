@@ -13,7 +13,13 @@ export async function getProducts(params: {
 
   query.set('category', params.category);
   if (params.specs?.length) {
-    query.set('specs', params.specs.join(','));
+    const encoded = params.specs
+      .map(
+        (s) => `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
+      )
+      .join(',');
+
+    query.set('specs', encoded);
   }
   if (params.sort) query.set('sort', params.sort);
 

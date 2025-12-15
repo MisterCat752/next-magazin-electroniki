@@ -11,7 +11,12 @@ interface Props {
 export const WishLIshContent: React.FC<Props> = ({ className }) => {
   const items = useFavoriteStore((state) => state.items);
   return (
-    <div className={cn(className, 'flex  w-full gap-3   ')}>
+    <div
+      className={cn(
+        className,
+        'grid  grid-cols-[repeat(auto-fill,minmax(160px,1fr))]   gap-4  w-full     '
+      )}
+    >
       {items.length === 0 && <p>Пусто</p>}
 
       {items.map((item) => (

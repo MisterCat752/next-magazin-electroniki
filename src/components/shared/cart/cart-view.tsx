@@ -67,9 +67,9 @@ export const CartView: React.FC<Props> = ({ className }) => {
       <Container>
         <h1 className='text-2xl font-bold text-white'>Корзина</h1>
 
-        <div className='flex mt-10 gap-10 justify-between'>
+        <div className='flex flex-wrap justify-center items-center mt-10 gap-10 lg:justify-between'>
           {/* Список товаров */}
-          <div className='flex flex-col gap-7 w-full'>
+          <div className='flex flex-col  max-w-[750px] gap-7 w-full'>
             {items.map((item) => (
               <CartProduct
                 key={item.id}
@@ -131,7 +131,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
         </div>
 
         {/* Сумма заказа */}
-        <div className='mt-10 max-w-[623px] bg-gray-dark p-13 w-full rounded-2xl'>
+        <div className='mt-10 max-w-[750px]  mx-auto bg-gray-dark p-13 w-full rounded-2xl'>
           <CartSum
             bonusReceived={942}
             productCost={total}
