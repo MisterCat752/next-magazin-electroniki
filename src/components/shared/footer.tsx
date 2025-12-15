@@ -1,8 +1,74 @@
+'use client';
 import React from 'react';
+import { cn } from '@/lib/utils';
+import { Container } from '../layout/container';
+import Link from 'next/link';
+import { Heart, Search, ShoppingCart, Trash, User } from 'lucide-react';
+import { CatalogMenu } from './catalog-menu';
+import {
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui';
+import { Login } from './login';
+import { SearchInput } from './nav/search';
+import { useCartStore } from '@/store/cartStore';
+import { CartNavBAr } from './nav/cart-navBar';
+import { useSession } from 'next-auth/react';
+import { useFavoriteStore } from '@/store/favoriteStore';
 
 export function Footer() {
+  const items = useCartStore((state) => state.items);
+  const favorites = useFavoriteStore((state) => state.items);
+  const total = useCartStore((s) => s.totalPrice());
+  const { data: session, status } = useSession();
   return (
-    <footer className='bg-gray-dark-medium text-white w-full py-12'>
+    <footer className='bg-gray-dark-medium relative text-white w-full py-12'>
+      <footer className='fixed bottom-0 left-0 w-full bg-black text-white lg:hidden'>
+        <nav className='flex    justify-around items-center py-4'>
+          <div className='relative   '>
+            <CatalogMenu placeClassName='bottom-[70px]   text-black w-[500px]' />
+          </div>
+
+          <Link
+            href={
+              status === 'authenticated' ? 'profile/favorites' : '/wishlist'
+            }
+          >
+            <div className=' relative'>
+              <Heart className='text-white hover:text-green cursor-pointer' />
+
+              {favorites.length > 0 && (
+                <div className=' absolute -top-2 -right-3 bg-green w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-black'>
+                  {favorites.length}
+                </div>
+              )}
+            </div>
+          </Link>
+          <Link href={'/cart'}>
+            <div className=' relative'>
+              <ShoppingCart className='text-white hover:text-green cursor-pointer' />
+
+              {items.length > 0 && (
+                <div className=' absolute -top-2 -right-3 bg-green w-5 h-5 rounded-full flex items-center justify-center text-xs font-semibold text-black'>
+                  {items.length}
+                </div>
+              )}
+            </div>
+          </Link>
+          <Login />
+        </nav>
+      </footer>
       <div className='max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-16 px-6'>
         {/* Покупателям */}
         <div>

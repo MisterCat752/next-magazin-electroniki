@@ -41,12 +41,14 @@ export const NavBar: React.FC<Props> = ({ className }) => {
       className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[100] ')}
     >
       <Container>
-        <div className='py-5 flex justify-between items-center'>
+        <div className='py-5 flex gap-2 justify-between items-center'>
           <Link href='/' className='flex gap-2 items-center'>
             <img src='clicon.png' alt='clicon' />
-            <h2 className='text-white uppercase font-bold text-3xl'>CLICON</h2>
+            <h2 className='text-white hidden  sm:block uppercase font-bold text-3xl'>
+              CLICON
+            </h2>
           </Link>
-          <div>
+          <div className='hidden  sm:block'>
             <CatalogMenu />
           </div>
           <div className='max-w-[646px] w-full relative'>
@@ -54,7 +56,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
             {/* <Input className='' />
             <Search className='absolute top-2 right-2' width={20} height={20} /> */}
           </div>
-          <div className='text-white flex gap-4 items-center'>
+          <div className='text-white  hidden lg:flex gap-4 items-center'>
             <Popover>
               <PopoverTrigger>
                 {' '}

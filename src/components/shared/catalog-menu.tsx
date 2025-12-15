@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { cn } from '@/lib/utils';
 
 type Category = {
   id: string;
@@ -9,6 +10,9 @@ type Category = {
   slug?: string;
   parentId?: string | null;
   children?: Category[];
+};
+type ClassNamePosition = {
+  placeClassName?: string;
 };
 
 const promoImages = ['/images/promo1.png', '/images/promo2.png'];
@@ -55,7 +59,7 @@ async function fetchCategories(): Promise<Category[]> {
   return res.json();
 }
 
-export function CatalogMenu() {
+export function CatalogMenu(placeClassName: ClassNamePosition) {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -74,7 +78,7 @@ export function CatalogMenu() {
   }, [open, categories, hovered]);
 
   const current = categories.find((c) => c.id === hovered) ?? null;
-
+  console.log('Current category:', current, open, placeClassName);
   const NestedList: React.FC<{ node: Category }> = ({ node }) => {
     return (
       <li>
@@ -106,10 +110,13 @@ export function CatalogMenu() {
 
       {open && (
         <div
-          className='absolute inset-x-0 mx-auto top-36 max-w-[1200px] w-full h-[480px] bg-white shadow-2xl z-30 flex'
+          className={cn(
+            'absolute inset-x-0 mx-auto bg-gray-dark   max-w-[1200px] w-full h-[480px]   shadow-2xl z-30 flex',
+            placeClassName.placeClassName || 'top-[60px]'
+          )}
           onMouseLeave={() => setHovered(null)}
         >
-          <div className='w-[320px] border-r border-gray-300 h-full bg-gray-50 overflow-y-auto'>
+          <div className='max-w-[320px] border-r bg-gray-dark border-gray-300 h-full   overflow-y-auto'>
             {isLoading && (
               <div className='px-5 py-3 text-sm text-gray-500'>Загрузка...</div>
             )}

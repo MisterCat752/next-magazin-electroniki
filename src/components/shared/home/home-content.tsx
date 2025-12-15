@@ -13,7 +13,7 @@ export default function HomeContent() {
       <div className='bg-gray-dark-medium p-3 rounded-2xl'>
         <Slider
           options={{ loop: true }}
-          itemClassName='relative flex-[0_0_100%] rounded-2xl h-[400px] mr-4'
+          itemClassName='relative w-full rounded-2xl h-[500px] mr-4'
         >
           {images.map((src, i) => (
             <Image

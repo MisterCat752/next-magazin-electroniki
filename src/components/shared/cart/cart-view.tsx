@@ -39,7 +39,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
       phone,
       totalPrice: total,
       items: items.map((i: any) => ({
-        variantId: i.variantId.id, // ✅ только id
+        variantId: i.variantId, // ✅ только id
         quantity: i.count,
         price: i.price,
       })),

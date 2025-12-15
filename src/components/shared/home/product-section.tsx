@@ -32,7 +32,7 @@ export const ProductsSection: React.FC<Props> = ({
       <h2 className='text-xl text-white font-bold'>{title}</h2>
       <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
         {data?.products.map((p: IProduct) => (
-          <ProductCard key={p.id} {...p} />
+          <ProductCard variantId={p.variants[0].id} key={p.id} {...p} />
         ))}
       </Slider>
     </>

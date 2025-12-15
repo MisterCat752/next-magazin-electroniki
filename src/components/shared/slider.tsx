@@ -2,6 +2,7 @@
 
 import React, { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface SliderProps {
   children: React.ReactNode;
@@ -61,15 +62,15 @@ export function Slider({
         <>
           <button
             onClick={scrollPrev}
-            className='absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full'
+            className='absolute cursor-pointer left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full'
           >
-            ◀
+            <ArrowLeft className='h-[20px] w-[20px] text-white' />
           </button>
           <button
             onClick={scrollNext}
-            className='absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full'
+            className='absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full'
           >
-            ▶
+            <ArrowRight className='h-[20px] w-[20px] text-white' />
           </button>
         </>
       )}

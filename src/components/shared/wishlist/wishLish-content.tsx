@@ -20,7 +20,7 @@ export const WishLIshContent: React.FC<Props> = ({ className }) => {
           id={item.id}
           price={item.price}
           name={item.name}
-          image={item.imageUrl}
+          imageUrl={item.imageUrl}
           className='bg-gray-dark text-white'
         />
       ))}
