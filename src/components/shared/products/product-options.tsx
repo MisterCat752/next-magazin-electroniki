@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui';
+import { useCartStore } from '@/store/cartStore';
 
 interface ProductOptionsProps {
   product: any;
@@ -17,11 +18,15 @@ export default function ProductOptions({
   availableValues,
   onSelect,
 }: ProductOptionsProps) {
+  const addToCart = useCartStore((s) => s.addToCart);
   return (
     <div className='max-w-[305px]'>
       <h1 className='text-2xl font-semibold'>
-        {activeVariant.options.map((o: any) => o.value).join(' ')}{' '}
-        {product.name}
+        {activeVariant
+          ? `${activeVariant.options.map((o: any) => o.value).join(' ')} ${
+              product.name
+            }`
+          : product.name}
       </h1>
 
       {allOptions.map((opt) => (
@@ -54,10 +59,23 @@ export default function ProductOptions({
       ))}
 
       <p className='text-xl font-bold mt-40'>
-        {activeVariant.price.toLocaleString()} лей
+        {activeVariant
+          ? `${activeVariant.price.toLocaleString()} лей`
+          : 'Выберите характеристики'}
       </p>
 
-      <Button className='bg-green mt-2  py-[24px] px-[16px]  w-[281px] text-[16px] text-center rounded text-black font-semibold'>
+      <Button
+        onClick={() =>
+          addToCart({
+            id: product.id,
+            variantId: activeVariant, // ✅ тут важно
+            name: product.name,
+            price: activeVariant.price,
+            imageUrl: product.imageUrl,
+          })
+        }
+        className='bg-green mt-2  py-[24px] px-[16px]  w-[281px] text-[16px] text-center rounded text-black font-semibold'
+      >
         Купить
       </Button>
     </div>

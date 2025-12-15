@@ -3,6 +3,13 @@ export default function ProductSpecifications({
 }: {
   activeVariant: any;
 }) {
+  if (!activeVariant) {
+    return (
+      <p className='text-white mt-4'>
+        Выберите характеристики, чтобы увидеть спецификации
+      </p>
+    );
+  }
   const groupedSpecs: Record<string, any[]> = {};
 
   activeVariant.specifications.forEach((spec: any) => {

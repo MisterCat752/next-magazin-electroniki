@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 
 export interface CartItem {
   id: number;
+  variantId: number;
   name: string;
   price: number;
   imageUrl?: string;
@@ -18,7 +19,6 @@ interface CartStore {
   clearCart: () => void;
   totalPrice: () => number;
 }
-
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
@@ -26,12 +26,16 @@ export const useCartStore = create<CartStore>()(
 
       addToCart: (product) =>
         set((state) => {
-          const existing = state.items.find((i) => i.id === product.id);
+          const existing = state.items.find(
+            (i) => i.variantId === product.variantId
+          );
 
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.id === product.id ? { ...i, count: i.count + 1 } : i
+                i.variantId === product.variantId
+                  ? { ...i, count: i.count + 1 }
+                  : i
               ),
             };
           }
@@ -78,10 +82,9 @@ export const useCartStore = create<CartStore>()(
         return items.reduce((sum, item) => sum + item.price * item.count, 0);
       },
     }),
-
     {
-      name: 'cart-store', // ключ в localStorage
-      partialize: (state) => ({ items: state.items }), // сохраняем только items
+      name: 'cart-store',
+      partialize: (state) => ({ items: state.items }),
     }
   )
 );

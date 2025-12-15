@@ -14,6 +14,7 @@ interface Props {
   imageUrl?: string;
   price: number;
   discount?: number;
+  variantId?: number;
 }
 
 export const ProductCard: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const ProductCard: React.FC<Props> = ({
   id,
   price,
   discount,
+  variantId = 1,
 }) => {
   const addToCart = useCartStore((state) => state.addToCart);
   const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
@@ -94,6 +96,7 @@ export const ProductCard: React.FC<Props> = ({
                 name,
                 price,
                 imageUrl,
+                variantId,
               })
             }
           >

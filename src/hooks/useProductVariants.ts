@@ -1,0 +1,86 @@
+import { useMemo } from 'react';
+
+interface Variant {
+  id: number;
+  price: number;
+  options: { name: string; value: string }[];
+  specifications: any[];
+}
+
+export function useProductVariants(
+  product: any,
+  selectedOptions: Record<string, string>
+) {
+  const variants = useMemo<Variant[]>(() => {
+    if (!product) return [];
+    return product.variants.map((v: any) => ({
+      id: v.id,
+      price: v.price,
+      options: v.options.map((o: any) => ({
+        name: o.name,
+        value: o.value,
+      })),
+      specifications: v.specs,
+    }));
+  }, [product]);
+
+  const allOptions = useMemo(() => {
+    const map: Record<string, Set<string>> = {};
+    variants.forEach((variant) => {
+      variant.options.forEach((opt) => {
+        map[opt.name] ??= new Set();
+        map[opt.name].add(opt.value);
+      });
+    });
+    return Object.entries(map).map(([name, values]) => ({
+      name,
+      values: Array.from(values),
+    }));
+  }, [variants]);
+
+  const activeVariant = useMemo(() => {
+    if (variants.length === 0) return null;
+
+    if (Object.keys(selectedOptions).length === 0) {
+      // По умолчанию первый вариант
+      return variants[0];
+    }
+
+    return (
+      variants.find((variant) =>
+        Object.entries(selectedOptions).every(([name, value]) =>
+          variant.options.some((o) => o.name === name && o.value === value)
+        )
+      ) ?? variants[0] // Если не найдено совпадение, всё равно берём первый
+    );
+  }, [variants, selectedOptions]);
+
+  const availableValues = useMemo(() => {
+    const result: Record<string, Set<string>> = {};
+
+    allOptions.forEach((opt) => {
+      result[opt.name] = new Set();
+      variants.forEach((variant) => {
+        const match = Object.entries(selectedOptions).every(
+          ([name, value]) =>
+            name === opt.name ||
+            variant.options.some((o) => o.name === name && o.value === value)
+        );
+
+        if (match) {
+          const current = variant.options.find((o) => o.name === opt.name);
+          if (current) result[opt.name].add(current.value);
+        }
+      });
+    });
+
+    return result;
+  }, [variants, allOptions, selectedOptions]);
+
+  return {
+    variants,
+    allOptions,
+    activeVariant,
+    availableValues,
+  };
+}

@@ -14,6 +14,8 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  orders Order[]
 }
 
 model Category {
@@ -71,6 +73,8 @@ model ProductVariant {
   stock          Int
   optionValues   ProductVariantOptionValue[]
   specifications Specification[]
+
+  orderItems OrderItem[]
 }
 
 model Option {
@@ -117,4 +121,27 @@ model Specification {
   variantId Int
   group     SpecGroup      @relation(fields: [groupId], references: [id])
   groupId   Int
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  userId     Int?
+  user       User?       @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  fullName   String
+  email      String
+  phone      String
+  totalPrice Float
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id             Int            @id @default(autoincrement())
+  orderId        String
+  order          Order          @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productVariant ProductVariant @relation(fields: [variantId], references: [id])
+  variantId      Int
+  quantity       Int            @default(1)
+  price          Float
 }
