@@ -2,13 +2,24 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Container } from '@/components/layout/container';
-import { Button, Input } from '@/components/ui';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+} from '@/components/ui';
 import { CartProduct } from './cart-product';
 import { CartSum } from './cart-sum';
 import { useCartStore, CartItem } from '@/store/cartStore';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { User } from 'lucide-react';
 
 interface Props {
   className?: string;
@@ -24,7 +35,8 @@ export const CartView: React.FC<Props> = ({ className }) => {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-
+  const [open, setOpen] = useState(false); // 👈 открыт сразу
+  const [orderId, setOrderId] = useState('');
   if (!hydrated) return null;
 
   const handlePlaceOrder = async () => {
@@ -39,26 +51,25 @@ export const CartView: React.FC<Props> = ({ className }) => {
       phone,
       totalPrice: total,
       items: items.map((i: any) => ({
-        variantId: i.variantId, // ✅ только id
+        variantId: i.variantId.id, // ✅ только id
         quantity: i.count,
         price: i.price,
       })),
     };
 
     try {
-      console.log('Заказ:', items, orderData);
       const res = await axios.post('/api/order', orderData); // передаем напрямую
 
       if (res.status === 200) {
-        alert('Заказ успешно размещён');
-        // Очистить корзину
+        setOrderId(res.data.id);
+        toast.success('Заказ успешно размещён');
+        setOpen(true);
         useCartStore.getState().clearCart();
       } else {
         alert('Ошибка при размещении заказа');
       }
     } catch (err) {
       console.error(err);
-      alert('Ошибка сети');
     }
   };
 
@@ -69,7 +80,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
 
         <div className='flex flex-wrap justify-center items-center mt-10 gap-10 lg:justify-between'>
           {/* Список товаров */}
-          <div className='flex flex-col  max-w-[750px] gap-7 w-full'>
+          <div className='flex flex-col  max-w-[650px] gap-7 w-full'>
             {items.map((item) => (
               <CartProduct
                 key={item.id}
@@ -81,9 +92,19 @@ export const CartView: React.FC<Props> = ({ className }) => {
               />
             ))}
           </div>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className='sm:max-w-[425px] py-5 border-none text-white bg-[#1c1c1e]'>
+              <DialogHeader className='mt-15'>
+                <DialogTitle>Найдите ваш заказ по номеру в профиле</DialogTitle>
+              </DialogHeader>
 
+              <p className='text-[13px] text-gray-medium text-center font-bold my-5'>
+                {orderId ? `  № ${orderId}  .` : ''}
+              </p>
+            </DialogContent>
+          </Dialog>
           {/* Форма заказа */}
-          <div className='bg-gray-dark p-13 w-full rounded-2xl'>
+          <div className='bg-gray-dark p-13 w-full lg:w-[550px] rounded-2xl'>
             <div className='flex gap-3'>
               <div className='w-full'>
                 <Input

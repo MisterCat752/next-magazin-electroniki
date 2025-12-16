@@ -8,6 +8,7 @@ import { products2 } from '@/data/products';
 import { SessionProvider } from 'next-auth/react';
 import { AuthProvider } from '@/providers/AuthProvider';
 
+import { Toaster } from 'react-hot-toast';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({
 
           {children}
           <Footer />
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

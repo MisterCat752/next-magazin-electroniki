@@ -5,9 +5,13 @@ import { ProductCard } from './product-card';
 import { useProductsSection } from '@/hooks/useProductsSection';
 import type { IProduct } from '@/types';
 
-export const SimilarProducts = () => {
+export const SimilarProducts = ({
+  categorySlug,
+}: {
+  categorySlug?: string;
+}) => {
   const { data, isLoading } = useProductsSection({
-    category: 'samsung',
+    category: categorySlug ?? 'samsung',
     sort: 'createdAt_desc',
     queryKeySuffix: 'latest',
     limit: 5,

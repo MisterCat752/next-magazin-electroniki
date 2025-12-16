@@ -17,3 +17,18 @@
 --color-red-500 : #EE5858; 
  
 }
+
+.scroll-hidden {
+  overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / Edge (старые) */
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari, Opera */
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}

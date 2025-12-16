@@ -32,7 +32,7 @@ export default function ProductView({ productId }: { productId: number }) {
   return (
     <main className='pt-[100px] pb-[100px] bg-[#000]'>
       <Container>
-        <div className='flex flex-wrap gap-6'>
+        <div className='flex flex-wrap lg:flex-nowrap gap-6'>
           <div className='w-full'>
             <ProductImages images={product.sliderUrls} />
           </div>
@@ -60,7 +60,7 @@ export default function ProductView({ productId }: { productId: number }) {
 
         <ProductSpecifications activeVariant={activeVariant} />
 
-        <SimilarProducts />
+        <SimilarProducts categorySlug={product.categorySlug} />
       </Container>
     </main>
   );

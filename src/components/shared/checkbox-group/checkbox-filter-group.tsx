@@ -65,7 +65,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
     <div className={cn(className, ' ')}>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className='cursor-pointer  hover:text-green transition duration-200    flex justify-between items-center'
+        className='cursor-pointer  hover:text-green transition duration-200       flex justify-between items-center'
       >
         <p className='text-[16px] font-bold text-white hover:text-green transition duration-200'>
           {title}{' '}
@@ -106,7 +106,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
             );
           })}
       </div>
-      {items.length > limit && (
+      {/* {items.length > limit && (
         <div className={showAll ? ' border-t border-t-neutral-100  mt-4' : ''}>
           <button
             onClick={() => setShowAll(!showAll)}
@@ -115,7 +115,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
             {showAll ? 'скрыть' : 'показать все'}
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -9,6 +9,9 @@ import { seedFilters } from './filters.seed';
 import { seedSamsungProductItem } from './products/seedItem';
 import { buildSamsungFESpecs } from './buildSamsungFESpecs';
 import { specSams } from './data/specification';
+import { seedSamsungFE } from './seedProduct/seedSamsungFE';
+import { seedNoteBook } from './seedProduct/seedNoteBook/seedNoteBook';
+import { seedProduct } from './seedProduct/seedComponent/seedNoteBook';
 
 const prisma = new PrismaClient();
 
@@ -25,11 +28,15 @@ async function main() {
   console.log('📑 Seeding spec sections...');
   const sections = await seedSections(prisma);
 
-  console.log('📱 Seeding base products...');
-  await seedBaseProducts(prisma, options, categories, sections);
-
+  // console.log('📱 Seeding base products...');
+  // await seedBaseProducts(prisma, options, categories, sections);
   console.log('🔥 Seeding Samsung S222...');
 
+  await seedSamsungFE(prisma, options, categories, sections);
+  // await seedNoteBook(prisma, options, categories, sections);
+  console.log('🔥 Seeding NoteBook  ...');
+
+  await seedProduct(prisma, options, categories, sections);
   const samsungProduct3 = await seedSamsungProductItem(
     prisma,
     options,

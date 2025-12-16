@@ -16,6 +16,13 @@ export async function GET(
   const product = await prisma.product.findUnique({
     where: { id: productId },
     include: {
+      category: {
+        select: {
+          id: true,
+          name: true,
+          slug: true, // 👈 ВАЖНО
+        },
+      },
       variants: {
         include: {
           optionValues: {
@@ -24,9 +31,7 @@ export async function GET(
             },
           },
           specifications: {
-            include: {
-              group: true,
-            },
+            include: { group: true },
           },
         },
       },
@@ -51,6 +56,8 @@ export async function GET(
   return NextResponse.json({
     id: product.id,
     name: product.name,
+    categoryId: product.categoryId, // 👈 ВОТ ОНО
+    categorySlug: product.category?.slug,
     sliderUrls: product.sliderUrls,
     variants: product.variants.map((v) => ({
       id: v.id,

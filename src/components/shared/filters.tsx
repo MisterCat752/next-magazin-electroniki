@@ -40,17 +40,17 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
         <div
           className={cn(
             className,
-            'max-w-[250px]   fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-medium p-6 w-full'
+            ' w-[250px]    fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-dark-medium p-6 '
           )}
         >
           <Title text='Фильтрация' size='sm' className='mb-7 font-bold' />
           <div
             onClick={closeMobileFilters}
-            className='absolute lg:hidden top-5 right-5'
+            className='absolute lg:hidden top-5 right-5 '
           >
             X
           </div>
-          <div className='max-h-[500px] overflow-y-auto'>
+          <div className='max-h-[500px] scroll-hidden overflow-y-auto  '>
             {filters.map((filter) => {
               const filteredItems = filter.values
                 .filter((v) =>
@@ -75,7 +75,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
                 <div className='' key={filter.id}>
                   <div
                     key={filter.id}
-                    className='mb-6 mt-3 max-h-[300px] overflow-y-auto'
+                    className='mb-6 mt-3 max-h-[300px]  scroll-hidden overflow-y-auto'
                   >
                     <CheckboxFilterGroup
                       title={filter.name}
@@ -89,7 +89,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
                       }}
                       className='mt-2'
                     />
-                    {filter.values.length > 5 && (
+                    {/* {filter.values.length > 5 && (
                       <div className='mt-2'>
                         <Input
                           type='text'
@@ -101,7 +101,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
                           className='border-none bg-gray-50'
                         />
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               );

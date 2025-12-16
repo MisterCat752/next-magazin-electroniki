@@ -25,7 +25,14 @@ export async function seedOptions(prisma: any) {
     data: {
       name: 'Память',
       values: {
-        create: ['64 ГБ', '128 ГБ', '256 ГБ', '512 ГБ'].map((v) => ({
+        create: [
+          '64 ГБ',
+          '128 ГБ',
+          '256 ГБ',
+          '512 ГБ',
+          '16 ГБ|512 ГБ',
+          '32 ГБ|512 ГБ',
+        ].map((v) => ({
           value: v,
         })),
       },

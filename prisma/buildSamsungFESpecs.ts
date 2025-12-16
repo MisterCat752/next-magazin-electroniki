@@ -1,8 +1,15 @@
+interface SpecInput {
+  name: string;
+  value: string | number;
+  groupId: number; // или 'base' | 'display' и потом преобразовывать через map
+}
+
 type SpecsConfig = {
   sections: any;
   model: string;
   memory: string;
   color: string;
+  items?: SpecInput[];
   sectionId?: number;
 };
 
@@ -11,6 +18,7 @@ export function buildSamsungFESpecs({
   model,
   memory,
   color,
+  items,
   sectionId,
 }: SpecsConfig) {
   return [

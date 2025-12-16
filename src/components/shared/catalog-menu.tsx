@@ -84,7 +84,7 @@ export function CatalogMenu(placeClassName: ClassNamePosition) {
       <li>
         <a
           href={`http://localhost:3000/category/${node.slug}`}
-          className='cursor-pointer hover:underline'
+          className='cursor-pointer text-white hover:text-green transition duration-200 '
         >
           {node.name}
         </a>
