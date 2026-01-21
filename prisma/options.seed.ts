@@ -31,6 +31,8 @@ export async function seedOptions(prisma: any) {
           '256 ГБ',
           '512 ГБ',
           '16 ГБ|512 ГБ',
+          '8 ГБ|512 ГБ',
+          '16 ГБ|1 ТБ',
           '32 ГБ|512 ГБ',
         ].map((v) => ({
           value: v,

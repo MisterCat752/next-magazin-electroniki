@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 type Category = {
   id: string;
@@ -78,16 +79,16 @@ export function CatalogMenu(placeClassName: ClassNamePosition) {
   }, [open, categories, hovered]);
 
   const current = categories.find((c) => c.id === hovered) ?? null;
-  console.log('Current category:', current, open, placeClassName);
+
   const NestedList: React.FC<{ node: Category }> = ({ node }) => {
     return (
       <li>
-        <a
+        <Link
           href={`http://localhost:3000/category/${node.slug}`}
           className='cursor-pointer text-white hover:text-green transition duration-200 '
         >
           {node.name}
-        </a>
+        </Link>
         {node.children && node.children.length > 0 && (
           <ul className='ml-4 mt-1 space-y-1'>
             {node.children.map((ch) => (

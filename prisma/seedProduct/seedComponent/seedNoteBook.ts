@@ -9,7 +9,8 @@ export async function seedProduct(
   prisma: any,
   options: any,
   categories: any,
-  sections: any
+  sections: any,
+  SEED_PRODUCTS: any,
 ) {
   const createdProducts = [];
 
@@ -17,15 +18,16 @@ export async function seedProduct(
     const created = await useSeedProduct(
       prisma,
       options,
-      categories.gamingLaptops.id,
+      categories,
       sections,
       {
         name: product.name,
         slug: product.slug,
-        imageUrl: '/pc/asus.webp',
+        imageUrl:
+          'https://xstore.md/images/product/thumbs/2025/07/casex-carcasa-gamemax-storm-2-ab-xstore-md-52.webp',
         sliderUrls: SEED_SLIDER,
         variants: SEED_VARIANTS(sections, product.model),
-      }
+      },
     );
 
     createdProducts.push(created);

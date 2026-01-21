@@ -40,7 +40,6 @@ export const CategoryContent: React.FC<Props> = ({
   });
   const totalPages = data?.meta.totalPages ?? 1;
   const products = data?.products || [];
-  console.log('Rerender CategoryContent with products:', products);
   return (
     <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
       <Filters filters={filters} />

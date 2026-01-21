@@ -12,6 +12,9 @@ import { specSams } from './data/specification';
 import { seedSamsungFE } from './seedProduct/seedSamsungFE';
 import { seedNoteBook } from './seedProduct/seedNoteBook/seedNoteBook';
 import { seedProduct } from './seedProduct/seedComponent/seedNoteBook';
+import { seedProductsByCategory } from './seedProduct/seedComponent/seedProductsByCategory';
+import { LAPTOPS_SEED_CONFIG } from './seedProduct/seedComponent/lap-top/laptops.seed';
+import { SEED_PRODUCTS } from './seedProduct/seedComponent/seed.data';
 
 const prisma = new PrismaClient();
 
@@ -35,8 +38,21 @@ async function main() {
   await seedSamsungFE(prisma, options, categories, sections);
   // await seedNoteBook(prisma, options, categories, sections);
   console.log('🔥 Seeding NoteBook  ...');
+  console.log('🔥 Seeding laptops...');
 
-  await seedProduct(prisma, options, categories, sections);
+  await seedProductsByCategory(
+    prisma,
+    options,
+    sections,
+    LAPTOPS_SEED_CONFIG(categories),
+  );
+  await seedProduct(
+    prisma,
+    options,
+    categories.gamingLaptops.id,
+    sections,
+    SEED_PRODUCTS,
+  );
   const samsungProduct3 = await seedSamsungProductItem(
     prisma,
     options,
@@ -84,7 +100,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   console.log('🎛 Seeding filters...');
   await seedFilters(prisma, categories, samsungProduct3);
@@ -132,7 +148,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -178,7 +194,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -224,7 +240,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -270,7 +286,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -316,7 +332,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -362,7 +378,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -408,7 +424,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   await seedSamsungProductItem(
     prisma,
@@ -454,7 +470,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   console.log('🎛 Seeding filters...');
 
@@ -498,7 +514,7 @@ async function main() {
           ],
         },
       ],
-    }
+    },
   );
   console.log('🎛 Seeding filters...');
 

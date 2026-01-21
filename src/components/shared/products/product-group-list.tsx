@@ -56,7 +56,7 @@ export const ProductGroupList: React.FC<Props> = ({
             <ProductCard
               key={product.id}
               id={product.id}
-              price={product.variants[0].price}
+              price={product.price}
               variantId={product.variants[0].id}
               name={product.name}
               imageUrl={product?.imageUrl}
