@@ -58,6 +58,34 @@ export async function seedSections(prisma: PrismaClient) {
     },
     include: { groups: true },
   });
+  const graphic = await prisma.specSection.create({
+    data: {
+      name: 'Графика',
+      groups: { create: [{ name: 'Графика' }] },
+    },
+    include: { groups: true },
+  });
+  const connectivity = await prisma.specSection.create({
+    data: {
+      name: 'Связь',
+      groups: { create: [{ name: 'Связь' }] },
+    },
+    include: { groups: true },
+  });
+  const extra = await prisma.specSection.create({
+    data: {
+      name: 'Экстра',
+      groups: { create: [{ name: 'экстра' }] },
+    },
+    include: { groups: true },
+  });
+  const multimedia = await prisma.specSection.create({
+    data: {
+      name: 'Мультимедия',
+      groups: { create: [{ name: 'Мультимедия' }] },
+    },
+    include: { groups: true },
+  });
 
   return {
     baseGroup: base.groups[0],
@@ -68,5 +96,9 @@ export async function seedSections(prisma: PrismaClient) {
     software: software.groups[0],
     photoVideo: photoVideo.groups[0],
     procesor: procesor.groups[0],
+    graphic: graphic.groups[0],
+    extra: extra.groups[0],
+    connectivity: connectivity.groups[0],
+    multimedia: multimedia.groups[0],
   };
 }

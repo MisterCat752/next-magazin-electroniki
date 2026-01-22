@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 export async function findOption(
   prisma: PrismaClient,
   option: any,
-  value: any
+  value: any,
 ) {
   const result = await prisma.optionValue.findFirst({
     where: { optionId: option.id, value },
@@ -12,6 +12,6 @@ export async function findOption(
   return result.id;
 }
 
-export function makeSku(slug: string, mem: string, color: string) {
-  return `${slug}-${mem.replace(/\s/g, '')}-${color.replace(/\s|\|/g, '')}`;
+export function makeSku(slug: string, mem: string, color?: string) {
+  return `${slug}-${mem.replace(/\s/g, '')}-${color?.replace(/\s|\|/g, '')}`;
 }

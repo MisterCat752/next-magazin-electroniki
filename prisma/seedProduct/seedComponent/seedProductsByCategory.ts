@@ -9,6 +9,8 @@ type ProductSeedConfig = {
     slug: string;
     model?: string;
     variants: any;
+    imageUrl: any;
+    sliderUrls: any;
   }[];
 };
 
@@ -29,8 +31,8 @@ export async function seedProductsByCategory(
       {
         name: product.name,
         slug: product.slug,
-        imageUrl: config.imageUrl,
-        sliderUrls: config.sliderUrls,
+        imageUrl: product.imageUrl,
+        sliderUrls: product.sliderUrls,
         variants: product.variants(sections, product.model),
       },
     );

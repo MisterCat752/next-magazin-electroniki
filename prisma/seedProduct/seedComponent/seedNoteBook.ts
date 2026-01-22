@@ -1,9 +1,10 @@
 // products/seedSamsungFE.ts
 
-import { SEED_SLIDER, SEED_VARIANTS } from './seed.constants';
+import { SEED_VARIANTS } from './seed.constants';
 import { SEED_PRODUCTS } from './seed.data';
 import { seedSamsungProductItem } from '../../products/seedItem';
 import { useSeedProduct } from './useSeedProduct';
+import { SEED_SLIDER } from './lap-top/sliderData';
 
 export async function seedProduct(
   prisma: any,
