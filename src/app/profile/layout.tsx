@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <div className=''>
       <NavBar />
-      <main className='bg-[#000] pt-25 flex gap-4    justify-between '>
+      <main className='bg-[#000] pt-25 flex gap-4  relative  justify-between '>
         <ProfileSideBar session={session} />
 
         <div className='w-full'>{children}</div>

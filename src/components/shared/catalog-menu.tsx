@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { OpenSideButton } from './profile/open-side-button';
 
 type Category = {
   id: string;
@@ -108,12 +109,11 @@ export function CatalogMenu(placeClassName: ClassNamePosition) {
       >
         <span className='font-bold'>Каталог</span>
       </button>
-
       {open && (
         <div
           className={cn(
             'absolute inset-x-0 mx-auto bg-gray-dark   max-w-[1200px] w-full h-[480px]   shadow-2xl z-30 flex',
-            placeClassName.placeClassName || 'top-[60px]'
+            placeClassName.placeClassName || 'top-[60px]',
           )}
           onMouseLeave={() => setHovered(null)}
         >

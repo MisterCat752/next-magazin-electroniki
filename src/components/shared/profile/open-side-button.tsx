@@ -1,24 +1,47 @@
 'use client';
+
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 import { useFilterStore } from '@/store/filterStore';
+import { cn } from '@/lib/utils';
+import { LucideMenu, LucideUser } from 'lucide-react';
 
 interface Props {
   className?: string;
 }
 
 export const OpenSideButton: React.FC<Props> = ({ className }) => {
-  const toggleProfile = useFilterStore((state) => state.toggleProfile);
+  const pathname = usePathname();
+
+  const toggleProfile = useFilterStore((s) => s.toggleProfile);
+  const toggleMobileFilters = useFilterStore((s) => s.toggleMobileFilters);
+
+  // Определяем тип кнопки по роуту
+  const handleClick = () => {
+    if (pathname.startsWith('/profile')) {
+      toggleProfile();
+    } else {
+      toggleMobileFilters();
+    }
+  };
+
+  // Иконка меняем тоже по маршруту
+  const icon = pathname.startsWith('/profile') ? (
+    <LucideUser size={20} />
+  ) : (
+    <LucideMenu size={20} />
+  );
 
   return (
-    <div
-      onClick={toggleProfile}
+    <button
+      onClick={handleClick}
       className={cn(
         className,
-        'px-4 py-5 block lg:hidden border border-green text-white '
+        'flex flex-col items-center gap-2   rounded-xl   text-white lg:hidden',
       )}
     >
-      Open Side
-    </div>
+      {icon}
+      <span>{pathname.startsWith('/profile') ? 'Профиль' : 'Фильтры'}</span>
+    </button>
   );
 };

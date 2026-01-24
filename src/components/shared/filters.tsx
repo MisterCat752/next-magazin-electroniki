@@ -40,7 +40,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
         <div
           className={cn(
             className,
-            ' w-[250px]    fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-dark-medium p-6 '
+            ' w-[250px]    fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh]  bg-gray-dark  p-6 ',
           )}
         >
           <Title text='Фильтрация' size='sm' className='mb-7 font-bold' />
@@ -58,7 +58,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
                     ? v.value
                         .toLowerCase()
                         .includes(searchTerms[filter.id].toLowerCase())
-                    : true
+                    : true,
                 )
                 .map((v) => ({
                   text: v.value, // то, что будет на чекбоксе
@@ -68,7 +68,7 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
               const selectedIds = new Set(
                 selectedSpecs
                   .filter((s) => s.name === filter.name)
-                  .map((s) => s.value)
+                  .map((s) => s.value),
               );
 
               return (

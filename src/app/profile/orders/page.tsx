@@ -12,10 +12,9 @@ export default function Page({ className }: Props) {
     <div
       className={cn(
         className,
-        'p-8 bg-gray-dark-medium w-full max-w-[800px] min-h-[500px] rounded-[16px]'
+        'p-8 bg-gray-dark-medium w-full max-w-[800px] min-h-[500px] rounded-[16px]',
       )}
     >
-      <OpenSideButton />
       <h1 className='text-white font-bold text-[24px] mb-4'>Ваши заказы</h1>
 
       <OrdersClient />

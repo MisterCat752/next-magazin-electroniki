@@ -26,6 +26,7 @@ import { useCartStore } from '@/store/cartStore';
 import { CartNavBAr } from './nav/cart-navBar';
 import { useSession } from 'next-auth/react';
 import { useFavoriteStore } from '@/store/favoriteStore';
+import { OpenSideButton } from './profile/open-side-button';
 
 export function Footer() {
   const items = useCartStore((state) => state.items);
@@ -39,10 +40,11 @@ export function Footer() {
           <div className='relative   '>
             <CatalogMenu placeClassName='bottom-[70px]   text-black w-[500px]' />
           </div>
+          <OpenSideButton />
 
           <Link
             href={
-              status === 'authenticated' ? 'profile/favorites' : '/wishlist'
+              status === 'authenticated' ? '/profile/favorites' : '/wishlist'
             }
           >
             <div className=' relative'>
