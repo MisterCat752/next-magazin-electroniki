@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Filters, ProductGroupList } from '@/components/shared';
 import { useFilterStore } from '@/store/filterStore';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
@@ -23,7 +23,13 @@ export const CategoryContent: React.FC<Props> = ({
   const selectedSpecs = useFilterStore((s) => s.selectedSpecs);
   const sort = useFilterStore((s) => s.sort);
   const [page, setPage] = React.useState(1);
-
+  const specsKey = React.useMemo(
+    () => JSON.stringify(selectedSpecs),
+    [selectedSpecs],
+  );
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page, sort, category, specsKey]);
   const { data, isLoading } = useQuery({
     queryKey: ['products', category, selectedSpecs, sort, page],
     queryFn: () =>
@@ -32,12 +38,13 @@ export const CategoryContent: React.FC<Props> = ({
         specs: selectedSpecs,
         sort,
         page,
-        limit: 5,
+        limit: 12,
       }),
 
     placeholderData: keepPreviousData,
     staleTime: 3_000,
   });
+
   const totalPages = data?.meta.totalPages ?? 1;
   const products = data?.products || [];
   return (

@@ -67,7 +67,6 @@ export async function useSeedProduct(
           optionValues: {
             create: [
               { optionValueId: memId },
-              { optionValueId: simId },
               { optionValueId: videoMemId },
               { optionValueId: procesor },
             ],

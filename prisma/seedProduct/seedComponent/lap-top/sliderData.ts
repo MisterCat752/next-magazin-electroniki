@@ -25,3 +25,9 @@ export const SLIDER_ASUS_ROG = [
   'https://xstore.md/images/product/2025/04/asus-rog-strix-18-g815lw-6-xstore-md-86.webp',
   'https://xstore.md/images/product/2025/04/asus-rog-strix-18-g815lw-3-xstore-md-15.webp',
 ];
+export const SLIDER_HP_OMEN = [
+  'https://xstore.md/images/product/2025/07/hp-omen-max-16-ah0023ci-xstore-md-48.webp',
+  'https://xstore.md/images/product/2025/07/hp-omen-max-16-ah0023ci-1-xstore-md-43.webp',
+  'https://xstore.md/images/product/2025/07/hp-omen-max-16-ah0023ci-2-xstore-md-94.webp',
+  'https://xstore.md/images/product/2025/07/hp-omen-max-16-ah0023ci-3-xstore-md-32.webp',
+];
