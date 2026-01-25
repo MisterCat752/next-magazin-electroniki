@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma/prisma-client';
-
+import { getAllCategoryIds } from '@/lib/api/getAllCategoryIds';
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -42,9 +42,18 @@ export async function GET(req: Request) {
       where: { slug: categorySlug },
       select: { id: true },
     });
-    if (!category) return NextResponse.json({ products: [] });
 
-    const whereClause: any = { categoryId: category.id };
+    if (!category) {
+      return NextResponse.json({ products: [] });
+    }
+
+    // 🔥 получаем id текущей + всех подкатегорий
+    const categoryIds = await getAllCategoryIds(prisma, category.id);
+
+    // 🔥 фильтр сразу по всем категориям
+    const whereClause: any = {
+      categoryId: { in: categoryIds },
+    };
 
     // Variant-level specs
     if (specFilters.length > 0) {
@@ -64,7 +73,7 @@ export async function GET(req: Request) {
               value: { in: Array.from(valuesSet) },
             },
           },
-        })
+        }),
       );
 
       // Важный момент: здесь мы ставим AND — т.е. одна вариация должна удовлетворять всем условием

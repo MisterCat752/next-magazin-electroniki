@@ -142,18 +142,23 @@ export function CatalogMenu(placeClassName: ClassNamePosition) {
           <div className='flex-1 flex flex-row h-full'>
             <div className='flex-1 px-7 py-7 overflow-y-auto grid grid-cols-3 gap-8'>
               {!current || current.children?.length === 0 ? (
-                <div className='text-gray-500'>Нет подкатегорий</div>
+                <div className='text-gray-500'> </div>
               ) : (
                 current.children!.map((sub) => (
                   <div key={sub.id}>
-                    <div className='font-bold mb-2'>{sub.name}</div>
+                    <Link
+                      href={`http://localhost:3000/category/${sub.slug}`}
+                      className='font-bold mb-2 text-green'
+                    >
+                      {sub.name}
+                    </Link>
                     <ul className='space-y-1'>
                       {sub.children && sub.children.length > 0 ? (
                         sub.children.map((child) => (
                           <NestedList key={child.id} node={child} />
                         ))
                       ) : (
-                        <li className='text-gray-500'>Нет дочерних</li>
+                        <li className='text-gray-500'> </li>
                       )}
                     </ul>
                   </div>
