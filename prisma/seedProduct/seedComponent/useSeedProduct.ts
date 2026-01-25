@@ -48,6 +48,7 @@ export async function useSeedProduct(
         options.videoMemory,
         variant.videoMemory,
       );
+      const color = await findOption(prisma, options.color, variant.color);
       const procesor = await findOption(
         prisma,
         options.procesor,
@@ -56,7 +57,9 @@ export async function useSeedProduct(
       const simId = variant.sim
         ? await findOption(prisma, options.sim, variant.sim)
         : undefined;
-
+      const optionValueIds = [color, memId, videoMemId, procesor, simId].filter(
+        (id): id is number => Boolean(id),
+      );
       await prisma.productVariant.create({
         data: {
           productId: product.id,
@@ -65,11 +68,9 @@ export async function useSeedProduct(
           stock: variant.stock ?? Math.floor(Math.random() * 20) + 1,
 
           optionValues: {
-            create: [
-              { optionValueId: memId },
-              { optionValueId: videoMemId },
-              { optionValueId: procesor },
-            ],
+            create: optionValueIds.map((id) => ({
+              optionValueId: id,
+            })),
           },
 
           specifications: {

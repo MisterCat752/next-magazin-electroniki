@@ -1,10 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-export async function seedFilters(
-  prisma: PrismaClient,
-  categories: any,
-  samsungProduct: any
-) {
+export async function seedFilters(prisma: PrismaClient, categories: any) {
   const memory = await prisma.filter.create({
     data: {
       name: 'Память',
@@ -133,17 +129,5 @@ export async function seedFilters(
       },
     },
     include: { values: true },
-  });
-  await prisma.product.update({
-    where: { id: samsungProduct.id },
-    data: {
-      filters: {
-        connect: [
-          { id: memory.values[0].id },
-          { id: ram.values[0].id },
-          { id: color.values[0].id },
-        ],
-      },
-    },
   });
 }

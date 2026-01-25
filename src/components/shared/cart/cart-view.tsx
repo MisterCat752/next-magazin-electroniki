@@ -44,14 +44,14 @@ export const CartView: React.FC<Props> = ({ className }) => {
       alert('Заполните все поля');
       return;
     }
-
+    console.log(items, 'items');
     const orderData = {
       fullName: `${firstName} ${lastName}`,
       email,
       phone,
       totalPrice: total,
       items: items.map((i: any) => ({
-        variantId: i.variantId.id, // ✅ только id
+        variantId: i.variantId, // ✅ только id
         quantity: i.count,
         price: i.price,
       })),
