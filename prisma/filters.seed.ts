@@ -1,45 +1,98 @@
 import { PrismaClient } from '@prisma/client';
 
 export async function seedFilters(prisma: PrismaClient, categories: any) {
-  const memory = await prisma.filter.create({
+  // ======================
+  // Память для Samsung
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'Память',
-      categoryId: categories.samsung.id,
-      values: {
-        create: [{ value: '256 ГБ' }, { value: '512 ГБ' }],
+      category: {
+        connect: [
+          { id: categories.samsung.id },
+          { id: categories.appleLaptops.id },
+          { id: categories.gamingLaptops.id },
+        ],
       },
-    },
-    include: { values: true },
-  });
-
-  const color = await prisma.filter.create({
-    data: {
-      name: 'Цвет',
-      categoryId: categories.samsung.id,
       values: {
         create: [
-          { value: 'Тёмно-синий' },
-          { value: 'Черный' },
-          { value: 'Синий' },
-          { value: 'Белый' },
+          { value: '8 ГБ' },
+          { value: '16 ГБ' },
+          { value: '32 ГБ' },
+          { value: '64 ГБ' },
+          { value: '256 ГБ' },
+          { value: '512 ГБ' },
         ],
       },
     },
-    include: { values: true },
   });
 
-  const ram = await prisma.filter.create({
+  // ======================
+  // Цвет для Samsung
+  // ======================
+  await prisma.filter.create({
+    data: {
+      name: 'Цвет',
+      category: {
+        connect: [
+          { id: categories.samsung.id },
+          { id: categories.xiaomiPhones.id },
+          { id: categories.applePhones.id },
+          { id: categories.motorolaPhones.id },
+          { id: categories.ulefonePhones.id },
+          { id: categories.huaweiPhones.id },
+        ],
+      },
+      values: {
+        create: [
+          { value: 'Черный' },
+          { value: 'Белый' },
+          { value: 'Синий' },
+          { value: 'Тёмно-синий' },
+          { value: 'Красный' },
+          { value: 'Серебристый' },
+        ],
+      },
+    },
+  });
+
+  // ======================
+  // RAM для нескольких категорий сразу
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'RAM',
-      categoryId: categories.samsung.id,
-      values: { create: [{ value: '8 ГБ' }] },
+      category: {
+        connect: [
+          { id: categories.gamingLaptops.id },
+
+          { id: categories.appleLaptops.id },
+        ],
+      },
+      values: {
+        create: [
+          { value: '64 ГБ' },
+          { value: '32 ГБ' },
+          { value: '24 ГБ' },
+          { value: '16 ГБ' },
+          { value: '8 ГБ' },
+        ],
+      },
     },
-    include: { values: true },
   });
-  const brand = await prisma.filter.create({
+
+  // ======================
+  // Бренд для игровых ноутбуков
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'Бренд',
-      categoryId: categories.gamingLaptops.id,
+      category: {
+        connect: [
+          { id: categories.gamingLaptops.id },
+          { id: categories.laptopPc.id },
+        ],
+      },
       values: {
         create: [
           { value: 'Asus' },
@@ -49,12 +102,20 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         ],
       },
     },
-    include: { values: true },
   });
-  const line = await prisma.filter.create({
+
+  // ======================
+  // Линия для игровых ноутбуков
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'Линия',
-      categoryId: categories.gamingLaptops.id,
+      category: {
+        connect: [
+          { id: categories.gamingLaptops.id },
+          { id: categories.laptopPc.id },
+        ],
+      },
       values: {
         create: [
           { value: 'Inspiron 15 7000' },
@@ -70,32 +131,25 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         ],
       },
     },
-    include: { values: true },
   });
-  const ramPc = await prisma.filter.create({
-    data: {
-      name: 'RAM',
-      categoryId: categories.gamingLaptops.id,
-      values: {
-        create: [
-          { value: '64 ГБ' },
-          { value: '32 ГБ' },
-          { value: '24 ГБ' },
-          { value: '16 ГБ' },
-          { value: '8 ГБ' },
-        ],
-      },
-    },
-    include: { values: true },
-  });
-  const displayPc = await prisma.filter.create({
+
+  // ======================
+  // Тип разрешения экрана для ПК
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'Тип разрешения экрана',
-      categoryId: categories.gamingLaptops.id,
+      category: {
+        connect: [
+          { id: categories.gamingLaptops.id },
+          { id: categories.laptopPc.id },
+          { id: categories.monitors?.id },
+        ],
+      },
       values: {
         create: [
           { value: '3.2 K' },
-          { value: '2.5 К' },
+          { value: '2.5 K' },
           { value: '4K' },
           { value: '3K' },
           { value: '2K' },
@@ -107,12 +161,17 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         ],
       },
     },
-    include: { values: true },
   });
-  const mocel = await prisma.filter.create({
+
+  // ======================
+  // Модель видеокарты
+  // ======================
+  await prisma.filter.create({
     data: {
       name: 'Модель видеокарты',
-      categoryId: categories.gamingLaptops.id,
+      category: {
+        connect: [{ id: categories.gamingLaptops.id }],
+      },
       values: {
         create: [
           { value: 'GeForce RTX 4070' },
@@ -128,6 +187,5 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         ],
       },
     },
-    include: { values: true },
   });
 }

@@ -129,12 +129,14 @@ export function CatalogMenu(placeClassName: ClassNamePosition) {
                 className={`flex items-center gap-3 px-5 py-3 cursor-pointer transition
                   ${
                     hovered === cat.id
-                      ? 'bg-white border-l-4 border-[#043652] font-bold'
-                      : 'hover:bg-gray-100'
+                      ? 'bg-gray border-l-4 border-[#043652] font-bold'
+                      : 'hover:bg-gray'
                   }`}
               >
                 <span>{IconBySlug(cat.slug)}</span>
-                <span>{cat.name}</span>
+                <span className='text-white font-bold text-[14px]'>
+                  {cat.name}
+                </span>
               </div>
             ))}
           </div>

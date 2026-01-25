@@ -820,5 +820,9 @@ export async function seedCategories(prisma: any) {
     ulefonePhones,
     onePlusPhones,
     huaweiPhones,
+    monitors,
+    computers,
+    pcParts,
+    peripherals,
   };
 }

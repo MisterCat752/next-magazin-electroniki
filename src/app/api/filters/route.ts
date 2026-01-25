@@ -1,45 +1,70 @@
+//api/filters/route.ts
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/prisma/prisma-client';
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const categorySlug = searchParams.get('category');
-  const filterIds = searchParams.getAll('filters'); // массив id фильтров
+  try {
+    const { searchParams } = new URL(req.url);
+    const categorySlug = searchParams.get('category');
+    const filterIds = searchParams.getAll('filters'); // массив id фильтров
 
-  // Находим категорию
-  const category = await prisma.category.findUnique({
-    where: { slug: categorySlug || undefined },
-  });
+    if (!categorySlug) {
+      return NextResponse.json(
+        { error: 'Категория не указана' },
+        { status: 400 },
+      );
+    }
 
-  if (!category)
-    return NextResponse.json(
-      { error: 'Категория не найдена' },
-      { status: 404 }
-    );
+    // Находим родительскую категорию
+    const parentCategory = await prisma.category.findUnique({
+      where: { slug: categorySlug },
+    });
 
-  // Получаем фильтры этой категории
-  const filters = await prisma.filter.findMany({
-    where: { categoryId: category.id },
-    include: { values: true },
-  });
+    if (!parentCategory) {
+      return NextResponse.json(
+        { error: 'Категория не найдена' },
+        { status: 404 },
+      );
+    }
 
-  // Получаем продукты с фильтрацией
-  let where: any = { categoryId: category.id };
-  if (filterIds.length > 0) {
-    where.filters = {
-      some: { id: { in: filterIds.map((id) => Number(id)) } },
-    };
+    // Получаем id родителя + всех дочерних категорий
+    const allCategories = await prisma.category.findMany({
+      where: {
+        OR: [{ id: parentCategory.id }, { parentId: parentCategory.id }],
+      },
+      select: { id: true },
+    });
+
+    const categoryIds = allCategories.map((c) => c.id);
+
+    // Получаем фильтры для этих категорий
+    const filters = await prisma.filter.findMany({
+      where: {
+        category: { some: { id: { in: categoryIds } } },
+      },
+      include: { values: true },
+    });
+
+    // Получаем продукты категории и всех дочерних
+    let productWhere: any = { categoryId: { in: categoryIds } };
+
+    if (filterIds.length > 0) {
+      productWhere.filters = {
+        some: { id: { in: filterIds.map((id) => Number(id)) } },
+      };
+    }
+
+    const products = await prisma.product.findMany({
+      where: productWhere,
+      include: {
+        variants: { include: { optionValues: true, specifications: true } },
+        filters: true,
+      },
+    });
+
+    return NextResponse.json({ filters, products });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Ошибка сервера' }, { status: 500 });
   }
-
-  const products = await prisma.product.findMany({
-    where,
-    include: {
-      variants: { include: { optionValues: true, specifications: true } },
-      filters: true,
-    },
-  });
-
-  return NextResponse.json({ filters, products });
 }

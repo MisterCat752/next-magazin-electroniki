@@ -27,15 +27,14 @@ model Category {
   children Category[] @relation("CategoryToParent")
 
   products Product[] // Товары, привязанные к этой категории
-  filters  Filter[] // Товары, привязанные к этой категории
+  filters  Filter[]  @relation("FilterToCategory") // Товары, привязанные к этой категории
 }
 
 model Filter {
-  id         Int           @id @default(autoincrement())
-  name       String // Процессор, Цвет, Память
-  categoryId String? // К какой категории этот фильтр относится
-  category   Category?     @relation(fields: [categoryId], references: [id])
-  values     FilterValue[]
+  id       Int           @id @default(autoincrement())
+  name     String // Процессор, Цвет, Память 
+  category Category[]    @relation("FilterToCategory")
+  values   FilterValue[]
 }
 
 model FilterValue {
