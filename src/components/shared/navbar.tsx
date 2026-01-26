@@ -26,6 +26,7 @@ import { useCartStore } from '@/store/cartStore';
 import { CartNavBAr } from './nav/cart-navBar';
 import { useSession } from 'next-auth/react';
 import { useFavoriteStore } from '@/store/favoriteStore';
+import { CartNavBarItem } from './nav/CartNavBarItem';
 
 interface Props {
   className?: string;
@@ -70,21 +71,31 @@ export const NavBar: React.FC<Props> = ({ className }) => {
                 </div>
               </PopoverTrigger>
               <PopoverContent className='  mt-7 w-full bg-gray-dark max-w-[520px]'>
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className='  bg-gray-medium rounded-[14px] gap-3 relative p-3 mb-2'
-                  >
-                    <CartNavBAr
-                      name={item.name}
-                      imageUrl={item.imageUrl}
-                      price={item.price}
-                      id={item.id}
-                      count={item.count}
-                    />
+                {items.length === 0 && (
+                  <div className='flex items-center justify-center h-[200px] text-gray-400 text-sm'>
+                    🛒 Корзина пуста
                   </div>
-                ))}
-
+                )}{' '}
+                <div
+                  className='
+         h-[360px]
+        overflow-y-auto
+        flex flex-col
+        gap-2
+        pr-1
+        scrollbar-thin
+        scrollbar-thumb-gray-700
+      '
+                >
+                  {items.map((item) => (
+                    <div
+                      key={item.id}
+                      className='  bg-gray-medium rounded-[14px] gap-3 relative p-3 mb-2'
+                    >
+                      <CartNavBarItem key={item.id} {...item} />
+                    </div>
+                  ))}
+                </div>
                 <div className='mt-10 flex flex-col items-center justify-center gap-3'>
                   <div className='text-white text-[18px] font-medium'>
                     <p>Итого: {total} MDL</p>

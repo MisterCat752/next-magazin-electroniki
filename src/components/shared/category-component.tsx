@@ -51,7 +51,7 @@ export const CategoryContent: React.FC<Props> = ({
     <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
       <Filters filters={filters} />
 
-      <div className='w-full'>
+      <div className='w-full px-2'>
         {isLoading ? (
           <p className='text-white'>Загрузка...</p>
         ) : (

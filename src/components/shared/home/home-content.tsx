@@ -1,11 +1,9 @@
 import { CategoryCard, Slider } from '@/components/shared';
-import { categories } from '@/data';
+import { categories, HomeSliderImages } from '@/data';
 import Image from 'next/image';
 import { ProductsSection } from './product-section';
 
 export default function HomeContent() {
-  const images = ['/iphone.webp', '/iphone.webp', '/xiamo.webp'];
-
   return (
     <main className='p-6 space-y-10 bg-black'>
       {/* Фото-слайдер */}
@@ -15,12 +13,11 @@ export default function HomeContent() {
           options={{ loop: true }}
           itemClassName='relative w-full rounded-2xl h-[500px] mr-4'
         >
-          {images.map((src, i) => (
-            <Image
+          {HomeSliderImages.map((src, i) => (
+            <img
               key={i}
               src={src}
               alt={`slide-${i}`}
-              fill
               className='object-cover rounded-2xl'
             />
           ))}

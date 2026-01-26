@@ -29,16 +29,16 @@ export const ProductCard: React.FC<Props> = ({
   const addToCart = useCartStore((state) => state.addToCart);
   const toggleFavorite = useFavoriteStore((s) => s.toggleFavorite);
   const isInWishlist = useFavoriteStore((state) =>
-    state.items.some((item) => item.id === id)
+    state.items.some((item) => item.id === id),
   );
   const isAddedToCart = useCartStore((state) =>
-    state.items.some((item) => item.id === id)
+    state.items.some((item) => item.id === id),
   );
   return (
     <div
       className={cn(
         className,
-        'group border bg-gray-dark-medium shadow-sm flex flex-col max-w-[226px] gap-2 min-h-[430px]   rounded-2xl px-[8px] py-3 transition-all duration-300  hover:shadow-lg hover:border-gray-medium   '
+        'group border bg-gray-dark-medium shadow-sm flex flex-col  max-w-[226px] gap-2 min-h-[380px]   rounded-2xl px-[8px] py-3 transition-all duration-300  hover:shadow-lg hover:border-gray-medium   ',
       )}
     >
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}
@@ -49,7 +49,7 @@ export const ProductCard: React.FC<Props> = ({
         <div
           className={cn(
             'cursor-pointer p-1 absolute top-2 right-2 bg-gray-dark-medium  rounded-[5px]    ',
-            isInWishlist ? 'bg-green' : ''
+            isInWishlist ? 'bg-green' : '',
           )}
         >
           <Heart
@@ -88,7 +88,7 @@ export const ProductCard: React.FC<Props> = ({
             className={cn(
               '       rounded-[11px] bg-green cursor-pointer',
               'hover:bg-orange hover:border-primary transition-colors duration-300',
-              isAddedToCart ? 'bg-orange  ' : ''
+              isAddedToCart ? 'bg-orange  ' : '',
             )}
             onClick={() =>
               addToCart({

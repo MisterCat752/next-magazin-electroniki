@@ -78,7 +78,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
       <Container>
         <h1 className='text-2xl font-bold text-white'>Корзина</h1>
 
-        <div className='flex flex-wrap justify-center items-center mt-10 gap-10 lg:justify-between'>
+        <div className='flex flex-wrap justify-center   mt-10 gap-10 lg:justify-between'>
           {/* Список товаров */}
           <div className='flex flex-col  max-w-[650px] gap-7 w-full'>
             {items.map((item) => (
@@ -104,7 +104,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
             </DialogContent>
           </Dialog>
           {/* Форма заказа */}
-          <div className='bg-gray-dark p-13 w-full lg:w-[550px] rounded-2xl'>
+          <div className='bg-gray-dark p-13 w-full max-h-[450px] lg:w-[550px] rounded-2xl'>
             <div className='flex gap-3'>
               <div className='w-full'>
                 <Input
