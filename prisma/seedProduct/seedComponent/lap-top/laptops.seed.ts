@@ -29,19 +29,6 @@ export const LAPTOPS_SEED_CONFIG = (
 
   products: [
     // asus
-    {
-      name: 'ASUS TUF Gaming A15',
-      slug: 'asus-tuf-gaming-a15',
-      model: 'FA506NFR',
-      imageUrl:
-        'https://xstore.md/images/product/thumbs/2025/10/lenovo-legion-pro-5-16irx10-xstore-md-75.webp',
-      sliderUrls: SEED_SLIDER,
-
-      variants: (sections: any, model: any) => [
-        ...buildA15Variants(sections, model),
-        ...buildA17Variants(sections, model),
-      ],
-    },
 
     {
       name: 'ASUS TUF Gaming A17',

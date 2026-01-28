@@ -42,24 +42,40 @@ export async function useSeedProduct(
   // Создаём все варианты параллельно через Promise.all
   await Promise.all(
     productItem.variants.map(async (variant) => {
-      const memId = await findOption(prisma, options.memory, variant.memory);
-      const videoMemId = await findOption(
-        prisma,
-        options.videoMemory,
-        variant.videoMemory,
-      );
-      const color = await findOption(prisma, options.color, variant.color);
-      const procesor = await findOption(
-        prisma,
-        options.procesor,
-        variant.procesor,
-      );
-      const simId = variant.sim
-        ? await findOption(prisma, options.sim, variant.sim)
-        : undefined;
-      const optionValueIds = [color, memId, videoMemId, procesor, simId].filter(
-        (id): id is number => Boolean(id),
-      );
+      const optionValueIds: number[] = [];
+
+      if (variant.memory) {
+        const memId = await findOption(prisma, options.memory, variant.memory);
+        if (memId) optionValueIds.push(memId);
+      }
+
+      if (variant.videoMemory) {
+        const videoMemId = await findOption(
+          prisma,
+          options.videoMemory,
+          variant.videoMemory,
+        );
+        if (videoMemId) optionValueIds.push(videoMemId);
+      }
+
+      if (variant.color) {
+        const colorId = await findOption(prisma, options.color, variant.color);
+        if (colorId) optionValueIds.push(colorId);
+      }
+
+      if (variant.procesor) {
+        const procId = await findOption(
+          prisma,
+          options.procesor,
+          variant.procesor,
+        );
+        if (procId) optionValueIds.push(procId);
+      }
+
+      if (variant.sim) {
+        const simId = await findOption(prisma, options.sim, variant.sim);
+        if (simId) optionValueIds.push(simId);
+      }
       await prisma.productVariant.create({
         data: {
           productId: product.id,
