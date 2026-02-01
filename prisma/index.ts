@@ -16,6 +16,7 @@ import { seedProductsByCategory } from './seedProduct/seedComponent/seedProducts
 import { LAPTOPS_SEED_CONFIG } from './seedProduct/seedComponent/lap-top/laptops.seed';
 import { SEED_PRODUCTS } from './seedProduct/seedComponent/seed.data';
 import { SAMSUNG_SEED_CONFIG } from './seedProduct/seedComponent/phones/samsung/phoneSeedConfig';
+import { IPHONE_SEED_CONFIG } from './seedProduct/seedComponent/phones/apple/iphoneSeedConfig';
 
 const prisma = new PrismaClient();
 
@@ -32,7 +33,6 @@ async function main() {
   console.log('📑 Seeding spec sections...');
   const sections = await seedSections(prisma);
 
-  console.log('🔥 Seeding NoteBook  ...');
   console.log('🔥 Seeding laptops...');
 
   await seedProductsByCategory(
@@ -47,6 +47,13 @@ async function main() {
     options,
     sections,
     SAMSUNG_SEED_CONFIG(categories),
+  );
+  console.log('🔥 Seeding Iphone ...');
+  await seedProductsByCategory(
+    prisma,
+    options,
+    sections,
+    IPHONE_SEED_CONFIG(categories),
   );
 
   console.log('🎛 Seeding filters...');
