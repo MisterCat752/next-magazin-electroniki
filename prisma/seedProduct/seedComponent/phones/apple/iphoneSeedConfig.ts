@@ -1,5 +1,9 @@
 import { SLIDER_SAMSUNG_S25_BLACK } from './iphoneSliderData';
-import { buildIphone12Variants, buildIphone13Variants } from './iphoneVariants';
+import {
+  buildIphone12Variants,
+  buildIphone13Variants,
+  buildIphone14Variants,
+} from './iphoneVariants';
 
 export const IPHONE_SEED_CONFIG = (
   categories: any,
@@ -7,7 +11,7 @@ export const IPHONE_SEED_CONFIG = (
   categoryId: number;
   products: any[];
 } => ({
-  categoryId: categories.samsung.id,
+  categoryId: categories.applePhones.id,
 
   products: [
     // s model
@@ -23,7 +27,7 @@ export const IPHONE_SEED_CONFIG = (
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
 
       variants: (sections: any, model: any) =>
-        buildIphone12Variants(sections, '', [
+        buildIphone12Variants(sections, model, [
           { ram: '4 ГБ', memory: '64 ГБ', color: 'Черный', price: 7999 },
           { ram: '4 ГБ', memory: '128 ГБ', color: 'Черный', price: 8799 },
           { ram: '4 ГБ', memory: '256 ГБ', color: 'Синий', price: 9499 },
@@ -38,10 +42,25 @@ export const IPHONE_SEED_CONFIG = (
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
 
       variants: (sections: any, model: any) =>
-        buildIphone13Variants(sections, '', [
+        buildIphone13Variants(sections, model, [
           { ram: '4 ГБ', memory: '128 ГБ', color: 'Чёрный', price: 9999 },
           { ram: '4 ГБ', memory: '256 ГБ', color: 'Красный', price: 10999 },
           { ram: '4 ГБ', memory: '512 ГБ', color: 'Белый', price: 11999 },
+        ]),
+    },
+    {
+      name: 'Iphone 14',
+      slug: 'Iphone-14',
+      model: 'Iphone 14',
+      imageUrl:
+        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+
+      variants: (sections: any, model: any) =>
+        buildIphone14Variants(sections, model, [
+          { ram: '6 ГБ', memory: '128 ГБ', color: 'Чёрный', price: 12999 },
+          { ram: '6 ГБ', memory: '256 ГБ', color: 'Красный', price: 14499 },
+          { ram: '6 ГБ', memory: '512 ГБ', color: 'Синий', price: 15999 },
         ]),
     },
   ],
