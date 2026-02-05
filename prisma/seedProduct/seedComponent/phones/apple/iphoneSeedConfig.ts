@@ -3,6 +3,8 @@ import {
   buildIphone12Variants,
   buildIphone13Variants,
   buildIphone14Variants,
+  buildIphone15Variants,
+  buildIphone16Variants,
 } from './iphoneVariants';
 
 export const IPHONE_SEED_CONFIG = (
@@ -58,6 +60,36 @@ export const IPHONE_SEED_CONFIG = (
 
       variants: (sections: any, model: any) =>
         buildIphone14Variants(sections, model, [
+          { ram: '6 ГБ', memory: '128 ГБ', color: 'Чёрный', price: 12999 },
+          { ram: '6 ГБ', memory: '256 ГБ', color: 'Красный', price: 14499 },
+          { ram: '6 ГБ', memory: '512 ГБ', color: 'Синий', price: 15999 },
+        ]),
+    },
+    {
+      name: 'Iphone 15',
+      slug: 'Iphone-15',
+      model: 'Iphone 15',
+      imageUrl:
+        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+
+      variants: (sections: any, model: any) =>
+        buildIphone15Variants(sections, model, [
+          { ram: '6 ГБ', memory: '128 ГБ', color: 'Чёрный', price: 12999 },
+          { ram: '6 ГБ', memory: '256 ГБ', color: 'Красный', price: 14499 },
+          { ram: '6 ГБ', memory: '512 ГБ', color: 'Синий', price: 15999 },
+        ]),
+    },
+    {
+      name: 'Iphone 16',
+      slug: 'Iphone-16',
+      model: 'Iphone 16',
+      imageUrl:
+        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+
+      variants: (sections: any, model: any) =>
+        buildIphone16Variants(sections, model, [
           { ram: '6 ГБ', memory: '128 ГБ', color: 'Чёрный', price: 12999 },
           { ram: '6 ГБ', memory: '256 ГБ', color: 'Красный', price: 14499 },
           { ram: '6 ГБ', memory: '512 ГБ', color: 'Синий', price: 15999 },

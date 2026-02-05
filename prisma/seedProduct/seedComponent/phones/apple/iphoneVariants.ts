@@ -380,6 +380,364 @@ const iphone14BaseSpecs = (sections: any, model: string) => [
   { name: 'Компас', value: 'Да', groupId: sections.extra.id },
   { name: 'Степень защиты', value: 'IP68', groupId: sections.extra.id },
 ];
+//  iphone 15
+const iphone15BaseSpecs = (sections: any) => [
+  // ======================
+  // 📱 ОСНОВНЫЕ
+  // ======================
+  { name: 'Бренд', value: 'Apple', groupId: sections.baseGroup.id },
+  { name: 'Модель', value: 'iPhone 15', groupId: sections.baseGroup.id },
+  {
+    name: 'Размеры',
+    value: '147.6 x 71.6 x 7.8 мм',
+    groupId: sections.baseGroup.id,
+  },
+  { name: 'Вес', value: '171 г', groupId: sections.baseGroup.id },
+  { name: 'Код модели', value: 'MTP03RX/A', groupId: sections.baseGroup.id },
+
+  // ======================
+  // 💾 ПАМЯТЬ
+  // ======================
+  { name: 'Оперативная память', value: '6 ГБ', groupId: sections.memory.id },
+  {
+    name: 'Встроенная память',
+    value: '128 ГБ',
+    groupId: sections.memory.id,
+  },
+
+  // ======================
+  // ⚙️ ПРОЦЕССОР
+  // ======================
+  { name: 'Модель CPU', value: 'A16 Bionic', groupId: sections.procesor.id },
+  { name: 'Производитель CPU', value: 'Apple', groupId: sections.procesor.id },
+  {
+    name: 'Максимальная частота',
+    value: 'до 3.46 ГГц',
+    groupId: sections.procesor.id,
+  },
+  { name: 'Литография', value: '4 нм', groupId: sections.procesor.id },
+
+  // ======================
+  // 🎮 ГРАФИКА
+  // ======================
+  {
+    name: 'Модель видеокарты',
+    value: 'Apple GPU (5-core graphics)',
+    groupId: sections.graphic.id,
+  },
+
+  // ======================
+  // 🖥 ДИСПЛЕЙ
+  // ======================
+  {
+    name: 'Диагональ дисплея',
+    value: '6.1"',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Тип дисплея',
+    value: 'Super Retina XDR OLED',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Разрешение дисплея',
+    value: '2556 x 1179',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Плотность пикселей',
+    value: '460 ppi',
+    groupId: sections.displayGroup.id,
+  },
+
+  // ======================
+  // 🤖 SOFTWARE
+  // ======================
+  { name: 'Операционная система', value: 'iOS', groupId: sections.software.id },
+  { name: 'Версия ОС', value: '17', groupId: sections.software.id },
+
+  // ======================
+  // 📸 ФОТО / ВИДЕО
+  // ======================
+  {
+    name: 'Фронтальная камера',
+    value: '12 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Количество основных камер',
+    value: '2',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Основная камера',
+    value: '48 Мп + 12 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Разрешение видео',
+    value: '4K 24fps',
+    groupId: sections.photoVideo.id,
+  },
+  { name: 'Вспышка', value: 'Да', groupId: sections.photoVideo.id },
+
+  // ======================
+  // 🔊 АУДИО
+  // ======================
+  {
+    name: 'Аудиосистема',
+    value: 'Стерео',
+    groupId: sections.characteristics.id,
+  },
+
+  // ======================
+  // 🔋 ПИТАНИЕ
+  // ======================
+  {
+    name: 'Ёмкость аккумулятора',
+    value: '3349 мАч',
+    groupId: sections.characteristics.id,
+  },
+
+  // ======================
+  // 📡 СВЯЗЬ
+  // ======================
+  { name: 'Bluetooth', value: 'v5.3', groupId: sections.connectivity.id },
+  { name: 'Wi-Fi', value: '802.11 ax', groupId: sections.connectivity.id },
+  { name: 'NFC', value: 'Да', groupId: sections.connectivity.id },
+  { name: 'GPS', value: 'Да', groupId: sections.connectivity.id },
+  {
+    name: 'USB разъём',
+    value: 'USB Type-C 2.0',
+    groupId: sections.connectivity.id,
+  },
+  { name: 'Разъём 3.5 мм', value: 'Нет', groupId: sections.connectivity.id },
+
+  // ======================
+  // 📶 СЕТЬ / SIM
+  // ======================
+  { name: 'eSIM', value: 'Да', groupId: sections.connectivity.id },
+  { name: 'Поколение связи', value: '5G', groupId: sections.connectivity.id },
+  {
+    name: 'Количество SIM',
+    value: 'Single SIM',
+    groupId: sections.connectivity.id,
+  },
+  { name: 'Формат SIM', value: 'Nano-SIM', groupId: sections.connectivity.id },
+
+  // ======================
+  // 🛡 ДАТЧИКИ / КОРПУС
+  // ======================
+  { name: 'Face ID', value: 'Да', groupId: sections.extra.id },
+  { name: 'Акселерометр', value: 'Да', groupId: sections.extra.id },
+  { name: 'Гироскоп', value: 'Да', groupId: sections.extra.id },
+  { name: 'Датчик приближения', value: 'Да', groupId: sections.extra.id },
+  { name: 'Компас', value: 'Да', groupId: sections.extra.id },
+  { name: 'Барометр', value: 'Да', groupId: sections.extra.id },
+  { name: 'Материал корпуса', value: 'Керамика', groupId: sections.extra.id },
+  { name: 'Материал рамки', value: 'Алюминий', groupId: sections.extra.id },
+  { name: 'Степень защиты', value: 'IP68', groupId: sections.extra.id },
+];
+
+//  iphone 16
+const iphone16BaseSpecs = (sections: any) => [
+  // ======================
+  // 📱 ОСНОВНЫЕ
+  // ======================
+  { name: 'Бренд', value: 'Apple', groupId: sections.baseGroup.id },
+  { name: 'Модель', value: 'iPhone 16', groupId: sections.baseGroup.id },
+  {
+    name: 'Размеры',
+    value: '147.6 x 71.6 x 7.8 мм',
+    groupId: sections.baseGroup.id,
+  },
+  { name: 'Вес', value: '170 г', groupId: sections.baseGroup.id },
+  { name: 'Цвет', value: 'Белый', groupId: sections.baseGroup.id },
+  { name: 'Код модели', value: 'MYE93HX/A', groupId: sections.baseGroup.id },
+
+  // ======================
+  // 💾 ПАМЯТЬ
+  // ======================
+  { name: 'Оперативная память', value: '8 ГБ', groupId: sections.memory.id },
+  {
+    name: 'Встроенная память',
+    value: '128 ГБ',
+    groupId: sections.memory.id,
+  },
+  {
+    name: 'Слот для карты памяти',
+    value: 'Нет',
+    groupId: sections.memory.id,
+  },
+
+  // ======================
+  // ⚙️ ПРОЦЕССОР
+  // ======================
+  { name: 'Модель CPU', value: 'A18 Bionic', groupId: sections.procesor.id },
+  { name: 'Производитель CPU', value: 'Apple', groupId: sections.procesor.id },
+  { name: 'Количество ядер', value: '6', groupId: sections.procesor.id },
+  { name: 'Литография', value: '3 нм', groupId: sections.procesor.id },
+
+  // ======================
+  // 🎮 ГРАФИКА
+  // ======================
+  {
+    name: 'Модель видеокарты',
+    value: 'Apple GPU (5-core graphics)',
+    groupId: sections.graphic.id,
+  },
+
+  // ======================
+  // 🖥 ДИСПЛЕЙ
+  // ======================
+  {
+    name: 'Диагональ дисплея',
+    value: '6.1"',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Тип дисплея',
+    value: 'Super Retina XDR OLED',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Разрешение дисплея',
+    value: '2556 x 1179',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Плотность пикселей',
+    value: '460 ppi',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Частота обновления',
+    value: '60 Гц',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Always on Display',
+    value: 'Да',
+    groupId: sections.displayGroup.id,
+  },
+  {
+    name: 'Защита дисплея',
+    value: 'Ceramic Shield glass',
+    groupId: sections.displayGroup.id,
+  },
+
+  // ======================
+  // 🤖 SOFTWARE
+  // ======================
+  { name: 'Операционная система', value: 'iOS', groupId: sections.software.id },
+  { name: 'Версия ОС', value: '18', groupId: sections.software.id },
+  {
+    name: 'Искусственный интеллект (AI)',
+    value: 'Apple Intelligence',
+    groupId: sections.software.id,
+  },
+
+  // ======================
+  // 📸 ФОТО / ВИДЕО
+  // ======================
+  {
+    name: 'Фронтальная камера',
+    value: '12 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Количество основных камер',
+    value: '2',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Основная камера',
+    value: '48 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Сверхширокоугольная камера',
+    value: '12 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Телефото камера',
+    value: '12 Мп',
+    groupId: sections.photoVideo.id,
+  },
+  {
+    name: 'Разрешение видео',
+    value: '4K 60fps',
+    groupId: sections.photoVideo.id,
+  },
+  { name: 'Вспышка', value: 'Да', groupId: sections.photoVideo.id },
+
+  // ======================
+  // 🔊 АУДИО
+  // ======================
+  {
+    name: 'Аудиосистема',
+    value: 'Стерео',
+    groupId: sections.characteristics.id,
+  },
+
+  // ======================
+  // 🔋 ПИТАНИЕ
+  // ======================
+  {
+    name: 'Ёмкость аккумулятора',
+    value: '3561 мАч',
+    groupId: sections.characteristics.id,
+  },
+  {
+    name: 'Тип аккумулятора',
+    value: 'Li-Ion',
+    groupId: sections.characteristics.id,
+  },
+
+  // ======================
+  // 📡 СВЯЗЬ
+  // ======================
+  { name: 'Bluetooth', value: 'v5.3', groupId: sections.connectivity.id },
+  { name: 'Wi-Fi', value: '802.11 be', groupId: sections.connectivity.id },
+  { name: 'NFC', value: 'Да', groupId: sections.connectivity.id },
+  { name: 'GPS', value: 'Да', groupId: sections.connectivity.id },
+  {
+    name: 'USB разъём',
+    value: 'USB Type-C 2.0',
+    groupId: sections.connectivity.id,
+  },
+  { name: 'Разъём 3.5 мм', value: 'Нет', groupId: sections.connectivity.id },
+
+  // ======================
+  // 📶 СЕТЬ / SIM
+  // ======================
+  { name: 'eSIM', value: 'Да', groupId: sections.connectivity.id },
+  { name: 'Поколение связи', value: '5G', groupId: sections.connectivity.id },
+  {
+    name: 'Количество SIM',
+    value: 'Single SIM',
+    groupId: sections.connectivity.id,
+  },
+  { name: 'Формат SIM', value: 'Nano-SIM', groupId: sections.connectivity.id },
+
+  // ======================
+  // 🛡 ДАТЧИКИ / КОРПУС
+  // ======================
+  { name: 'Face ID', value: 'Да', groupId: sections.extra.id },
+  { name: 'Акселерометр', value: 'Да', groupId: sections.extra.id },
+  { name: 'Гироскоп', value: 'Да', groupId: sections.extra.id },
+  { name: 'Датчик приближения', value: 'Да', groupId: sections.extra.id },
+  { name: 'Датчик освещенности', value: 'Да', groupId: sections.extra.id },
+  { name: 'Компас', value: 'Да', groupId: sections.extra.id },
+  { name: 'Барометр', value: 'Да', groupId: sections.extra.id },
+  { name: 'Шагомер', value: 'Да', groupId: sections.extra.id },
+  { name: 'Материал корпуса', value: 'Керамика', groupId: sections.extra.id },
+  { name: 'Материал рамки', value: 'Алюминий', groupId: sections.extra.id },
+  { name: 'Степень защиты', value: 'IP68', groupId: sections.extra.id },
+];
+
+//  iphone 17
 
 const iphoneVariantSpecs = (
   sections: any,
@@ -481,4 +839,26 @@ export const buildIphone14Variants = (
     model,
     variants,
     baseSpecs: iphone14BaseSpecs,
+  });
+export const buildIphone15Variants = (
+  sections: any,
+  model: string,
+  variants: IphoneVariantConfig[],
+) =>
+  buildIphoneVariants({
+    sections,
+    model,
+    variants,
+    baseSpecs: iphone15BaseSpecs,
+  });
+export const buildIphone16Variants = (
+  sections: any,
+  model: string,
+  variants: IphoneVariantConfig[],
+) =>
+  buildIphoneVariants({
+    sections,
+    model,
+    variants,
+    baseSpecs: iphone16BaseSpecs,
   });
