@@ -49,7 +49,7 @@ export const CategoryContent: React.FC<Props> = ({
   const products = data?.products || [];
   return (
     <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
-      <Filters filters={filters} />
+      <Filters categoryId={category} />
 
       <div className='w-full px-2'>
         {isLoading ? (

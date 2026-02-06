@@ -26,7 +26,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
   title,
   items,
   defaultItem,
-  limit = 5,
+  limit = 555,
   searchInputPlaceHolder = 'Поиск...',
   onClickCheckBox,
   defaultValue,
@@ -57,7 +57,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
 
   const list = showAll
     ? items.filter((item) =>
-        item.text.toLowerCase().includes(searchValue.toLowerCase())
+        item.text.toLowerCase().includes(searchValue.toLowerCase()),
       )
     : (defaultItem || items).slice(0, limit);
 
@@ -90,7 +90,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
         </div>
       )}
 
-      <div className='flex flex-col mt-2 overflow-auto gap-3 max-h-96 py-2 scrollbar'>
+      <div className='flex flex-col mt-2 max-h-[200px]  scroll-hidden overflow-y-auto gap-3   py-2 scrollbar'>
         {open &&
           list.map((item, idx) => {
             return (
@@ -106,16 +106,6 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
             );
           })}
       </div>
-      {/* {items.length > limit && (
-        <div className={showAll ? ' border-t border-t-neutral-100  mt-4' : ''}>
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className='text-primary mt-3'
-          >
-            {showAll ? 'скрыть' : 'показать все'}
-          </button>
-        </div>
-      )} */}
     </div>
   );
 };

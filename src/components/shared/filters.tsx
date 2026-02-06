@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { CheckboxFilterGroup } from './index';
 import { Title, Input } from '@/components/ui';
 import { useFilterStore } from '@/store/filterStore';
-
+import { useFilters } from '@/hooks/useFilters';
 export interface FilterValueType {
   id: number;
   value: string; // значение спецификации
@@ -23,7 +23,11 @@ interface Props {
   filters: FilterType[];
 }
 
-export const Filters: React.FC<Props> = ({ className, filters }) => {
+export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
+  className,
+  categoryId,
+}) => {
+  const { data: filters = [], isLoading } = useFilters(categoryId);
   const selectedSpecs = useFilterStore((state) => state.selectedSpecs);
   const toggleSpecFilter = useFilterStore((state) => state.toggleSpecFilter);
   const mobileFiltersOpen = useFilterStore((s) => s.mobileFiltersOpen);
@@ -51,19 +55,12 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
             X
           </div>
           <div className='max-h-[500px] scroll-hidden overflow-y-auto  '>
-            {filters.map((filter) => {
-              const filteredItems = filter.values
-                .filter((v) =>
-                  searchTerms[filter.id]
-                    ? v.value
-                        .toLowerCase()
-                        .includes(searchTerms[filter.id].toLowerCase())
-                    : true,
-                )
-                .map((v) => ({
-                  text: v.value, // то, что будет на чекбоксе
-                  value: v.value, // значение для selectedIds + toggle
-                }));
+            {filters.map((filter: any) => {
+              const filteredItems = filter.values.map((v: any) => ({
+                text: `${v.value}  `,
+                value: v.value,
+                disabled: v.count === 0,
+              }));
 
               const selectedIds = new Set(
                 selectedSpecs
@@ -72,38 +69,16 @@ export const Filters: React.FC<Props> = ({ className, filters }) => {
               );
 
               return (
-                <div className='' key={filter.id}>
-                  <div
-                    key={filter.id}
-                    className='mb-6 mt-3 max-h-[300px]  scroll-hidden overflow-y-auto'
-                  >
-                    <CheckboxFilterGroup
-                      title={filter.name}
-                      items={filteredItems}
-                      selectedIds={selectedIds}
-                      onClickCheckBox={(item) => {
-                        toggleSpecFilter({
-                          name: filter.name,
-                          value: item.value,
-                        });
-                      }}
-                      className='mt-2'
-                    />
-                    {/* {filter.values.length > 5 && (
-                      <div className='mt-2'>
-                        <Input
-                          type='text'
-                          placeholder='Поиск...'
-                          value={searchTerms[filter.id] || ''}
-                          onChange={(e) =>
-                            handleSearchChange(filter.id, e.target.value)
-                          }
-                          className='border-none bg-gray-50'
-                        />
-                      </div>
-                    )} */}
-                  </div>
-                </div>
+                <CheckboxFilterGroup
+                  key={filter.id}
+                  title={filter.name}
+                  items={filteredItems}
+                  selectedIds={selectedIds}
+                  loading={isLoading}
+                  onClickCheckBox={(item) =>
+                    toggleSpecFilter({ name: filter.name, value: item.value })
+                  }
+                />
               );
             })}
           </div>

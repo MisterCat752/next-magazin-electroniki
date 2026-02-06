@@ -1709,7 +1709,7 @@ export const buildSamsungGalaxy256GbA36Variants = (
 ) => [
   {
     memory: '8 ГБ|256 ГБ',
-    color: 'Чёрный',
+    color: 'Черный',
     sim: 'Dual SIM',
     price: 5849,
 
