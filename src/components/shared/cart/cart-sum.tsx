@@ -1,7 +1,6 @@
 import React from 'react';
 
 type OrderSummaryProps = {
-  bonusReceived: number;
   productCost: number;
   discount: number;
   deliveryCost: number;
@@ -14,7 +13,6 @@ const formatAmount = (value: number, locale = 'ru-RU') =>
   new Intl.NumberFormat(locale).format(Math.round(value));
 
 export function CartSum({
-  bonusReceived,
   productCost,
   discount,
   deliveryCost,
@@ -42,13 +40,6 @@ export function CartSum({
       className={`bg-[#0f0f0f] text-gray-200 rounded-xl p-6 md:p-8 shadow-md border border-transparent ${className}`}
       aria-label='Order summary'
     >
-      <div className='flex items-start justify-between'>
-        <div className='text-sm text-gray-300'>Бонусов получено</div>
-        <div className='text-2xl md:text-3xl font-extrabold text-white'>
-          {formatAmount(bonusReceived)} {currency}
-        </div>
-      </div>
-
       <div className='mt-5 space-y-3'>
         <Row
           label='Стоимость продукции'

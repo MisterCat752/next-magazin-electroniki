@@ -60,7 +60,7 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
     : (defaultItem || items).slice(0, limit);
 
   return (
-    <div className={cn(className, ' ')}>
+    <div className={cn(className, ' my-3')}>
       <div
         onClick={() => setOpen((prev) => !prev)}
         className='cursor-pointer  hover:text-green transition duration-200       flex justify-between items-center'

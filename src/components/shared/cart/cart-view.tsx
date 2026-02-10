@@ -154,7 +154,6 @@ export const CartView: React.FC<Props> = ({ className }) => {
         {/* Сумма заказа */}
         <div className='mt-10 max-w-[750px]  mx-auto bg-gray-dark p-13 w-full rounded-2xl'>
           <CartSum
-            bonusReceived={942}
             productCost={total}
             discount={0}
             deliveryCost={0}
