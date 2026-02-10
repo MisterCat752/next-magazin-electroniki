@@ -1,24 +1,28 @@
 // app/api/product/[id]/route.ts
 import { prisma } from '@/prisma/prisma-client';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } } // params уже приходит как объект
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const paramsId = await params;
-  const productId = paramsId.id;
+  const { id } = await params;
 
-  const product = await prisma.order.findUnique({
-    where: { id: productId },
+  const product = await prisma.product.findUnique({
+    where: { id: Number(id) },
     include: {
-      items: {
+      variants: {
         include: {
-          productVariant: true,
+          specifications: true,
         },
       },
+      filters: true,
     },
   });
+
+  if (!product) {
+    return NextResponse.json({ error: 'Товар не найден' }, { status: 404 });
+  }
 
   return NextResponse.json(product);
 }
