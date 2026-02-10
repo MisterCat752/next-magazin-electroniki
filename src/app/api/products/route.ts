@@ -1,6 +1,20 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma/prisma-client';
 import { getAllCategoryIds } from '@/lib/api/getAllCategoryIds';
+
+interface SpecFilter {
+  name: string;
+  value: string;
+}
+
+interface ProductResponse {
+  id: string;
+  name: string;
+  imageUrl: string;
+  variants: any[]; // можно расширить интерфейс Variant
+  price: number;
+  filters: any[];
+}
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -18,24 +32,22 @@ export async function GET(req: Request) {
 
     // Парсим specs и декодируем компоненты
     // Пример входа (клиент отправляет): encodeURIComponent(name):encodeURIComponent(value),...
-    const specFilters = specParam
-      ? (specParam
+    const specFilters: SpecFilter[] = specParam
+      ? specParam
           .split(',')
           .map((s) => {
             const idx = s.indexOf(':');
             if (idx === -1) return null;
-            const rawName = s.slice(0, idx);
-            const rawValue = s.slice(idx + 1);
             try {
-              const name = decodeURIComponent(rawName);
-              const value = decodeURIComponent(rawValue);
-              return { name, value };
-            } catch (e) {
-              // если decodeURIComponent упадёт — пропускаем
+              return {
+                name: decodeURIComponent(s.slice(0, idx)),
+                value: decodeURIComponent(s.slice(idx + 1)),
+              };
+            } catch {
               return null;
             }
           })
-          .filter(Boolean) as { name: string; value: string }[])
+          .filter((v): v is SpecFilter => v !== null)
       : [];
 
     const category = await prisma.category.findUnique({

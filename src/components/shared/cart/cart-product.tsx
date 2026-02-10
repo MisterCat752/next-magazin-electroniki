@@ -39,7 +39,7 @@ export const CartProduct: React.FC<Props> = ({
       <div className=''>
         <p className='text-[16px] text-white font-semibold'>{name}</p>
         <p className='text-[14px] mt-2 text-white font-semibold'>
-          6.7" | 200 МП | 12 ГБ | Dual SIM
+          6.7 | 200 МП | 12 ГБ | Dual SIM
         </p>
         <p className='text-[24px] mt-2 text-white font-semibold'>{price}</p>
         <div className='flex gap-3 mt-7 items-center'>

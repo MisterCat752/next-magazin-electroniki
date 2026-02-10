@@ -1,10 +1,12 @@
+import { PrismaClient, Category } from '@prisma/client';
+
 export async function getAllCategoryIds(
-  prisma: any,
+  prisma: PrismaClient,
   rootId: string,
 ): Promise<string[]> {
   const ids: string[] = [rootId];
 
-  const children = await prisma.category.findMany({
+  const children: Pick<Category, 'id'>[] = await prisma.category.findMany({
     where: { parentId: rootId },
     select: { id: true },
   });

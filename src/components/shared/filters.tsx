@@ -1,32 +1,30 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { CheckboxFilterGroup } from './index';
-import { Title, Input } from '@/components/ui';
-import { useFilterStore } from '@/store/filterStore';
+import { Title } from '@/components/ui';
 import { useFilters } from '@/hooks/useFilters';
+
 export interface FilterValueType {
   id: number;
-  value: string; // значение спецификации
+  value: string;
+  count?: number; // добавляем count
 }
 
 export interface FilterType {
-  id: number;
-  name: string; // Цвет, Память, Видеочип, и т.д.
+  id: string | number;
+  name: string;
   values: FilterValueType[];
-  isSpec?: boolean; // должно быть всегда true
+  isSpec?: boolean;
 }
 
 interface Props {
   className?: string;
-  filters: FilterType[];
+  categoryId: string;
 }
 
-export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
-  className,
-  categoryId,
-}) => {
+export const Filters: React.FC<Props> = ({ className, categoryId }) => {
   const {
     filters,
     isLoading,
@@ -36,8 +34,8 @@ export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
     closeMobileFilters,
   } = useFilters(categoryId);
 
-  const getFilterItems = (filter: any) =>
-    filter.values.map((v: any) => ({
+  const getFilterItems = (filter: FilterType) =>
+    filter.values.map((v) => ({
       text: v.value,
       value: v.value,
       disabled: v.count === 0,
@@ -52,18 +50,18 @@ export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
         <div
           className={cn(
             className,
-            ' w-[250px]    fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh]  bg-gray-dark  p-6 ',
+            'w-[250px] fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-dark p-6',
           )}
         >
           <Title text='Filters' size='sm' className='mb-7 font-bold' />
           <div
             onClick={closeMobileFilters}
-            className='absolute lg:hidden top-5 right-5 '
+            className='absolute lg:hidden top-5 right-5'
           >
             X
           </div>
-          <div className='max-h-[500px] scroll-hidden overflow-y-auto  '>
-            {filters.map((filter: any) => (
+          <div className='max-h-[500px] scroll-hidden overflow-y-auto'>
+            {filters.map((filter: FilterType) => (
               <CheckboxFilterGroup
                 key={filter.id}
                 title={filter.name}

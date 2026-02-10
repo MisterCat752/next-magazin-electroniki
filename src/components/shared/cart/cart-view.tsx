@@ -24,7 +24,11 @@ import { User } from 'lucide-react';
 interface Props {
   className?: string;
 }
-
+interface OrderItem {
+  variantId: string;
+  quantity: number;
+  price: number;
+}
 export const CartView: React.FC<Props> = ({ className }) => {
   const hydrated = useHydrated();
   const items = useCartStore((state) => state.items);
@@ -50,7 +54,7 @@ export const CartView: React.FC<Props> = ({ className }) => {
       email,
       phone,
       totalPrice: total,
-      items: items.map((i: any) => ({
+      items: items.map((i: CartItem) => ({
         variantId: i.variantId, // ✅ только id
         quantity: i.count,
         price: i.price,

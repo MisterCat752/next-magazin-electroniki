@@ -1,22 +1,36 @@
 import { useMemo } from 'react';
 
+interface Option {
+  name: string;
+  value: string;
+}
+
 interface Variant {
   id: number;
   price: number;
-  options: { name: string; value: string }[];
-  specifications: any[];
+  options: Option[];
+  specifications: Record<string, string>[]; // или другой тип вместо any
+}
+
+interface Product {
+  variants: {
+    id: number;
+    price: number;
+    options: Option[];
+    specs: Record<string, string>[]; // или как у тебя
+  }[];
 }
 
 export function useProductVariants(
-  product: any,
-  selectedOptions: Record<string, string>
+  product: Product | null,
+  selectedOptions: Record<string, string>,
 ) {
   const variants = useMemo<Variant[]>(() => {
     if (!product) return [];
-    return product.variants.map((v: any) => ({
+    return product.variants.map((v) => ({
       id: v.id,
       price: v.price,
-      options: v.options.map((o: any) => ({
+      options: v.options.map((o) => ({
         name: o.name,
         value: o.value,
       })),
@@ -42,16 +56,15 @@ export function useProductVariants(
     if (variants.length === 0) return null;
 
     if (Object.keys(selectedOptions).length === 0) {
-      // По умолчанию первый вариант
       return variants[0];
     }
 
     return (
       variants.find((variant) =>
         Object.entries(selectedOptions).every(([name, value]) =>
-          variant.options.some((o) => o.name === name && o.value === value)
-        )
-      ) ?? variants[0] // Если не найдено совпадение, всё равно берём первый
+          variant.options.some((o) => o.name === name && o.value === value),
+        ),
+      ) ?? variants[0]
     );
   }, [variants, selectedOptions]);
 
@@ -64,7 +77,7 @@ export function useProductVariants(
         const match = Object.entries(selectedOptions).every(
           ([name, value]) =>
             name === opt.name ||
-            variant.options.some((o) => o.name === name && o.value === value)
+            variant.options.some((o) => o.name === name && o.value === value),
         );
 
         if (match) {
