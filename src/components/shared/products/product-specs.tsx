@@ -1,14 +1,5 @@
+import { Variant } from '@/hooks/useProductVariants';
 import React from 'react';
-
-interface Specification {
-  group: string;
-  name: string;
-  value: string;
-}
-
-interface Variant {
-  specifications: Specification[];
-}
 
 interface ProductSpecificationsProps {
   activeVariant: Variant | null;
@@ -25,7 +16,7 @@ export default function ProductSpecifications({
     );
   }
 
-  const groupedSpecs: Record<string, Specification[]> = {};
+  const groupedSpecs: Record<string, Record<string, string>[]> = {};
 
   activeVariant.specifications.forEach((spec) => {
     if (!groupedSpecs[spec.group]) groupedSpecs[spec.group] = [];

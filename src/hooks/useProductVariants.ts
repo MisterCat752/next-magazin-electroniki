@@ -1,18 +1,18 @@
 import { useMemo } from 'react';
 
-interface Option {
+export interface Option {
   name: string;
   value: string;
 }
 
-interface Variant {
+export interface Variant {
   id: number;
   price: number;
   options: Option[];
   specifications: Record<string, string>[]; // или другой тип вместо any
 }
 
-interface Product {
+export interface Product {
   variants: {
     id: number;
     price: number;
