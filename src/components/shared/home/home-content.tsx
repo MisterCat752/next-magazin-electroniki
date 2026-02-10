@@ -1,6 +1,5 @@
 import { CategoryCard, Slider } from '@/components/shared';
 import { categories, HomeSliderImages } from '@/data';
-import Image from 'next/image';
 import { ProductsSection } from './product-section';
 
 export default function HomeContent() {
