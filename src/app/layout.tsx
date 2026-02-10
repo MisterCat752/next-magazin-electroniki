@@ -1,11 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { Container } from '@/components/layout/container';
-import { Footer, ModalProductQuickView, NavBar } from '@/components/shared';
-import { products } from '@/data';
-import { products2 } from '@/data/products';
-import { SessionProvider } from 'next-auth/react';
+import { Footer, NavBar } from '@/components/shared';
 import { AuthProvider } from '@/providers/AuthProvider';
 
 import { Toaster } from 'react-hot-toast';

@@ -4,7 +4,7 @@ import '../globals.css';
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/auth/auth';
-import { Footer, ModalProductQuickView, NavBar } from '@/components/shared';
+import { Footer, NavBar } from '@/components/shared';
 import { ProfileSideBar } from '@/components/shared/profile/profile-side-bar';
 
 const geistSans = Geist({
