@@ -9,7 +9,12 @@ import { useFilterStore } from '@/store/filterStore';
 import { X } from 'lucide-react';
 interface Props {
   className?: string;
-  session?: any;
+  session?: {
+    user: {
+      name: string;
+      email: string;
+    };
+  };
 }
 const sidebarItems = [
   { label: 'Личный кабинет', link: '/profile' },

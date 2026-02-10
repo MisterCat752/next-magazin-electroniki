@@ -1,19 +1,33 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/prisma/prisma-client';
 import { getAllCategoryIds } from '@/lib/api/getAllCategoryIds';
+import type {
+  Prisma,
+  Product,
+  ProductVariant,
+  Specification,
+  Filter,
+} from '@prisma/client';
 
 interface SpecFilter {
   name: string;
   value: string;
 }
+interface VariantWithSpecs extends ProductVariant {
+  specifications: Specification[];
+}
 
 interface ProductResponse {
-  id: string;
+  id: number;
   name: string;
-  imageUrl: string;
-  variants: any[]; // можно расширить интерфейс Variant
+  imageUrl: string | null;
+  variants: VariantWithSpecs[];
   price: number;
-  filters: any[];
+  filters: {
+    id: number;
+    value: string;
+    filterId: number;
+  }[];
 }
 export async function GET(req: Request) {
   try {
@@ -60,13 +74,12 @@ export async function GET(req: Request) {
     }
 
     // 🔥 получаем id текущей + всех подкатегорий
-    const categoryIds = await getAllCategoryIds(prisma, category.id);
+    const categoryIds: string[] = await getAllCategoryIds(prisma, category.id);
 
     // 🔥 фильтр сразу по всем категориям
-    const whereClause: any = {
+    const whereClause: Prisma.ProductWhereInput = {
       categoryId: { in: categoryIds },
     };
-
     // Variant-level specs
     if (specFilters.length > 0) {
       // Группируем по имени спецификации: внутри одной группы — OR по значениям,
@@ -108,7 +121,7 @@ export async function GET(req: Request) {
       },
     });
 
-    let mappedProducts = products.map((p) => ({
+    const mappedProducts: ProductResponse[] = products.map((p) => ({
       id: p.id,
       name: p.name,
       imageUrl: p.imageUrl,

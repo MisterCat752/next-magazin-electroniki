@@ -6,7 +6,12 @@ import { OpenSideButton } from './open-side-button';
 
 interface Props {
   className?: string;
-  session?: any;
+  session?: {
+    user: {
+      name: string;
+      email: string;
+    };
+  };
 }
 
 export const ProfileContent: React.FC<Props> = ({ className, session }) => {

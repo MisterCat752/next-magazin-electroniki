@@ -78,7 +78,7 @@ export const ProductCard: React.FC<Props> = ({
       </Link>
 
       <h2 className='text-[12px] text-gray  '>
-        6.3" | 48 Мп | 12 ГБ | Single SIM
+        6.3 | 48 Мп | 12 ГБ | Single SIM
       </h2>
       {/* Нижняя часть карточки Кэшбэк 825 лей */}
       <div className='mt-auto flex flex-col gap-2 px-2'>
