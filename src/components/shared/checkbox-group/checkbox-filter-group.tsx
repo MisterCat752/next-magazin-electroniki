@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { FilterChecboxProps, FilterCheckbox } from './checkbox-filter';
-import { Title } from '@/components/ui';
 import { Input, Skeleton } from '@/components/ui';
 import { ArrowBigDownDash } from 'lucide-react';
 
@@ -15,7 +14,6 @@ interface Props {
   limit?: number;
   loading?: boolean;
   searchInputPlaceHolder?: string;
-  // onClick теперь получает весь item, чтобы можно было взять text и value
   onClickCheckBox?: (item: Items) => void;
   defaultValue?: string[];
   className?: string;
@@ -100,7 +98,6 @@ export const CheckboxFilterGroup: React.FC<Props> = ({
                 name={item.text}
                 value={item.value}
                 checked={selectedIds?.has(item.value)}
-                // передаём весь item в обработчик
                 onCheckedChange={() => onClickCheckBox?.(item)}
               />
             );

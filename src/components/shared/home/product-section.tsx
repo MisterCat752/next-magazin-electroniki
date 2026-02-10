@@ -24,14 +24,14 @@ export const ProductsSection: React.FC<Props> = ({
   });
 
   if (isLoading) {
-    return <p className='text-white'>Загрузка...</p>;
+    return <p className='text-white'>Loading...</p>;
   }
 
   return (
     <>
       <h2 className='text-xl text-white font-bold'>{title}</h2>
       <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
-        {data?.products.map((p: IProduct) => (
+        {data?.products?.map((p: IProduct) => (
           <ProductCard variantId={p.variants[0].id} key={p.id} {...p} />
         ))}
       </Slider>

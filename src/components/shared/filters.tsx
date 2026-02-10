@@ -27,16 +27,24 @@ export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
   className,
   categoryId,
 }) => {
-  const { data: filters = [], isLoading } = useFilters(categoryId);
-  const selectedSpecs = useFilterStore((state) => state.selectedSpecs);
-  const toggleSpecFilter = useFilterStore((state) => state.toggleSpecFilter);
-  const mobileFiltersOpen = useFilterStore((s) => s.mobileFiltersOpen);
-  const closeMobileFilters = useFilterStore((s) => s.closeMobileFilters);
-  const [searchTerms, setSearchTerms] = useState<Record<number, string>>({});
+  const {
+    filters,
+    isLoading,
+    selectedSpecs,
+    toggleSpecFilter,
+    mobileFiltersOpen,
+    closeMobileFilters,
+  } = useFilters(categoryId);
 
-  const handleSearchChange = (filterId: number, value: string) => {
-    setSearchTerms((prev) => ({ ...prev, [filterId]: value }));
-  };
+  const getFilterItems = (filter: any) =>
+    filter.values.map((v: any) => ({
+      text: v.value,
+      value: v.value,
+      disabled: v.count === 0,
+    }));
+
+  const getSelectedIds = (name: string) =>
+    new Set(selectedSpecs.filter((s) => s.name === name).map((s) => s.value));
 
   return (
     <div>
@@ -47,7 +55,7 @@ export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
             ' w-[250px]    fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh]  bg-gray-dark  p-6 ',
           )}
         >
-          <Title text='Фильтрация' size='sm' className='mb-7 font-bold' />
+          <Title text='Filters' size='sm' className='mb-7 font-bold' />
           <div
             onClick={closeMobileFilters}
             className='absolute lg:hidden top-5 right-5 '
@@ -55,32 +63,18 @@ export const Filters: React.FC<{ className?: string; categoryId: string }> = ({
             X
           </div>
           <div className='max-h-[500px] scroll-hidden overflow-y-auto  '>
-            {filters.map((filter: any) => {
-              const filteredItems = filter.values.map((v: any) => ({
-                text: `${v.value}  `,
-                value: v.value,
-                disabled: v.count === 0,
-              }));
-
-              const selectedIds = new Set(
-                selectedSpecs
-                  .filter((s) => s.name === filter.name)
-                  .map((s) => s.value),
-              );
-
-              return (
-                <CheckboxFilterGroup
-                  key={filter.id}
-                  title={filter.name}
-                  items={filteredItems}
-                  selectedIds={selectedIds}
-                  loading={isLoading}
-                  onClickCheckBox={(item) =>
-                    toggleSpecFilter({ name: filter.name, value: item.value })
-                  }
-                />
-              );
-            })}
+            {filters.map((filter: any) => (
+              <CheckboxFilterGroup
+                key={filter.id}
+                title={filter.name}
+                items={getFilterItems(filter)}
+                selectedIds={getSelectedIds(filter.name)}
+                loading={isLoading}
+                onClickCheckBox={(item) =>
+                  toggleSpecFilter({ name: filter.name, value: item.value })
+                }
+              />
+            ))}
           </div>
         </div>
       )}

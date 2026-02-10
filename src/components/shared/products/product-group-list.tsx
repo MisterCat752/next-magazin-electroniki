@@ -6,7 +6,6 @@ import { Title } from '@/components/ui';
 import { ProductCard } from './product-card';
 import { IProduct } from '@/types';
 import { SortSelect } from '../filter/SortSelect';
-import { useFilterStore } from '@/store/filterStore';
 
 interface Props {
   title: string;
@@ -21,7 +20,6 @@ export const ProductGroupList: React.FC<Props> = ({
   items,
   listClassName,
 }) => {
-  console.log(items, 'items');
   return (
     <div id={title} className={cn(className)}>
       <div className='flex  justify-between mb-4 text-white'>
