@@ -32,7 +32,7 @@ export default async function RootLayout({
     <div className=''>
       <NavBar />
       <main className='bg-[#000] pt-25 flex gap-4  relative  justify-between '>
-        <ProfileSideBar session={session} />
+        <ProfileSideBar />
 
         <div className='w-full'>{children}</div>
       </main>
