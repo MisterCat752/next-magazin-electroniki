@@ -30,14 +30,14 @@ export const ProfileContent: React.FC<Props> = ({ className, session }) => {
         </h2>
         <div className='bg-gray-dark w-full max-w-[800px] min-h-[500px] rounded-[16px] p-8'>
           <div className=''>
+            <div className='max-w-[75px] rounded-full overflow-hidden mb-3'>
+              <img src='/user.jpeg' alt='user' />
+            </div>
             <p className='text-white font-extrabold text-[20px]'>
-              Имя : {session?.user?.email}
+              Имя : {session?.user?.name}
             </p>
             <p className='text-white font-extrabold text-[20px]'>
-              Email : {session?.user?.name}
-            </p>
-            <p className='text-white font-extrabold text-[20px]'>
-              ID: {session?.user?.id}
+              Email : {session?.user?.email}
             </p>
           </div>
         </div>

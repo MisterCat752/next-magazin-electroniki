@@ -18,13 +18,8 @@ export default function ProductView({ productId }: { productId: number }) {
 
   const { activeVariant, allOptions, availableValues } = useProductVariants(
     product,
-    selectedOptions
-  );
-  console.log('ProductView render:', {
-    product,
-    activeVariant,
     selectedOptions,
-  });
+  );
   if (isLoading) return <p className='text-white mt-30'>Загрузка товара...</p>;
   if (isError || !product)
     return <p className='text-black mt-30'>Товар не найден</p>;

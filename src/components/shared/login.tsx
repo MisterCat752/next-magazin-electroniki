@@ -27,7 +27,6 @@ interface Props {
 export const Login: React.FC<Props> = ({ className }) => {
   const [isLogin, setIsLogin] = React.useState(true);
   const { data: session, status } = useSession();
-  console.log(status, 'status in login component');
   return (
     <div className={cn(className, '')}>
       {status === 'authenticated' ? (

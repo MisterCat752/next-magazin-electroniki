@@ -37,16 +37,7 @@ export const ProfileSideBar: React.FC<Props> = ({ className, session }) => {
         size={28}
         strokeWidth={3}
       />
-      <div className='flex gap-2'>
-        <div className='rounded-full  overflow-hidden'>
-          <img src='/user.jpeg' className='w-full h-full' />
-        </div>
 
-        <div className=''>
-          <p>Email3: {session?.user?.email}</p>
-          <p>ID: {session?.user?.id}</p>
-        </div>
-      </div>
       {sidebarItems.map((item) => (
         <div
           key={item.link}

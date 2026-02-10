@@ -44,8 +44,8 @@ export const NavBar: React.FC<Props> = ({ className }) => {
       <Container>
         <div className='py-5 flex gap-2 justify-between items-center'>
           <Link href='/' className='flex gap-2 items-center'>
-            <img src='clicon.png' alt='clicon' />
-            <h2 className='text-white hidden  sm:block uppercase font-bold text-3xl'>
+            {/* <img className='md:hidden' src='clicon.png' alt='clicon' /> */}
+            <h2 className='text-white hidden  md:block uppercase font-bold text-3xl'>
               CLICON
             </h2>
           </Link>
@@ -78,14 +78,14 @@ export const NavBar: React.FC<Props> = ({ className }) => {
                 )}{' '}
                 <div
                   className='
-         h-[360px]
-        overflow-y-auto
-        flex flex-col
-        gap-2
-        pr-1
-        scrollbar-thin
-        scrollbar-thumb-gray-700
-      '
+                        h-[360px]
+                        overflow-y-auto
+                        flex flex-col
+                        gap-2
+                        pr-1
+                        scrollbar-thin
+                        scrollbar-thumb-gray-700
+                      '
                 >
                   {items.map((item) => (
                     <div
