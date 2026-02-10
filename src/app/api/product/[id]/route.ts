@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } } // params уже приходит как объект
+  { params }: { params: Promise<{ id: string }> }, // params уже приходит как объект
 ) {
   const paramsId = await params;
   const productId = Number(paramsId.id);
