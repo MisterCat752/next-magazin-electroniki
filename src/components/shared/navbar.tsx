@@ -42,12 +42,14 @@ export const NavBar: React.FC<Props> = ({ className }) => {
       className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[12] ')}
     >
       <Container>
-        <div className='py-5 flex gap-2 justify-between items-center'>
-          <Link href='/' className='flex gap-2 items-center'>
-            <img className=' ' src='clicon.png' alt='clicon' />
-          </Link>
-          <div className='hidden  sm:block'>
-            <CatalogMenu />
+        <div className='py-5 flex gap-2  justify-between items-center'>
+          <div className='flex gap-4 items-center'>
+            <Link href='/' className='flex gap-2 items-center'>
+              <img className=' ' src='clicon.png' alt='clicon' />
+            </Link>
+            <div className='hidden  sm:block'>
+              <CatalogMenu />
+            </div>
           </div>
           <div className='max-w-[646px] w-full relative'>
             <SearchInput />

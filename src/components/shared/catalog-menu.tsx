@@ -105,7 +105,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
     <>
       {/* Кнопка */}
       <button
-        className='hidden flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
+        className='hidden md:flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
         <span className='font-bold'>Каталог</span>
