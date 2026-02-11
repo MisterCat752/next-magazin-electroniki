@@ -23,8 +23,8 @@ export const SimilarProducts = ({
 
   return (
     <>
-      <h2 className='text-xl text-white font-bold'>Последние товары</h2>
-      <Slider itemClassName='flex-[0_0_25%] max-w-[266px] mr-2'>
+      <h2 className='text-xl text-white font-bold my-5'>Похожие продукты</h2>
+      <Slider itemClassName='flex   max-w-[266px] mr-2'>
         {data?.products.map((p: IProduct) => (
           <ProductCard key={p.id} {...p} />
         ))}

@@ -6,6 +6,7 @@ import { Title } from '@/components/ui';
 import { ProductCard } from './product-card';
 import { IProduct } from '@/types';
 import { SortSelect } from '../filter/SortSelect';
+import { OpenSideButton } from '../profile/open-side-button';
 
 interface Props {
   title: string;
@@ -22,12 +23,13 @@ export const ProductGroupList: React.FC<Props> = ({
 }) => {
   return (
     <div id={title} className={cn(className)}>
-      <div className='flex  justify-between mb-4 text-white'>
+      <div className='flex items-center justify-between mb-4 text-white'>
         <Title
           text={title}
           size='lg'
           className='font-extrabold hidden lg:block text-white text-[18px] mb-5 '
         />
+        <OpenSideButton />
 
         <SortSelect />
       </div>

@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-
+import { ChartBarStacked, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 type Category = {
   id: string;
   name: string;
@@ -61,6 +62,7 @@ async function fetchCategories(): Promise<Category[]> {
 }
 
 export function CatalogMenu({ placeClassName }: ClassNamePosition) {
+  const [mobileStack, setMobileStack] = useState<Category | null>(null);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -103,12 +105,17 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
     <>
       {/* Кнопка */}
       <button
-        className='flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
+        className='hidden flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
         <span className='font-bold'>Каталог</span>
       </button>
-
+      <button
+        className='flex md:hidden  items-center gap-2 px-4 py-2   text-white rounded'
+        onClick={() => setOpen((v) => !v)}
+      >
+        <ChartBarStacked color='white' />
+      </button>
       {/* ================= DESKTOP ================= */}
       {open && (
         <div
@@ -170,79 +177,97 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
       )}
 
       {/* ================= MOBILE ================= */}
-      <div
-        className={cn(
-          'md:hidden fixed inset-0 z-40 transition',
-          open ? 'pointer-events-auto' : 'pointer-events-none',
-        )}
-      >
-        {/* overlay */}
-        <div
-          className={cn(
-            'absolute inset-0 bg-black/50 transition-opacity',
-            open ? 'opacity-100' : 'opacity-0',
-          )}
-          onClick={() => setOpen(false)}
-        />
-
-        {/* panel */}
-        <div
-          className={cn(
-            'absolute left-0 top-0 h-full w-80 bg-gray-dark shadow-2xl transition-transform duration-300',
-            open ? 'translate-x-0' : '-translate-x-full',
-          )}
-        >
-          <div className='h-full flex flex-col'>
-            {/* категории */}
-            <div className='border-b border-gray-600 p-4 font-bold text-white'>
-              Каталог
-            </div>
-
-            <div className='overflow-y-auto'>
-              {categories.map((cat) => (
-                <div
-                  key={cat.id}
-                  onClick={() => setHovered(cat.id)}
-                  className={`flex items-center gap-3 px-5 py-3 cursor-pointer transition
-                  ${
-                    hovered === cat.id
-                      ? 'bg-gray border-l-4 border-[#043652] font-bold'
-                      : ''
-                  }`}
-                >
-                  <span>{IconBySlug(cat.slug)}</span>
-                  <span className='text-white text-sm'>{cat.name}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* подкатегории */}
-            <div className='flex-1 overflow-y-auto p-4 border-t border-gray-600'>
-              {!current || current.children?.length === 0 ? (
-                <div />
-              ) : (
-                current?.children?.map((sub) => (
-                  <div key={sub.id} className='mb-4'>
-                    <Link
-                      href={`/category/${sub.slug}`}
-                      className='font-bold mb-2 text-green block'
-                      onClick={() => setOpen(false)}
-                    >
-                      {sub.name}
-                    </Link>
-
-                    <ul className='space-y-1'>
-                      {sub.children?.map((child) => (
-                        <NestedList key={child.id} node={child} />
-                      ))}
-                    </ul>
-                  </div>
-                ))
+      {typeof window !== 'undefined' &&
+        createPortal(
+          <div
+            className={cn(
+              'md:hidden fixed inset-0 z-[888] transition',
+              open ? 'pointer-events-auto' : 'pointer-events-none',
+            )}
+          >
+            {/* overlay */}
+            <div
+              className={cn(
+                'absolute inset-0 bg-black/50 transition-opacity',
+                open ? 'opacity-100' : 'opacity-0',
               )}
+              onClick={() => {
+                setOpen(false);
+                setMobileStack(null);
+              }}
+            />
+
+            {/* panel */}
+            <div
+              className={cn(
+                'absolute left-0 top-0 h-full w-full bg-gray-dark shadow-2xl transition-transform duration-300',
+                open ? 'translate-x-0' : '-translate-x-full',
+              )}
+            >
+              <div className='h-full flex flex-col'>
+                {/* header */}
+                <div className='flex justify-between items-center gap-3 border-b border-gray-600 p-4 font-bold text-white'>
+                  {mobileStack && (
+                    <button
+                      onClick={() => setMobileStack(null)}
+                      className='text-green'
+                    >
+                      ← Назад
+                    </button>
+                  )}
+                  <span>{mobileStack ? mobileStack.name : 'Каталог'}</span>
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      setMobileStack(null);
+                    }}
+                  >
+                    <X />
+                  </button>
+                </div>
+
+                <div className='flex-1 overflow-y-auto'>
+                  {/* ================= СПИСОК КАТЕГОРИЙ ================= */}
+                  {!mobileStack &&
+                    categories.map((cat) => (
+                      <div
+                        key={cat.id}
+                        onClick={() => setMobileStack(cat)}
+                        className='flex items-center gap-3 px-5 py-4 cursor-pointer hover:bg-gray transition'
+                      >
+                        <span>{IconBySlug(cat.slug)}</span>
+                        <span className='text-white'>{cat.name}</span>
+                      </div>
+                    ))}
+
+                  {/* ================= ПОДКАТЕГОРИИ ================= */}
+                  {mobileStack &&
+                    mobileStack.children?.map((sub) => (
+                      <div key={sub.id} className='px-5 py-3'>
+                        <Link
+                          href={`/category/${sub.slug}`}
+                          className='font-bold text-green block mb-2'
+                          onClick={() => {
+                            setOpen(false);
+                            setMobileStack(null);
+                          }}
+                        >
+                          {sub.name}
+                        </Link>
+
+                        <ul className='space-y-1 ml-3'>
+                          {sub.children?.map((child) => (
+                            <NestedList key={child.id} node={child} />
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

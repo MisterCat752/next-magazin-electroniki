@@ -18,6 +18,7 @@ export const ProfileContent: React.FC<Props> = ({ className, session }) => {
   return (
     <main className='bg-[#000] w-full py-10 flex gap-4    justify-between '>
       <Container className='w-full'>
+        <OpenSideButton />
         <div className='flex items-center gap-2 mb-5'>
           <Link
             href='/'

@@ -27,7 +27,7 @@ export const OpenSideButton: React.FC<Props> = ({ className }) => {
 
   // Иконка меняем тоже по маршруту
   const icon = pathname.startsWith('/profile') ? (
-    <LucideUser size={20} />
+    <LucideMenu size={20} />
   ) : (
     <LucideMenu size={20} />
   );
@@ -41,7 +41,7 @@ export const OpenSideButton: React.FC<Props> = ({ className }) => {
       )}
     >
       {icon}
-      <span>{pathname.startsWith('/profile') ? 'Профиль' : 'Фильтры'}</span>
+      <span>{pathname.startsWith('/profile') ? ' ' : ' '}</span>
     </button>
   );
 };

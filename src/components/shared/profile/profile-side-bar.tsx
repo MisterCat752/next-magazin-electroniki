@@ -29,10 +29,11 @@ export const ProfileSideBar: React.FC<Props> = ({ className, session }) => {
     <div
       className={cn(
         className,
-        'text-white w-[300px] min-h-[900px] p-5 rounded-[16px] bg-gray-dark transition-all duration-300',
+        'text-white p-5 bg-gray-dark transition-all duration-300',
 
-        profileSideBar ? 'hidden lg:block' : 'fixed top-20 left-0   z-50  ',
-        'text-white w-[300px] min-h-[900px] p-5 rounded-[16px]   ',
+        profileSideBar
+          ? 'hidden lg:block lg:w-[300px] lg:relative lg:rounded-[16px]'
+          : 'fixed top-0 left-0 w-full h-screen z-150 rounded-none',
       )}
     >
       <h1 className='text-2xl my-4 font-bold'>Профиль пользователя</h1>

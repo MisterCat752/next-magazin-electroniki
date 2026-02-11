@@ -40,7 +40,6 @@ export function Footer() {
           <div className='relative   '>
             <CatalogMenu placeClassName='bottom-[70px]   text-black w-[500px]' />
           </div>
-          <OpenSideButton />
 
           <Link
             href={

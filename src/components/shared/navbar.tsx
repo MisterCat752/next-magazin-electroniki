@@ -39,15 +39,12 @@ export const NavBar: React.FC<Props> = ({ className }) => {
   const { data: session, status } = useSession();
   return (
     <div
-      className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[100] ')}
+      className={cn(className, 'bg-gray-dark  fixed top-0 w-full   z-[12] ')}
     >
       <Container>
         <div className='py-5 flex gap-2 justify-between items-center'>
           <Link href='/' className='flex gap-2 items-center'>
-            {/* <img className='md:hidden' src='clicon.png' alt='clicon' /> */}
-            <h2 className='text-white hidden  md:block uppercase font-bold text-3xl'>
-              CLICON
-            </h2>
+            <img className=' ' src='clicon.png' alt='clicon' />
           </Link>
           <div className='hidden  sm:block'>
             <CatalogMenu />
