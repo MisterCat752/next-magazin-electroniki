@@ -62,10 +62,13 @@ async function fetchCategories(): Promise<Category[]> {
 }
 
 export function CatalogMenu({ placeClassName }: ClassNamePosition) {
+  const [mounted, setMounted] = useState(false);
   const [mobileStack, setMobileStack] = useState<Category | null>(null);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
-
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories,
@@ -177,7 +180,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
       )}
 
       {/* ================= MOBILE ================= */}
-      {typeof window !== 'undefined' &&
+      {mounted &&
         createPortal(
           <div
             className={cn(
