@@ -6,6 +6,7 @@ export async function getProducts(params: {
   sort?: string | null;
   page?: number;
   limit?: number;
+  priceRange: { min: number; max: number } | null;
 }): Promise<ProductsResponse> {
   const query = new URLSearchParams();
 
@@ -23,7 +24,10 @@ export async function getProducts(params: {
 
   query.set('page', String(params.page ?? 1));
   query.set('limit', String(params.limit ?? 10));
-
+  if (params.priceRange) {
+    query.set('minPrice', String(params.priceRange.min));
+    query.set('maxPrice', String(params.priceRange.max));
+  }
   const res = await fetch(`/api/products?${query.toString()}`);
   return res.json();
 }

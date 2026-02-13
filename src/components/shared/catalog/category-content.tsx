@@ -17,11 +17,11 @@ export const CategoryContent: React.FC<Props> = ({ category }) => {
       <Filters categoryId={category} />
 
       <div className='w-full px-2'>
-        {isLoading ? (
-          <p className='text-white'>Loading...</p>
-        ) : (
-          <ProductGroupList title={category} items={products} />
-        )}
+        <ProductGroupList
+          title={category}
+          items={products}
+          isLoading={isLoading} // ⭐ добавлено
+        />
         <Pagination
           page={page}
           totalPages={totalPages}

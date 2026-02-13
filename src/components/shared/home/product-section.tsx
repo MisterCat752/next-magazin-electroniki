@@ -3,6 +3,7 @@
 import { Slider, ProductCard } from '@/components/shared';
 import type { IProduct } from '@/types/products.types';
 import { useProductsSection } from '@/hooks/useProductsSection';
+import { SkeletonCard } from '../skeletons/skeleton-card';
 
 interface Props {
   title: string;
@@ -22,11 +23,8 @@ export const ProductsSection: React.FC<Props> = ({
     sort,
     queryKeySuffix,
   });
-
-  if (isLoading) {
-    return <p className='text-white'>Loading...</p>;
-  }
-
+  const showSkeleton = isLoading;
+  const skeletonCount = 6;
   return (
     <>
       <h2 className='text-xl text-white font-bold'>{title}</h2>
@@ -34,9 +32,13 @@ export const ProductsSection: React.FC<Props> = ({
         itemClassName='flex-[0_0_50%] max-w-[50%] mr-2 
                  md:flex-[0_0_20%] md:max-w-[200px]'
       >
-        {data?.products?.map((p: IProduct) => (
-          <ProductCard variantId={p.variants[0].id} key={p.id} {...p} />
-        ))}
+        {showSkeleton
+          ? Array.from({ length: skeletonCount }).map((_, idx) => (
+              <SkeletonCard key={idx} />
+            ))
+          : data?.products?.map((p: IProduct) => (
+              <ProductCard variantId={p.variants[0].id} key={p.id} {...p} />
+            ))}
       </Slider>
     </>
   );

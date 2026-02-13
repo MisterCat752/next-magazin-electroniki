@@ -17,9 +17,9 @@ export const useCatalogProducts = (category: string) => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page, sort, category]);
-
+  const priceRange = useFilterStore((s) => s.priceRange);
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['products', category, specsKey, sort, page],
+    queryKey: ['products', category, specsKey, sort, page, priceRange],
     queryFn: () =>
       getProducts({
         category,
@@ -27,6 +27,7 @@ export const useCatalogProducts = (category: string) => {
         sort,
         page,
         limit: 12,
+        priceRange,
       }),
     placeholderData: keepPreviousData,
     staleTime: 3_000,

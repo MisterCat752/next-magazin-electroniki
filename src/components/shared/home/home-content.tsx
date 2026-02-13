@@ -30,6 +30,7 @@ export default function HomeContent() {
               <img
                 src={image.desktop}
                 alt={`slide-${i}`}
+                loading='lazy'
                 className='w-full h-full object-cover rounded-2xl'
               />
             </picture>

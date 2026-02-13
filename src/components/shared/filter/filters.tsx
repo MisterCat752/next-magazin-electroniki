@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { CheckboxFilterGroup } from '../index';
 import { Title } from '@/components/ui';
 import { useFilters } from '@/hooks/useFilters';
+import { useFilterStore } from '@/store/filterStore';
 
 export interface FilterValueType {
   id: number;
@@ -31,10 +32,15 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
     selectedSpecs,
     toggleSpecFilter,
     mobileFiltersOpen,
-    closeMobileFilters,
     toggleMobileFilters,
+    priceRange,
+    setPriceRange,
+    priceMin,
+    setPriceMin,
+    priceMax,
+    setPriceMax,
+    clearFilters,
   } = useFilters(categoryId);
-
   const getFilterItems = (filter: FilterType) =>
     filter.values.map((v) => ({
       text: v.value,
@@ -65,7 +71,7 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
         X
       </div>
 
-      <div className='max-h-[500px] scroll-hidden overflow-y-auto'>
+      <div className='max-h-[800px] scroll-hidden overflow-y-auto'>
         {filters.map((filter: FilterType) => (
           <CheckboxFilterGroup
             key={filter.id}
@@ -78,6 +84,37 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
             }
           />
         ))}
+        <div className='my-4'>
+          <p className='text-white font-bold mb-2'>Цена (MDL)</p>
+          <div className='flex gap-2'>
+            <input
+              type='number'
+              placeholder='от'
+              className='w-1/2 p-2 rounded bg-gray-700 text-white'
+              value={priceMin ?? 1}
+              onChange={(e) => setPriceMin(Number(e.target.value))}
+            />
+            <input
+              type='number'
+              placeholder='до'
+              className='w-1/2 p-2 rounded bg-gray-700 text-white'
+              value={priceMax ?? 1000}
+              onChange={(e) => setPriceMax(Number(e.target.value))}
+            />
+          </div>
+          <button
+            onClick={() => setPriceRange({ min: priceMin, max: priceMax })}
+            className='mt-2 px-3 py-1 bg-green text-black font-bold rounded'
+          >
+            Применить
+          </button>
+        </div>
+        <button
+          onClick={clearFilters}
+          className='mt-4 px-3 py-1 bg-green text-black font-bold rounded'
+        >
+          Очистка фильтров
+        </button>
       </div>
     </div>
   );

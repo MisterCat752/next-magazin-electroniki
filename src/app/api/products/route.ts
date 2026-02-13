@@ -32,7 +32,10 @@ interface ProductResponse {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-
+    const minPrice = Number(searchParams.get('minPrice') ?? 0);
+    const maxPrice = Number(
+      searchParams.get('maxPrice') ?? Number.MAX_SAFE_INTEGER,
+    );
     const categorySlug = searchParams.get('category');
     const specParam = searchParams.get('specs'); // specifications: "Цвет:Синий,Память:16GB" (URLEncoded)
     const sortParam = searchParams.get('sort');
@@ -112,13 +115,26 @@ export async function GET(req: Request) {
       where: whereClause,
     });
     const products = await prisma.product.findMany({
-      where: whereClause,
-      skip,
-      take: limit,
+      where: {
+        categoryId: { in: categoryIds },
+        variants: {
+          some: {
+            price: {
+              gte: minPrice,
+              lte: maxPrice,
+            },
+            ...(whereClause.variants?.some
+              ? { AND: whereClause.variants.some.AND }
+              : {}),
+          },
+        },
+      },
       include: {
         variants: { include: { specifications: true } },
         filters: true,
       },
+      skip,
+      take: limit,
     });
 
     const mappedProducts: ProductResponse[] = products.map((p) => ({
