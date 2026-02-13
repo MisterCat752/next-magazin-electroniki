@@ -25,6 +25,10 @@ export function useProductsSection({
         sort,
         limit,
         page,
+        priceRange: {
+          min: 0,
+          max: Number.MAX_SAFE_INTEGER,
+        },
       }),
     staleTime: 5 * 60 * 1000,
   });
