@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { ChartBarStacked, X } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import { usePathname } from 'next/navigation'; // ⭐ добавили
+
 type Category = {
   id: string;
   name: string;
@@ -18,43 +20,6 @@ type ClassNamePosition = {
   placeClassName?: string;
 };
 
-function IconBySlug(slug?: string) {
-  if (!slug)
-    return (
-      <svg width={24} height={24} viewBox='0 0 24 24'>
-        <rect width='20' height='14' x='2' y='5' rx='2' fill='#222' />
-      </svg>
-    );
-
-  const s = slug.toLowerCase();
-
-  if (
-    s.includes('phone') ||
-    s.includes('smart') ||
-    s.includes('android') ||
-    s.includes('ios')
-  )
-    return (
-      <svg width={24} height={24} viewBox='0 0 24 24'>
-        <rect x='8' y='2' width='8' height='18' rx='2' fill='#222' />
-        <circle cx='12' cy='20' r='0.9' fill='#fff' />
-      </svg>
-    );
-
-  if (s.includes('laptop') || s.includes('notebook'))
-    return (
-      <svg width={24} height={24} viewBox='0 0 24 24'>
-        <rect x='3' y='6' width='18' height='12' rx='2' fill='#222' />
-      </svg>
-    );
-
-  return (
-    <svg width={24} height={24} viewBox='0 0 24 24'>
-      <rect x='3' y='6' width='18' height='12' rx='2' fill='#222' />
-    </svg>
-  );
-}
-
 async function fetchCategories(): Promise<Category[]> {
   const res = await fetch('/api/categories');
   if (!res.ok) throw new Error('Failed to fetch categories');
@@ -66,9 +31,21 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
   const [mobileStack, setMobileStack] = useState<Category | null>(null);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+
+  const pathname = usePathname(); // ⭐ добавили
+
+  // ⭐ закрытие при переходе по роуту
+  useEffect(() => {
+    if (open) {
+      setOpen(false);
+      setMobileStack(null);
+    }
+  }, [pathname]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories,
@@ -89,7 +66,6 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
       <Link
         href={`/category/${node.slug}`}
         className='cursor-pointer text-white hover:text-green transition duration-200'
-        onClick={() => setOpen(false)}
       >
         {node.name}
       </Link>
@@ -106,19 +82,25 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
 
   return (
     <>
-      {/* Кнопка */}
+      {/* Кнопка десктоп */}
       <button
         className='hidden md:flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
-        <span className='font-bold'>Каталог</span>
+        <span className='hidden font-bold lg:flex'>Каталог</span>
+        <span className='flex font-bold lg:hidden'>
+          <ChartBarStacked color='white' />
+        </span>
       </button>
+
+      {/* Кнопка мобилка */}
       <button
-        className='flex md:hidden  items-center gap-2 px-4 py-2   text-white rounded'
+        className='flex md:hidden items-center gap-2 px-4 py-2 text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
         <ChartBarStacked color='white' />
       </button>
+
       {/* ================= DESKTOP ================= */}
       {open && (
         <div
@@ -145,7 +127,6 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
                     : 'hover:bg-gray'
                 }`}
               >
-                <span>{IconBySlug(cat.slug)}</span>
                 <span className='text-white font-bold text-[14px]'>
                   {cat.name}
                 </span>
@@ -230,7 +211,6 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
                 </div>
 
                 <div className='flex-1 overflow-y-auto'>
-                  {/* ================= СПИСОК КАТЕГОРИЙ ================= */}
                   {!mobileStack &&
                     categories.map((cat) => (
                       <div
@@ -238,22 +218,16 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
                         onClick={() => setMobileStack(cat)}
                         className='flex items-center gap-3 px-5 py-4 cursor-pointer hover:bg-gray transition'
                       >
-                        <span>{IconBySlug(cat.slug)}</span>
                         <span className='text-white'>{cat.name}</span>
                       </div>
                     ))}
 
-                  {/* ================= ПОДКАТЕГОРИИ ================= */}
                   {mobileStack &&
                     mobileStack.children?.map((sub) => (
                       <div key={sub.id} className='px-5 py-3'>
                         <Link
                           href={`/category/${sub.slug}`}
                           className='font-bold text-green block mb-2'
-                          onClick={() => {
-                            setOpen(false);
-                            setMobileStack(null);
-                          }}
                         >
                           {sub.name}
                         </Link>

@@ -42,7 +42,7 @@ export function Footer() {
       <footer className='fixed bottom-0 left-0 w-full bg-black text-white lg:hidden'>
         <nav className='flex    justify-around items-center py-4'>
           <div className='mt-2'>{isProfile && <OpenSideButton />}</div>
-          <div className='relative   '>
+          <div className='relative flex md:hidden   '>
             <CatalogMenu placeClassName='bottom-[70px]   text-black w-[500px]' />
           </div>
 

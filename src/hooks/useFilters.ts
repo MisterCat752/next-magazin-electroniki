@@ -7,6 +7,7 @@ export const useFilters = (categoryId: string) => {
   const toggleSpecFilter = useFilterStore((state) => state.toggleSpecFilter);
   const mobileFiltersOpen = useFilterStore((s) => s.mobileFiltersOpen);
   const closeMobileFilters = useFilterStore((s) => s.closeMobileFilters);
+  const toggleMobileFilters = useFilterStore((s) => s.toggleMobileFilters);
 
   const { data, isLoading } = useQuery({
     queryKey: ['filters', categoryId],
@@ -26,5 +27,6 @@ export const useFilters = (categoryId: string) => {
     toggleSpecFilter,
     mobileFiltersOpen,
     closeMobileFilters,
+    toggleMobileFilters,
   };
 };

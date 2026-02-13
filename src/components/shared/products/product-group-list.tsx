@@ -34,7 +34,14 @@ export const ProductGroupList: React.FC<Props> = ({
       </div>
       <div
         className={cn(
-          `   grid  grid-cols-[repeat(auto-fill,minmax(226px,1fr))]   gap-3`,
+          `
+    grid 
+    grid-cols-1  justify-items-center               // 📱 мобильные
+    sm:grid-cols-2
+    md:grid-cols-3
+    lg:grid-cols-[repeat(auto-fill,minmax(226px,1fr))]
+    gap-3
+    `,
           listClassName,
         )}
       >

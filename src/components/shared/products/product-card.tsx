@@ -38,7 +38,7 @@ export const ProductCard: React.FC<Props> = ({
     <div
       className={cn(
         className,
-        'group border bg-gray-dark-medium shadow-sm flex flex-col  max-w-[226px] gap-2 min-h-[380px]   rounded-2xl px-[8px] py-3 transition-all duration-300  hover:shadow-lg hover:border-gray-medium   ',
+        'group border bg-gray-dark-medium shadow-sm flex flex-col  max-w-[326px] gap-2 min-h-[380px]   rounded-2xl px-[8px] py-3 transition-all duration-300  hover:shadow-lg hover:border-gray-medium   ',
       )}
     >
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}

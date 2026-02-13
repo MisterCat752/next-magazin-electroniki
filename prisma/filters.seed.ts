@@ -446,7 +446,6 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         connect: [
           { id: categories.gamingLaptops.id },
           { id: categories.laptopPc.id },
-          { id: categories.monitors?.id },
         ],
       },
       values: {
