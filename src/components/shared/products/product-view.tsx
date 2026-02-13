@@ -20,12 +20,12 @@ export default function ProductView({ productId }: { productId: number }) {
     product,
     selectedOptions,
   );
-  if (isLoading) return <p className='text-white mt-30'>Загрузка товара...</p>;
+  if (isLoading) return <p className='text-white  p-30 '>Загрузка товара...</p>;
   if (isError || !product)
-    return <p className='text-black mt-30'>Товар не найден</p>;
+    return <p className='text-black p-30'>Товар не найден</p>;
 
   return (
-    <main className='pt-[100px] pb-[100px] bg-[#000]'>
+    <main className='pt-[100px] pb-[100px]   bg-[#000] '>
       <Container>
         <div className='flex flex-wrap lg:flex-nowrap gap-6'>
           <div className='w-full'>

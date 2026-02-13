@@ -9,7 +9,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const productId = parseInt(id, 10);
 
-  if (!productId) return <p>Товар не найден</p>;
-
-  return <ProductView productId={productId} />;
+  return (
+    <div className='min-h-[100vh] bg-[#000]'>
+      <ProductView productId={productId} />
+    </div>
+  );
 }
