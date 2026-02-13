@@ -1,10 +1,8 @@
 'use client';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Container } from '../layout/container';
 import Link from 'next/link';
 import { Heart, Search, ShoppingCart, Trash, User } from 'lucide-react';
-import { CatalogMenu } from './catalog-menu';
 import {
   Button,
   Dialog,
@@ -20,14 +18,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui';
-import { Login } from './login';
-import { SearchInput } from './nav/search';
+import { SearchInput } from './search';
 import { useCartStore } from '@/store/cartStore';
-import { CartNavBAr } from './nav/cart-navBar';
+import { CartNavBAr } from './cart-navBar';
 import { useSession } from 'next-auth/react';
 import { useFavoriteStore } from '@/store/favoriteStore';
-import { CartNavBarItem } from './nav/CartNavBarItem';
-
+import { CartNavBarItem } from './CartNavBarItem';
+import { Login } from '../auth/login';
+import { Container } from '@/components/layout/container';
+import { CatalogMenu } from './catalog-menu';
 interface Props {
   className?: string;
 }
@@ -45,7 +44,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
         <div className='py-5 flex gap-2  justify-between items-center'>
           <div className='flex gap-4 items-center'>
             <Link href='/' className='flex gap-2 items-center'>
-              <img className=' ' src='clicon.png' alt='clicon' />
+              <img className=' ' src='/clicon.png' alt='clicon' />
             </Link>
             <div className='hidden  sm:block'>
               <CatalogMenu />

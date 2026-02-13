@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { CheckboxFilterGroup } from './index';
+import { CheckboxFilterGroup } from '../index';
 import { Title } from '@/components/ui';
 import { useFilters } from '@/hooks/useFilters';
 
@@ -50,7 +50,7 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
         <div
           className={cn(
             className,
-            'w-[250px] fixed top-25 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-dark p-6',
+            'w-[250px] fixed top-20 left-0 z-40 lg:relative lg:top-0 text-white rounded-md min-h-[100vh] bg-gray-dark p-6',
           )}
         >
           <Title text='Filters' size='sm' className='mb-7 font-bold' />

@@ -1,10 +1,8 @@
-// lib/api/get-products.ts
-
 import { ProductsResponse } from '@/types/products/products.dto';
 
 export async function getProducts(params: {
-  category: string; // теперь необязательное
-  specs?: { name: string; value: string }[]; // необязательное
+  category: string;
+  specs?: { name: string; value: string }[];
   sort?: string | null;
   page?: number;
   limit?: number;
@@ -15,7 +13,7 @@ export async function getProducts(params: {
   if (params.specs?.length) {
     const encoded = params.specs
       .map(
-        (s) => `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`
+        (s) => `${encodeURIComponent(s.name)}:${encodeURIComponent(s.value)}`,
       )
       .join(',');
 

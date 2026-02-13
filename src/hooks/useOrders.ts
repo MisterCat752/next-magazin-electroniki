@@ -15,11 +15,11 @@ interface OrderTableProps {
 
 export const useOrders = (orderId: string, options?: { enabled?: boolean }) => {
   return useQuery<OrderTableProps>({
-    queryKey: ['order', orderId], // важно добавить id в key
+    queryKey: ['order', orderId],
     enabled: options?.enabled,
     queryFn: async () => {
       const { data } = await axios.get<OrderTableProps>(
-        `/api/order/${orderId}`
+        `/api/order/${orderId}`,
       );
       return data;
     },

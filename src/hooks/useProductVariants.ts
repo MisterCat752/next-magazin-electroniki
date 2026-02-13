@@ -9,7 +9,7 @@ export interface Variant {
   id: number;
   price: number;
   options: Option[];
-  specifications: Record<string, string>[]; // или другой тип вместо any
+  specifications: Record<string, string>[];
 }
 
 export interface Product {
@@ -17,7 +17,7 @@ export interface Product {
     id: number;
     price: number;
     options: Option[];
-    specs: Record<string, string>[]; // или как у тебя
+    specs: Record<string, string>[];
   }[];
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Filters, ProductGroupList } from '@/components/shared';
-import { Pagination } from './pagination/pagination';
+import { Pagination } from '../pagination/pagination';
 import { useCatalogProducts } from '@/hooks/useCatalogProducts';
 
 interface Props {
@@ -20,7 +20,7 @@ export const CategoryContent: React.FC<Props> = ({ category }) => {
         {isLoading ? (
           <p className='text-white'>Loading...</p>
         ) : (
-          <ProductGroupList title='Товары' items={products} />
+          <ProductGroupList title={category} items={products} />
         )}
         <Pagination
           page={page}

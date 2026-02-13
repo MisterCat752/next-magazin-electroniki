@@ -1,4 +1,4 @@
-// mock/categories.ts
+// mock
 import { Category } from '@/types';
 
 export const categories: Category[] = [

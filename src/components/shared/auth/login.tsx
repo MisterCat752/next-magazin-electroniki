@@ -12,10 +12,10 @@ import {
   DialogTitle,
   DialogTrigger,
   Input,
-} from '../ui';
+} from '../../ui';
 import { User } from 'lucide-react';
-import RegisterForm from './register/RegisterForm';
-import { LoginForm } from './register/LoginForm';
+import RegisterForm from './RegisterForm';
+import { LoginForm } from './LoginForm';
 import { useSession } from 'next-auth/react';
 import { stat } from 'fs';
 import Link from 'next/link';

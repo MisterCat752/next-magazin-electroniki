@@ -1,4 +1,3 @@
-// lib/transform.ts
 export type RawCategory = {
   id: string;
   name: string;
@@ -15,7 +14,7 @@ export type CatalogSubCategory = {
 export type CatalogCategory = {
   id: string;
   name: string;
-  icon?: string; // можно хранить string slug для выбора svg
+  icon?: string;
   subcategories: CatalogSubCategory[];
 };
 
@@ -26,20 +25,19 @@ export function transformCategories(raw: RawCategory[]): CatalogCategory[] {
         const items =
           group.children && group.children.length > 0
             ? group.children.map((c) => c.name)
-            : // fallback: если нет детей — показать саму группу как один item
-              [group.name];
+            : [group.name];
 
         return {
           group: group.name,
           items,
         };
-      }
+      },
     );
 
     return {
       id: root.id,
       name: root.name,
-      icon: root.slug || root.name, // store slug or name — используем для иконок
+      icon: root.slug || root.name,
       subcategories,
     };
   });

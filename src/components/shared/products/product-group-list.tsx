@@ -29,7 +29,6 @@ export const ProductGroupList: React.FC<Props> = ({
           size='lg'
           className='font-extrabold hidden lg:block text-white text-[18px] mb-5 '
         />
-        <OpenSideButton />
 
         <SortSelect />
       </div>

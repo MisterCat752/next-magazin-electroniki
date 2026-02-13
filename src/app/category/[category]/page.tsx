@@ -1,4 +1,4 @@
-import { CategoryContent } from '@/components/shared/category-component';
+import { CategoryContent } from '@/components/shared/catalog/category-content';
 
 interface Props {
   params: { category: string };

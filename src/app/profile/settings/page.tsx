@@ -1,9 +1,7 @@
-import React from 'react';
 import { cn } from '@/lib/utils';
 import DynamicForm, {
   FormField,
 } from '@/components/shared/profile/DynamicForm';
-import { OpenSideButton } from '@/components/shared/profile/open-side-button';
 
 interface Props {
   className?: string;
@@ -22,12 +20,6 @@ export default async function Page({ className }: Props) {
       label: 'Фамилия',
       type: 'text ',
       placeholder: ' Введите фамилию',
-    },
-    {
-      name: ' phone',
-      label: 'Номер телефона',
-      type: 'text ',
-      placeholder: ' Введите Номер телефона',
     },
   ];
   return (

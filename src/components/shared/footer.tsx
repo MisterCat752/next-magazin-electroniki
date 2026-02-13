@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Container } from '../layout/container';
 import Link from 'next/link';
 import { Heart, Search, ShoppingCart, Trash, User } from 'lucide-react';
-import { CatalogMenu } from './catalog-menu';
+import { CatalogMenu } from './nav/catalog-menu';
 import {
   Button,
   Dialog,
@@ -20,23 +20,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui';
-import { Login } from './login';
+import { Login } from './auth/login';
 import { SearchInput } from './nav/search';
 import { useCartStore } from '@/store/cartStore';
 import { CartNavBAr } from './nav/cart-navBar';
 import { useSession } from 'next-auth/react';
 import { useFavoriteStore } from '@/store/favoriteStore';
 import { OpenSideButton } from './profile/open-side-button';
+import { usePathname } from 'next/navigation';
 
 export function Footer() {
+  const pathname = usePathname();
   const items = useCartStore((state) => state.items);
   const favorites = useFavoriteStore((state) => state.items);
   const total = useCartStore((s) => s.totalPrice());
   const { data: session, status } = useSession();
+  const isProfile =
+    pathname.startsWith('/profile') || pathname.startsWith('/category');
   return (
     <footer className='bg-gray-dark-medium relative text-white w-full py-12'>
       <footer className='fixed bottom-0 left-0 w-full bg-black text-white lg:hidden'>
         <nav className='flex    justify-around items-center py-4'>
+          <div className='mt-2'>{isProfile && <OpenSideButton />}</div>
           <div className='relative   '>
             <CatalogMenu placeClassName='bottom-[70px]   text-black w-[500px]' />
           </div>
