@@ -42,6 +42,7 @@ export const Login: React.FC<Props> = ({ className }) => {
             <DialogHeader className='mt-15'>
               <DialogTitle>Войдите в свой акаунт</DialogTitle>
             </DialogHeader>
+
             {isLogin ? <LoginForm /> : <RegisterForm />}
 
             <Button
@@ -50,16 +51,6 @@ export const Login: React.FC<Props> = ({ className }) => {
             >
               {isLogin ? 'Зарегистрироваться' : 'Войдите в свой акаунт'}
             </Button>
-
-            <p className='text-[13px] text-gray-medium text-center font-bold my-5'>
-              Аутентификация другими методами
-            </p>
-
-            <DialogFooter className='flex flex-col gap-3 '>
-              <div className='flex bg-gray-medium   py-2 px-8 items-center justify-center gap-2 w-full max-w-[425px]'>
-                <p className=' '>Google</p>
-              </div>
-            </DialogFooter>
           </DialogContent>
         </Dialog>
       )}

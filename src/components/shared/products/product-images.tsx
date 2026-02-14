@@ -24,7 +24,7 @@ export const ProductImages: React.FC<Props> = ({
       className={cn(
         'flex bg-white rounded-2xl',
         isVertical ? 'flex-row items-start' : 'flex-col items-center',
-        className
+        className,
       )}
     >
       {/* Главное фото */}
@@ -38,18 +38,31 @@ export const ProductImages: React.FC<Props> = ({
       {/* Thumbnails */}
       <Slider
         isThumbs
-        direction={direction}
+        direction='horizontal'
         selectedIndex={selectedIndex}
         onSelect={setSelectedIndex}
-        itemClassName='w-20 h-20 m-1 mt-3'
+        itemClassName='
+    w-14 h-14         /* mobile */
+    sm:w-16 sm:h-16   /* bigger phones */
+    md:w-20 md:h-20   /* desktop */
+    mr-2 mt-3 shrink-0
+  '
       >
         {images.map((img, idx) => (
-          <img
+          <button
             key={idx}
-            src={img}
-            alt={`thumb-${idx}`}
-            className='object-cover w-full h-full rounded'
-          />
+            onClick={() => setSelectedIndex(idx)}
+            className={cn(
+              'overflow-hidden rounded-lg border-2',
+              selectedIndex === idx ? 'border-primary' : 'border-transparent',
+            )}
+          >
+            <img
+              src={img}
+              alt={`thumb-${idx}`}
+              className='object-cover w-full h-full'
+            />
+          </button>
         ))}
       </Slider>
     </div>

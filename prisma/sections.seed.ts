@@ -51,6 +51,13 @@ export async function seedSections(prisma: PrismaClient) {
     },
     include: { groups: true },
   });
+  const motherboard = await prisma.specSection.create({
+    data: {
+      name: 'Материнская плата',
+      groups: { create: [{ name: 'Материнская плата' }] },
+    },
+    include: { groups: true },
+  });
   const connection = await prisma.specSection.create({
     data: {
       name: 'Связь',
@@ -79,6 +86,13 @@ export async function seedSections(prisma: PrismaClient) {
     },
     include: { groups: true },
   });
+  const power = await prisma.specSection.create({
+    data: {
+      name: 'Питание',
+      groups: { create: [{ name: 'Питание' }] },
+    },
+    include: { groups: true },
+  });
   const multimedia = await prisma.specSection.create({
     data: {
       name: 'Мультимедия',
@@ -90,7 +104,9 @@ export async function seedSections(prisma: PrismaClient) {
   return {
     baseGroup: base.groups[0],
     displayGroup: display.groups[0],
+    motherboard: motherboard.groups[0],
     connection: connection.groups[0],
+    power: power.groups[0],
     characteristics: characteristics.groups[0],
     memory: memory.groups[0],
     software: software.groups[0],

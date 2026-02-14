@@ -59,9 +59,9 @@ const gamingPcBaseSpecs = (sections: any) => [
   // ======================
   // 💽 НАКОПИТЕЛЬ
   // ======================
-  { name: 'Объем SSD', value: '512 ГБ', groupId: sections.storage.id },
-  { name: 'Тип накопителя', value: 'M.2 NVMe', groupId: sections.storage.id },
-  { name: 'Модель SSD', value: 'GOODRAM PX500', groupId: sections.storage.id },
+  { name: 'Объем SSD', value: '512 ГБ', groupId: sections.memory.id },
+  { name: 'Тип накопителя', value: 'M.2 NVMe', groupId: sections.memory.id },
+  { name: 'Модель SSD', value: 'GOODRAM PX500', groupId: sections.memory.id },
 
   // ======================
   // 🧩 МАТЕРИНСКАЯ ПЛАТА
@@ -80,9 +80,6 @@ const gamingPcBaseSpecs = (sections: any) => [
   // ======================
   // ❄️ ОХЛАЖДЕНИЕ
   // ======================
-  { name: 'Кулер CPU', value: 'Ice Blade ARGB', groupId: sections.cooling.id },
-  { name: 'Тип охлаждения', value: 'Воздушное', groupId: sections.cooling.id },
-  { name: 'Мощность кулера', value: '190 Вт', groupId: sections.cooling.id },
 
   // ======================
   // 🔌 ПИТАНИЕ / КОРПУС
@@ -107,7 +104,7 @@ const pcVariantSpecs = (
   variant: { ram: string; storage: string },
 ) => [
   { name: 'Объем RAM', value: variant.ram, groupId: sections.memory.id },
-  { name: 'Объем SSD', value: variant.storage, groupId: sections.storage.id },
+  { name: 'Объем SSD', value: variant.storage, groupId: sections.memory.id },
 ];
 
 export const buildPcVariants = (
@@ -116,7 +113,7 @@ export const buildPcVariants = (
 ) =>
   variants.map((variant) => ({
     memory: `${variant.ram}|${variant.storage}`,
-    color: 'Black',
+    color: 'Чёрный',
     price: variant.price,
 
     specifications: buildSpecs({

@@ -49,7 +49,10 @@ export function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           className='border p-2 rounded'
         />
-        <button type='submit' className='bg-blue-500 text-white p-2 rounded'>
+        <button
+          type='submit'
+          className='bg-blue-500 mt-5 text-white p-2 rounded'
+        >
           Войти
         </button>
         {error && <p className='text-red-500'>{error}</p>}

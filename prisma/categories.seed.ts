@@ -3,31 +3,8 @@ export async function seedCategories(prisma: any) {
     data: { name: 'Ноутбуки | ПК', slug: 'laptop-pc' },
   });
 
-  // ======================
-  // 📺 ТЕЛЕВИЗОРЫ
-  // ======================
-  const tvMain = await prisma.category.create({
-    data: { name: 'Телевизоры', slug: 'tv-main' },
-  });
-  const tvs = await prisma.category.create({
-    data: { name: 'Телевизоры', slug: 'tvs', parentId: tvMain.id },
-  });
   const electronics = await prisma.category.create({
     data: { name: 'Телефоны | Планшеты', slug: 'electronics' },
-  });
-  // ======================
-  // 📺 БРЕНДЫ ТВ
-  // ======================
-  await prisma.category.createMany({
-    data: [
-      { name: 'Samsung', slug: 'samsung-tvs', parentId: tvs.id },
-      { name: 'LG', slug: 'lg-tvs', parentId: tvs.id },
-      { name: 'Hisense', slug: 'hisense-tvs', parentId: tvs.id },
-      { name: 'Toshiba', slug: 'toshiba-tvs', parentId: tvs.id },
-      { name: 'KIVI', slug: 'kivi-tvs', parentId: tvs.id },
-      { name: 'Sony', slug: 'sony-tvs', parentId: tvs.id },
-      { name: 'Xiaomi', slug: 'xiaomi-tvs', parentId: tvs.id },
-    ],
   });
 
   // ======================
@@ -49,42 +26,6 @@ export async function seedCategories(prisma: any) {
       name: 'Смартфоны',
       slug: 'smartphones',
       parentId: electronics.id,
-    },
-  });
-
-  const accessories = await prisma.category.create({
-    data: {
-      name: 'Аксессуары',
-      slug: 'accessories',
-      parentId: electronics.id,
-    },
-  });
-  const chargers = await prisma.category.create({
-    data: {
-      name: 'Зарядные устройства',
-      slug: 'chargers',
-      parentId: accessories.id,
-    },
-  });
-  const powerBank = await prisma.category.create({
-    data: {
-      name: 'Power Bank',
-      slug: 'powerBank',
-      parentId: accessories.id,
-    },
-  });
-  const cables = await prisma.category.create({
-    data: {
-      name: 'Cables',
-      slug: 'cables',
-      parentId: accessories.id,
-    },
-  });
-  const headphones = await prisma.category.create({
-    data: {
-      name: 'Наушники',
-      slug: 'headphones',
-      parentId: accessories.id,
     },
   });
 
@@ -133,10 +74,6 @@ export async function seedCategories(prisma: any) {
 
   const samsung = await prisma.category.create({
     data: { name: 'Samsung', slug: 'samsung', parentId: smartphones.id },
-  });
-
-  const appleLaptops = await prisma.category.create({
-    data: { name: 'Apple', slug: 'apple-laptops', parentId: laptop.id },
   });
 
   const gamingLaptops = await prisma.category.create({
@@ -189,7 +126,6 @@ export async function seedCategories(prisma: any) {
     smartphones,
     applePhones,
     samsung,
-    appleLaptops,
     gamingLaptops,
     laptopPc,
     laptop,

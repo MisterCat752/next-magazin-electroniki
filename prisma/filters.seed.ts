@@ -349,6 +349,7 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
           { id: categories.lenovoLegion.id },
           { id: categories.lenovoLoq.id },
           { id: categories.hpOmen.id },
+          { id: categories.laptopPc.id },
           { id: categories.laptop.id },
           { id: categories.computers.id },
         ],
@@ -377,6 +378,7 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
           { id: categories.laptop.id },
           { id: categories.asusRog.id },
           { id: categories.asusTuf.id },
+          { id: categories.laptopPc.id },
           { id: categories.lenovoLegion.id },
           { id: categories.lenovoLoq.id },
           { id: categories.hpOmen.id },
@@ -430,7 +432,7 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
       category: {
         connect: [
           { id: categories.gamingLaptops.id },
-
+          { id: categories.laptopPc.id },
           { id: categories.laptop.id },
         ],
       },
@@ -461,6 +463,7 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         connect: [
           { id: categories.gamingLaptops.id },
           { id: categories.laptop.id },
+          { id: categories.laptopPc.id },
           { id: categories.asusRog.id },
           { id: categories.asusTuf.id },
           { id: categories.lenovoLegion.id },
@@ -496,6 +499,7 @@ export async function seedFilters(prisma: PrismaClient, categories: any) {
         connect: [
           { id: categories.gamingLaptops.id },
           { id: categories.laptop.id },
+          { id: categories.laptopPc.id },
           { id: categories.computers.id },
           { id: categories.asusRog.id },
           { id: categories.asusTuf.id },

@@ -1,7 +1,7 @@
 import { buildPcVariants } from './seed.constants';
 import { SEED_SLIDER } from './sliderData';
 
-export const LAPTOPS_SEED_CONFIG = (
+export const PC_SEED_CONFIG = (
   categories: any,
 ): {
   products: any[];

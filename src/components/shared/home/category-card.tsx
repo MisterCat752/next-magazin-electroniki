@@ -19,7 +19,7 @@ export const CategoryCard = ({ name, image, slug }: CategoryCardProps) => {
             className='w-full h-full rounded-lg group-hover:scale-105 transition-transform duration-300'
           />
         </div>
-        <p className='mt-2 font-bold group-hover:text-[#77a317] transition-colors duration-150 text-center'>
+        <p className='mt-2 font-bold text-white group-hover:text-[#77a317] transition-colors duration-150 text-center'>
           {name}
         </p>
       </div>
