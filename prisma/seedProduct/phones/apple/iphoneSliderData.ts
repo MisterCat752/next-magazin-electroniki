@@ -1,6 +1,8 @@
 export const SLIDER_IPHONE_13 = [
   'https://xstore.md/images/product/2025/12/apple-iphone-13-xstore-md-75.webp',
   'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+  'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+  'https://xstore.md/images/product/2025/05/apple-iphone-16-128gb-ultramarine-1-xstore-md-13.webp',
 ];
 export const SLIDER_IPHONE_15 = [
   'https://xstore.md/images/product/2023/11/Apple-iPhone-15---128GB,-Black-(1).jpg',

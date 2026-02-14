@@ -42,11 +42,15 @@ export const ProductCard: React.FC<Props> = ({
       )}
     >
       {/* Верхняя часть с картинкой и кнопкой "Быстрый просмотр" */}
-      <div className='relative bg-white rounded-2xl overflow-hidden mb-2 min-h-[210px] flex items-center justify-center'>
+      <div className='relative bg-white rounded-2xl overflow-hidden mb-2 min-h-[220px]  flex items-center justify-center'>
         <Link
           href={`https://next-magazin-electroniki-i9b2.vercel.app/product/${id}`}
         >
-          <img src={imageUrl} alt={name} className='rounded-lg' />
+          <img
+            src={imageUrl}
+            alt={name}
+            className='rounded-lg object-contain h-full w-full'
+          />
         </Link>
         <div
           className={cn(

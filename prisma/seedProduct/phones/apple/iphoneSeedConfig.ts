@@ -81,8 +81,9 @@ export const IPHONE_SEED_CONFIG = (
       categoryId: categories.applePhones.id,
 
       imageUrl:
-        'https://xstore.md/images/product/2023/11/Apple-iPhone-15---128GB,-Black-(1).jpg',
-      sliderUrls: SLIDER_IPHONE_15,
+        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
+
+      sliderUrls: SLIDER_IPHONE_13,
 
       variants: (sections: any, model: any) =>
         buildIphone15Variants(sections, model, [

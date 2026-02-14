@@ -55,10 +55,9 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
     <div
       className={cn(
         className,
-        'w-[250px] z-40 text-white rounded-md bg-gray-dark p-6',
-        'fixed top-20 left-0 min-h-[100vh]',
-        'lg:relative lg:top-0',
-        mobileFiltersOpen && 'hidden lg:block', // ⭐ ключевая строка
+        'w-[250px] z-540 text-white rounded-md bg-gray-dark p-6',
+        'fixed top-0 left-0 h-[100dvh] lg:relative lg:h-auto',
+        mobileFiltersOpen ? 'block' : 'hidden lg:block',
       )}
     >
       <Title text='Filters' size='sm' className='mb-7 font-bold' />
@@ -71,7 +70,7 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
         X
       </div>
 
-      <div className='max-h-[800px] scroll-hidden overflow-y-auto'>
+      <div className='  scroll-hidden h-[calc(100vh-120px)] overflow-y-auto pr-2'>
         {filters.map((filter: FilterType) => (
           <CheckboxFilterGroup
             key={filter.id}
