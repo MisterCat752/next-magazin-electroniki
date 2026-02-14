@@ -1,7 +1,4 @@
 export async function seedCategories(prisma: any) {
-  const electronics = await prisma.category.create({
-    data: { name: 'Телефоны | Планшеты', slug: 'electronics' },
-  });
   const laptopPc = await prisma.category.create({
     data: { name: 'Ноутбуки | ПК', slug: 'laptop-pc' },
   });
@@ -15,7 +12,9 @@ export async function seedCategories(prisma: any) {
   const tvs = await prisma.category.create({
     data: { name: 'Телевизоры', slug: 'tvs', parentId: tvMain.id },
   });
-
+  const electronics = await prisma.category.create({
+    data: { name: 'Телефоны | Планшеты', slug: 'electronics' },
+  });
   // ======================
   // 📺 БРЕНДЫ ТВ
   // ======================
@@ -36,13 +35,6 @@ export async function seedCategories(prisma: any) {
   // ======================
   const computers = await prisma.category.create({
     data: { name: 'Компьютеры', slug: 'computers', parentId: laptopPc.id },
-  });
-
-  await prisma.category.createMany({
-    data: [
-      { name: 'Системные блоки', slug: 'system-units', parentId: computers.id },
-      { name: 'Моноблоки', slug: 'all-in-one', parentId: computers.id },
-    ],
   });
 
   const laptop = await prisma.category.create({
@@ -143,12 +135,8 @@ export async function seedCategories(prisma: any) {
     data: { name: 'Samsung', slug: 'samsung', parentId: smartphones.id },
   });
 
-  const laptops = await prisma.category.create({
-    data: { name: 'Ноутбуки', slug: 'laptops', parentId: electronics.id },
-  });
-
   const appleLaptops = await prisma.category.create({
-    data: { name: 'Apple', slug: 'apple-laptops', parentId: laptops.id },
+    data: { name: 'Apple', slug: 'apple-laptops', parentId: laptop.id },
   });
 
   const gamingLaptops = await prisma.category.create({
@@ -159,12 +147,48 @@ export async function seedCategories(prisma: any) {
     },
   });
 
+  const asusRog = await prisma.category.create({
+    data: { name: 'ASUS ROG', slug: 'asus-rog', parentId: gamingLaptops.id },
+  });
+
+  const asusTuf = await prisma.category.create({
+    data: {
+      name: 'ASUS TUF Gaming',
+      slug: 'asus-tuf-gaming',
+      parentId: gamingLaptops.id,
+    },
+  });
+
+  const lenovoLegion = await prisma.category.create({
+    data: {
+      name: 'Lenovo Legion',
+      slug: 'lenovo-legion',
+      parentId: gamingLaptops.id,
+    },
+  });
+
+  const lenovoLoq = await prisma.category.create({
+    data: {
+      name: 'Lenovo LOQ',
+      slug: 'lenovo-loq',
+      parentId: gamingLaptops.id,
+    },
+  });
+
+  const hpOmen = await prisma.category.create({
+    data: { name: 'HP Omen', slug: 'hp-omen', parentId: gamingLaptops.id },
+  });
   return {
+    asusRog,
+    asusTuf,
+    lenovoLegion,
+    lenovoLoq,
+    hpOmen,
+    //
     electronics,
     smartphones,
     applePhones,
     samsung,
-    laptops,
     appleLaptops,
     gamingLaptops,
     laptopPc,

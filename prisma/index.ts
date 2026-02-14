@@ -3,20 +3,11 @@ import { clearDatabase } from './clear';
 import { seedOptions } from './options.seed';
 import { seedCategories } from './categories.seed';
 import { seedSections } from './sections.seed';
-import { seedBaseProducts } from './products/base-products';
-import { seedSamsungS25 } from './products/samsung-s25';
 import { seedFilters } from './filters.seed';
-import { seedSamsungProductItem } from './products/seedItem';
-import { buildSamsungFESpecs } from './buildSamsungFESpecs';
-import { specSams } from './data/specification';
-import { seedSamsungFE } from './seedProduct/seedSamsungFE';
-import { seedNoteBook } from './seedProduct/seedNoteBook/seedNoteBook';
-import { seedProduct } from './seedProduct/seedComponent/seedNoteBook';
-import { seedProductsByCategory } from './seedProduct/seedComponent/seedProductsByCategory';
-import { LAPTOPS_SEED_CONFIG } from './seedProduct/seedComponent/lap-top/laptops.seed';
-import { SEED_PRODUCTS } from './seedProduct/seedComponent/seed.data';
-import { SAMSUNG_SEED_CONFIG } from './seedProduct/seedComponent/phones/samsung/phoneSeedConfig';
-import { IPHONE_SEED_CONFIG } from './seedProduct/seedComponent/phones/apple/iphoneSeedConfig';
+import { seedProductsByCategory } from './seedProduct/seedProductsByCategory';
+import { LAPTOPS_SEED_CONFIG } from './seedProduct/lap-top/laptops.seed';
+import { SAMSUNG_SEED_CONFIG } from './seedProduct/phones/samsung/phoneSeedConfig';
+import { IPHONE_SEED_CONFIG } from './seedProduct/phones/apple/iphoneSeedConfig';
 
 const prisma = new PrismaClient();
 

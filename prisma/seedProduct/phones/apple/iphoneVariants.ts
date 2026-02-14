@@ -1,4 +1,4 @@
-import buildSpecs from '../../lap-top/buildSpec';
+import buildSpecs from '../../buildSpec';
 
 // Iphone12
 const iphone12BaseSpecs = (sections: any, model: string) => [

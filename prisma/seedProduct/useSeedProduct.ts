@@ -1,4 +1,4 @@
-import { findOption, makeSku } from '../../products/utils';
+import { findOption, makeSku } from '../products/utils';
 type VariantInput = {
   memory: string;
   color?: string;

@@ -17,11 +17,8 @@ import {
 export const SAMSUNG_SEED_CONFIG = (
   categories: any,
 ): {
-  categoryId: number;
   products: any[];
 } => ({
-  categoryId: categories.samsung.id,
-
   products: [
     // s model
 
@@ -31,6 +28,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy S24',
       slug: 'samsung-galaxy-s24',
       model: 'Samsung Galaxy S24',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -45,6 +43,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy S25 FE',
       slug: 'samsung-galaxy-s25-fe',
       model: 'S731',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/12/samsung-galaxy-s24-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S24_GRAY,
@@ -58,6 +57,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy S25  ',
       slug: 'samsung-galaxy-s25 ',
       model: 'Samsung Galaxy S25   ',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -71,6 +71,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy  S25 Ultra  ',
       slug: 'samsung-galaxy-s25Ultra ',
       model: 'Samsung Galaxy S25 Ultra   ',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -86,6 +87,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy A16  ',
       slug: 'samsung-galaxy ',
       model: 'Samsung Galaxy A16',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/03/samsung-galaxy-a56-5g-lightgray-xstore-md-10.webp',
       sliderUrls: SLIDER_SAMSUNG_A56_LIGHTGRAY,
@@ -96,6 +98,7 @@ export const SAMSUNG_SEED_CONFIG = (
     {
       name: 'Samsung Galaxy A56 256 ГБ',
       slug: 'samsung-galaxy-A56-256',
+      categoryId: categories.samsung.id,
       model: 'A566',
       imageUrl:
         'https://xstore.md/images/product/2025/03/samsung-galaxy-a56-5g-lightgray-xstore-md-10.webp',
@@ -107,6 +110,7 @@ export const SAMSUNG_SEED_CONFIG = (
     {
       name: 'Samsung Galaxy A36  256 ГБ',
       slug: 'samsung-galaxy-A36 -256',
+      categoryId: categories.samsung.id,
       model: 'A566',
       imageUrl:
         'https://xstore.md/images/product/2025/04/samsung-galaxy-a36-5g-black-xstore-md-17.webp',
@@ -121,6 +125,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy S24',
       slug: 'samsung-galaxy-s24-coppy',
       model: 'Samsung Galaxy S24',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -134,6 +139,7 @@ export const SAMSUNG_SEED_CONFIG = (
     {
       name: 'Samsung Galaxy S25 FE',
       slug: 'samsung-galaxy-s25-fe-coppy',
+      categoryId: categories.samsung.id,
       model: 'S731',
       imageUrl:
         'https://xstore.md/images/product/2025/12/samsung-galaxy-s24-xstore-md-42.webp',
@@ -148,6 +154,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy S25  ',
       slug: 'samsung-galaxy-s25-coppy ',
       model: 'Samsung Galaxy S25   ',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -161,6 +168,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy  S25 Ultra  ',
       slug: 'samsung-galaxy-s25Ultra-coppy ',
       model: 'Samsung Galaxy S25 Ultra   ',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -176,6 +184,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy A16  ',
       slug: 'samsung-galaxy-coppy ',
       model: 'Samsung Galaxy A16',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/03/samsung-galaxy-a56-5g-lightgray-xstore-md-10.webp',
       sliderUrls: SLIDER_SAMSUNG_A56_LIGHTGRAY,
@@ -187,6 +196,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy A56 256 ГБ',
       slug: 'samsung-galaxy-A56-256-coppy',
       model: 'A566',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/03/samsung-galaxy-a56-5g-lightgray-xstore-md-10.webp',
       sliderUrls: SLIDER_SAMSUNG_A56_LIGHTGRAY,
@@ -198,6 +208,7 @@ export const SAMSUNG_SEED_CONFIG = (
       name: 'Samsung Galaxy A36  256 ГБ',
       slug: 'samsung-galaxy-A36 -256-coppy',
       model: 'A566',
+      categoryId: categories.samsung.id,
       imageUrl:
         'https://xstore.md/images/product/2025/04/samsung-galaxy-a36-5g-black-xstore-md-17.webp',
       sliderUrls: SLIDER_SAMSUNG_A36_BLACK,

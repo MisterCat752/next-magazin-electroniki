@@ -1,12 +1,13 @@
 import { useSeedProduct } from './useSeedProduct';
 
 type ProductSeedConfig = {
-  categoryId: number;
   imageUrl?: string;
   sliderUrls?: string[];
   products: {
     name: string;
     slug: string;
+    categoryId: number;
+
     model?: string;
     variants: any;
     imageUrl: any;
@@ -26,7 +27,7 @@ export async function seedProductsByCategory(
     const item = await useSeedProduct(
       prisma,
       options,
-      config.categoryId,
+      product.categoryId,
       sections,
       {
         name: product.name,

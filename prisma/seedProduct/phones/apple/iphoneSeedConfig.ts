@@ -10,11 +10,8 @@ import {
 export const IPHONE_SEED_CONFIG = (
   categories: any,
 ): {
-  categoryId: number;
   products: any[];
 } => ({
-  categoryId: categories.applePhones.id,
-
   products: [
     // s model
 
@@ -23,6 +20,8 @@ export const IPHONE_SEED_CONFIG = (
     {
       name: 'Iphone 12',
       slug: 'Iphone-12',
+      categoryId: categories.applePhones.id,
+
       model: 'Iphone 12',
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
@@ -39,6 +38,8 @@ export const IPHONE_SEED_CONFIG = (
       name: 'Iphone 13',
       slug: 'Iphone-13',
       model: 'Iphone 13',
+      categoryId: categories.applePhones.id,
+
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -53,6 +54,8 @@ export const IPHONE_SEED_CONFIG = (
     {
       name: 'Iphone 14',
       slug: 'Iphone-14',
+      categoryId: categories.applePhones.id,
+
       model: 'Iphone 14',
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
@@ -69,6 +72,8 @@ export const IPHONE_SEED_CONFIG = (
       name: 'Iphone 15',
       slug: 'Iphone-15',
       model: 'Iphone 15',
+      categoryId: categories.applePhones.id,
+
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
@@ -84,6 +89,8 @@ export const IPHONE_SEED_CONFIG = (
       name: 'Iphone 16',
       slug: 'Iphone-16',
       model: 'Iphone 16',
+      categoryId: categories.applePhones.id,
+
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
       sliderUrls: SLIDER_SAMSUNG_S25_BLACK,

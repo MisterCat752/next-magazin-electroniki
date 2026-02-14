@@ -1,8 +1,8 @@
 export const SEED_SLIDER = [
-  'https://darwin.md/media/783664/conversions/d57fvgh_1750333080606-preview-webp.png',
-  'https://darwin.md/media/783665/conversions/7fgyhju_1750333096146-preview.png',
-  'https://darwin.md/media/783666/conversions/87tdfvgh_1750333096158-preview-webp.png',
-  'https://darwin.md/media/783667/conversions/6fvghj_1750333103641-preview-webp.png',
+  'https://xstore.md/images/product/2025/11/asus-tuf-gaming-a15-fa506ncg-xstore-md-86.webp',
+  'https://xstore.md/images/product/2025/11/asus-tuf-gaming-a15-fa506ncg-1-xstore-md-99.webp',
+  'https://xstore.md/images/product/2025/11/asus-tuf-gaming-a15-fa506ncg-2-xstore-md-31.webp',
+  'https://xstore.md/images/product/2025/11/asus-tuf-gaming-a15-fa506ncg-3-xstore-md-90.webp',
 ];
 export const SLIDER_LENOVO_LOC = [
   'https://xstore.md/images/product/thumbs/2025/09/lenovo-loq-15iax9e-xstore-md-58.webp',

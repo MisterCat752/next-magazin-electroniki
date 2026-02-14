@@ -1,4 +1,4 @@
-import buildSpecs from './lap-top/buildSpec';
+import buildSpecs from '../buildSpec';
 
 export const buildA15Variants = (sections: any, model: string) => [
   {
