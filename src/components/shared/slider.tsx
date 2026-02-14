@@ -35,7 +35,10 @@ export function Slider({
 
   return (
     <div className='relative'>
-      <div className='overflow-hidden rounded-2xl' ref={emblaRef}>
+      <div
+        className='overflow-hidden rounded-2xl w-full min-w-0'
+        ref={emblaRef}
+      >
         <div
           className={`flex ${
             direction === 'vertical' ? 'flex-col' : 'flex-row'

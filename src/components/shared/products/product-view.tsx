@@ -28,7 +28,7 @@ export default function ProductView({ productId }: { productId: number }) {
     <main className='pt-[100px] pb-[100px]   bg-[#000] '>
       <Container>
         <div className='flex flex-wrap lg:flex-nowrap gap-6'>
-          <div className='w-full'>
+          <div className='w-full  '>
             <ProductImages images={product.sliderUrls} />
           </div>
 

@@ -36,35 +36,37 @@ export const ProductImages: React.FC<Props> = ({
         />
       </div>
       {/* Thumbnails */}
-      <Slider
-        isThumbs
-        direction='horizontal'
-        selectedIndex={selectedIndex}
-        onSelect={setSelectedIndex}
-        itemClassName='
-    w-14 h-14         /* mobile */
-    sm:w-16 sm:h-16   /* bigger phones */
-    md:w-20 md:h-20   /* desktop */
-    mr-2 mt-3 shrink-0
-  '
-      >
-        {images.map((img, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelectedIndex(idx)}
-            className={cn(
-              'overflow-hidden rounded-lg border-2',
-              selectedIndex === idx ? 'border-primary' : 'border-transparent',
-            )}
-          >
-            <img
-              src={img}
-              alt={`thumb-${idx}`}
-              className='object-cover w-full h-full'
-            />
-          </button>
-        ))}
-      </Slider>
+      <div className='w-full min-w-0'>
+        <Slider
+          isThumbs
+          direction='horizontal'
+          selectedIndex={selectedIndex}
+          onSelect={setSelectedIndex}
+          itemClassName='
+  basis-14 h-14
+  sm:basis-16 sm:h-16
+  md:basis-20 md:h-20
+  mr-2 mt-3
+'
+        >
+          {images.map((img, idx) => (
+            <button
+              key={idx}
+              onClick={() => setSelectedIndex(idx)}
+              className={cn(
+                'overflow-hidden rounded-lg border-2',
+                selectedIndex === idx ? 'border-primary' : 'border-transparent',
+              )}
+            >
+              <img
+                src={img}
+                alt={`thumb-${idx}`}
+                className='object-cover w-full h-full'
+              />
+            </button>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

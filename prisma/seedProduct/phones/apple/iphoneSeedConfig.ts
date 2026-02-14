@@ -1,4 +1,10 @@
-import { SLIDER_SAMSUNG_S25_BLACK } from './iphoneSliderData';
+import {
+  SLIDER_IPHONE_13,
+  SLIDER_IPHONE_13_WHITE,
+  SLIDER_IPHONE_14_WHITE,
+  SLIDER_IPHONE_15,
+  SLIDER_IPHONE_16,
+} from './iphoneSliderData';
 import {
   buildIphone12Variants,
   buildIphone13Variants,
@@ -25,7 +31,7 @@ export const IPHONE_SEED_CONFIG = (
       model: 'Iphone 12',
       imageUrl:
         'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+      sliderUrls: SLIDER_IPHONE_13,
 
       variants: (sections: any, model: any) =>
         buildIphone12Variants(sections, model, [
@@ -41,8 +47,8 @@ export const IPHONE_SEED_CONFIG = (
       categoryId: categories.applePhones.id,
 
       imageUrl:
-        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+        'https://xstore.md/images/product/2025/12/apple-iphone-13-xstore-md-17.webp',
+      sliderUrls: SLIDER_IPHONE_13_WHITE,
 
       variants: (sections: any, model: any) =>
         buildIphone13Variants(sections, model, [
@@ -58,8 +64,8 @@ export const IPHONE_SEED_CONFIG = (
 
       model: 'Iphone 14',
       imageUrl:
-        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+        'https://xstore.md/images/product/2022/09/Apple-iPhone-14-Starlight-1.webp',
+      sliderUrls: SLIDER_IPHONE_14_WHITE,
 
       variants: (sections: any, model: any) =>
         buildIphone14Variants(sections, model, [
@@ -75,8 +81,8 @@ export const IPHONE_SEED_CONFIG = (
       categoryId: categories.applePhones.id,
 
       imageUrl:
-        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+        'https://xstore.md/images/product/2023/11/Apple-iPhone-15---128GB,-Black-(1).jpg',
+      sliderUrls: SLIDER_IPHONE_15,
 
       variants: (sections: any, model: any) =>
         buildIphone15Variants(sections, model, [
@@ -92,8 +98,8 @@ export const IPHONE_SEED_CONFIG = (
       categoryId: categories.applePhones.id,
 
       imageUrl:
-        'https://xstore.md/images/product/2025/12/apple-iphone-13-1-xstore-md-52.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+        'https://xstore.md/images/product/2025/05/apple-iphone-16-128gb-ultramarine-xstore-md-4.webp',
+      sliderUrls: SLIDER_IPHONE_16,
 
       variants: (sections: any, model: any) =>
         buildIphone16Variants(sections, model, [
