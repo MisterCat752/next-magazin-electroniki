@@ -2,12 +2,16 @@
 
 ![Preview](public/preview/main.png)
 
+
+
+Live Demo: [View Demo](https://next-magazin-electroniki-i9b2.vercel.app/)
 A scalable full-stack electronics marketplace built with **Next.js** and **TypeScript**.
 
 The platform supports dynamic product variations, category-specific specifications, advanced filtering, authentication, and order management.  
 Both frontend and backend are implemented inside the Next.js application using API routes and Prisma ORM.
 
 ---
+
 
 ## 🚀 Tech Stack
 
