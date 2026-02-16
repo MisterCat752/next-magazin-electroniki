@@ -1,6 +1,6 @@
 # 🛒 Electronics E-commerce Platform
 
-![Preview](/preview/main.png)
+![Preview](preview/main.png)
 
 A scalable full-stack electronics marketplace built with **Next.js** and **TypeScript**.
 
