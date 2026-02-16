@@ -1,6 +1,6 @@
 # 🛒 Electronics E-commerce Platform
 
-![Preview](preview/main.png)
+![Preview](/preview/main.png)
 
 A scalable full-stack electronics marketplace built with **Next.js** and **TypeScript**.
 
@@ -86,7 +86,7 @@ Zustand is used for cart operations, modal states, and cross-page interactions.
 ### 1. Clone repository
 
 ```bash
-git clone <https://github.com/MisterCat752/next-pizza.git>
+git clone <https://github.com/MisterCat752/next-magazin-electroniki.git>
 cd next-magazin-electroniki
 
 
