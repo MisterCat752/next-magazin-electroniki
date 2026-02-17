@@ -21,7 +21,6 @@ export default function Page() {
       return res.json();
     },
     onSuccess: async (data) => {
-      // обновляем session
       await update({ name: data.fullName, image: data.image });
     },
   });
