@@ -9,6 +9,8 @@ import { JWT } from 'next-auth/jwt';
 // Расширяем JWT, добавляем id
 interface MyJWT extends JWT {
   id: string;
+  role?: string;
+  image?: string | null;
 }
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -42,6 +44,8 @@ export const authOptions: NextAuthOptions = {
           id: String(user.id),
           email: user.email,
           name: user.fullName,
+          image: user.image,
+          role: user.role,
         } as NextAuthUser;
       },
     }),
@@ -49,9 +53,16 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     // JWT callback
-    async jwt({ token, user }): Promise<MyJWT> {
+    async jwt({ token, user, trigger, session }): Promise<MyJWT> {
       if (user) {
-        token.id = user.id; // теперь id есть
+        token.id = user.id;
+        token.role = user.role;
+        token.name = user.name;
+        token.image = user.image;
+      }
+      if (trigger === 'update' && session) {
+        if (session.name) token.name = session.name;
+        if (session.image) token.image = session.image;
       }
       return token as MyJWT;
     },
@@ -60,6 +71,9 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }): Promise<Session> {
       if (session.user) {
         session.user.id = (token as MyJWT).id;
+        session.user.role = token.role;
+        session.user.name = token.name as string;
+        session.user.image = token.image;
       }
       return session;
     },

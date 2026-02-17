@@ -20,8 +20,8 @@ export default function HomeContent() {
     '
         >
           {HomeSliderImages.map((image, i) => (
-            <Link href={image.link}>
-              <picture key={i}>
+            <Link key={i} href={image.link}>
+              <picture>
                 {/* Мобильная версия до 768px */}
                 <source
                   srcSet={image.mobile}

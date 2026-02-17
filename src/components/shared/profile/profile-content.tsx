@@ -3,18 +3,14 @@ import React from 'react';
 import { Container } from '@/components/layout/container';
 import Link from 'next/link';
 import { OpenSideButton } from './open-side-button';
-
+import { useSession } from 'next-auth/react';
 interface Props {
   className?: string;
-  session?: {
-    user: {
-      name: string;
-      email: string;
-    };
-  };
 }
 
-export const ProfileContent: React.FC<Props> = ({ className, session }) => {
+export const ProfileContent: React.FC<Props> = ({ className }) => {
+  const { data: session } = useSession();
+  console.log(session, 'session');
   return (
     <main className='bg-[#000] w-full py-10 flex gap-4    justify-between '>
       <Container className='w-full'>
@@ -35,8 +31,8 @@ export const ProfileContent: React.FC<Props> = ({ className, session }) => {
         </h2>
         <div className='bg-gray-dark w-full max-w-[800px] min-h-[500px] rounded-[16px] p-8'>
           <div className=''>
-            <div className='max-w-[75px] rounded-full overflow-hidden mb-3'>
-              <img src='/user.jpeg' alt='user' />
+            <div className='max-w-[85px] rounded-full overflow-hidden mb-3'>
+              <img src={session?.user?.image} alt='user' />
             </div>
             <p className='text-white font-extrabold text-[20px]'>
               Имя : {session?.user?.name}

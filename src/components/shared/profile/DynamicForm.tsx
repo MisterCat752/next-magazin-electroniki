@@ -1,36 +1,58 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 
 export type FormField = {
-  name: string; // ключ значения
+  name: string;
   label: string;
-  type: string; // "text" | "email" | "password" | "number" | и т.д.
+  type: string; // "text" | "file" | "email" и т.д.
   placeholder?: string;
   required?: boolean;
 };
 
 type DynamicFormProps = {
   fields: FormField[];
+  defaultValues?: Record<string, string>;
   submitLabel?: string;
+  onSubmit?: (formData: FormData) => void; // теперь FormData
 };
 
 export default function DynamicForm({
   fields,
-
+  defaultValues = {},
   submitLabel = 'Отправить',
+  onSubmit,
 }: DynamicFormProps) {
-  const initialState = fields.reduce(
-    (acc, field) => ({ ...acc, [field.name]: '' }),
-    {}
-  );
-  const [values, setValues] = useState<Record<string, string>>(initialState);
+  const [values, setValues] = useState<Record<string, string | File>>({});
 
-  const handleChange = (name: string, value: string) => {
+  useEffect(() => {
+    const initialState = fields.reduce(
+      (acc, field) => ({
+        ...acc,
+        [field.name]: defaultValues[field.name] || '',
+      }),
+      {},
+    );
+    setValues(initialState);
+  }, [fields, defaultValues]);
+
+  const handleChange = (name: string, value: string | File) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    onSubmit?.(formData);
   };
 
   return (
@@ -46,20 +68,34 @@ export default function DynamicForm({
           >
             {field.label}
           </label>
-          <input
-            id={field.name}
-            type={field.type}
-            placeholder={field.placeholder}
-            required={field.required}
-            value={values[field.name]}
-            onChange={(e) => handleChange(field.name, e.target.value)}
-            className='   bg-[#404040]  text-gray rounded-[14px] py-4 px-[14px]  '
-          />
+
+          {field.type === 'file' ? (
+            <input
+              id={field.name}
+              type='file'
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleChange(field.name, file);
+              }}
+              className='bg-[#404040] text-gray rounded-[14px] py-4 px-[14px]'
+            />
+          ) : (
+            <input
+              id={field.name}
+              type={field.type}
+              placeholder={field.placeholder}
+              required={field.required}
+              value={(values[field.name] as string) || ''}
+              onChange={(e) => handleChange(field.name, e.target.value)}
+              className='bg-[#404040] text-gray rounded-[14px] py-4 px-[14px]'
+            />
+          )}
         </div>
       ))}
+
       <button
         type='submit'
-        className='bg-green text-black  py-[24px] px-[16px] text-[16px] text-center rounded font-semibold'
+        className='bg-green text-black py-[24px] px-[16px] text-[16px] text-center rounded font-semibold'
       >
         {submitLabel}
       </button>
