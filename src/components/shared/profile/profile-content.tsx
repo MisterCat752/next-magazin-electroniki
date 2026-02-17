@@ -30,16 +30,24 @@ export const ProfileContent: React.FC<Props> = ({ className }) => {
           Детали вашего профиля
         </h2>
         <div className='bg-gray-dark w-full max-w-[800px] min-h-[500px] rounded-[16px] p-8'>
-          <div className=''>
+          <div className='flex gap-2'>
             <div className='max-w-[85px] rounded-full overflow-hidden mb-3'>
-              <img src={session?.user?.image} alt='user' />
+              <img src='/user.svg' alt='user' />
             </div>
-            <p className='text-white font-extrabold text-[20px]'>
-              Имя : {session?.user?.name}
-            </p>
-            <p className='text-white font-extrabold text-[20px]'>
-              Email : {session?.user?.email}
-            </p>
+            <div className='flex flex-col gap-1'>
+              <p className='text-white font-extrabold text-[20px]'>
+                Имя : {session?.user?.name}
+              </p>
+              <p className='text-white font-extrabold text-[20px]'>
+                Email : {session?.user?.email}
+              </p>
+              <p className='text-white font-extrabold text-[20px]'>
+                Адресс : {session?.user?.address}
+              </p>
+              <p className='text-white font-extrabold text-[20px]'>
+                Телефон : {session?.user?.phone}
+              </p>
+            </div>
           </div>
         </div>
       </Container>
