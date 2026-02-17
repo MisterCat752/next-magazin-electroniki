@@ -32,7 +32,6 @@ export default function Page() {
       type: 'text',
       placeholder: 'Введите имя',
     },
-    { name: 'avatar', label: 'Аватар', type: 'file' },
     {
       name: 'address',
       label: 'Адрес',
@@ -61,13 +60,6 @@ export default function Page() {
         submitLabel='Сохранить изменения'
         onSubmit={(formData) => mutation.mutate(formData)}
       />
-      {session.user?.image && (
-        <img
-          src={session.user.image}
-          alt='Аватар'
-          className='w-32 h-32 mt-4 rounded-full'
-        />
-      )}
     </div>
   );
 }
