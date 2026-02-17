@@ -5,6 +5,8 @@ import { prisma } from '@/prisma/prisma-client';
 import fs from 'fs';
 import path from 'path';
 
+export const config = { api: { bodyParser: false } };
+
 export async function PATCH(req: Request) {
   const session = await getServerSession(authOptions);
 
@@ -16,6 +18,8 @@ export async function PATCH(req: Request) {
 
   const fullName = formData.get('fullName') as string;
   const avatar = formData.get('avatar') as File | null;
+  const address = formData.get('address') as string | null;
+  const phone = formData.get('phone') as string | null;
 
   let imageUrl = session.user.image;
 
@@ -23,17 +27,14 @@ export async function PATCH(req: Request) {
     const bytes = await avatar.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+    const uploadDir = '/tmp/uploads';
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
     const fileName = `${Date.now()}-${avatar.name}`;
     const filePath = path.join(uploadDir, fileName);
 
     fs.writeFileSync(filePath, buffer);
-
-    imageUrl = `/uploads/${fileName}`;
+    imageUrl = `/uploads/${fileName}`; // можно заменить на облачное хранилище
   }
 
   const updatedUser = await prisma.user.update({
@@ -41,6 +42,8 @@ export async function PATCH(req: Request) {
     data: {
       fullName,
       image: imageUrl,
+      address,
+      phone,
     },
   });
 

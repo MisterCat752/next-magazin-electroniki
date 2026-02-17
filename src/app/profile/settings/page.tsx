@@ -32,10 +32,18 @@ export default function Page() {
       type: 'text',
       placeholder: 'Введите имя',
     },
+    { name: 'avatar', label: 'Аватар', type: 'file' },
     {
-      name: 'avatar',
-      label: 'Аватар',
-      type: 'file',
+      name: 'address',
+      label: 'Адрес',
+      type: 'text',
+      placeholder: 'Введите адрес',
+    },
+    {
+      name: 'phone',
+      label: 'Телефон',
+      type: 'text',
+      placeholder: 'Введите телефон',
     },
   ];
 
@@ -47,6 +55,8 @@ export default function Page() {
         fields={fields}
         defaultValues={{
           fullName: session.user?.name || '',
+          address: session.user?.address || '',
+          phone: session.user?.phone || '',
         }}
         submitLabel='Сохранить изменения'
         onSubmit={(formData) => mutation.mutate(formData)}

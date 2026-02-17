@@ -1,5 +1,10 @@
 import NextAuth from 'next-auth';
-import type { NextAuthOptions, Session, User as NextAuthUser } from 'next-auth';
+import type {
+  NextAuthOptions,
+  Session,
+  User as NextAuthUser,
+  User,
+} from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from '@/prisma/prisma-client';
@@ -59,10 +64,14 @@ export const authOptions: NextAuthOptions = {
         token.role = user.role;
         token.name = user.name;
         token.image = user.image;
+        token.address = (user as User).address || null;
+        token.phone = (user as User).phone || null;
       }
       if (trigger === 'update' && session) {
         if (session.name) token.name = session.name;
         if (session.image) token.image = session.image;
+        if (session.address) token.address = session.address;
+        if (session.phone) token.phone = session.phone;
       }
       return token as MyJWT;
     },
@@ -74,6 +83,8 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role;
         session.user.name = token.name as string;
         session.user.image = token.image;
+        session.user.address = token.address;
+        session.user.phone = token.phone;
       }
       return session;
     },
