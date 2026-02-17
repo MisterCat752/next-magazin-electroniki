@@ -21,7 +21,7 @@ export const NavBar: React.FC<Props> = ({ className }) => {
   const { data: session, status } = useSession();
 
   return (
-    <div className={cn(className, 'bg-gray-dark fixed top-0 w-full z-[122]')}>
+    <div className={cn(className, 'bg-gray-dark fixed top-0 w-full z-[822]')}>
       <Container>
         <div className='py-5 flex gap-2 justify-between items-center'>
           {/* Логотип + Каталог */}

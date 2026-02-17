@@ -55,8 +55,8 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
     <div
       className={cn(
         className,
-        'w-[250px] z-540 text-white rounded-md bg-gray-dark p-6',
-        'fixed top-0 left-0 h-[100dvh] lg:relative lg:h-auto',
+        'w-[250px] z-240 text-white rounded-md bg-gray-dark p-6',
+        'fixed top-20 left-0 h-[100dvh] lg:relative lg:h-auto',
         mobileFiltersOpen ? 'block' : 'hidden lg:block',
       )}
     >

@@ -1,6 +1,7 @@
 import { CategoryCard, Slider } from '@/components/shared';
 import { categories, HomeSliderImages } from '@/data';
 import { ProductsSection } from './product-section';
+import Link from 'next/link';
 
 export default function HomeContent() {
   return (
@@ -19,21 +20,23 @@ export default function HomeContent() {
     '
         >
           {HomeSliderImages.map((image, i) => (
-            <picture key={i}>
-              {/* Мобильная версия до 768px */}
-              <source
-                srcSet={image.mobile}
-                media='(max-width: 998px)'
-                type='image/webp'
-              />
-              {/* Десктопная версия */}
-              <img
-                src={image.desktop}
-                alt={`slide-${i}`}
-                loading='lazy'
-                className='w-full h-full object-cover rounded-2xl'
-              />
-            </picture>
+            <Link href={image.link}>
+              <picture key={i}>
+                {/* Мобильная версия до 768px */}
+                <source
+                  srcSet={image.mobile}
+                  media='(max-width: 998px)'
+                  type='image/webp'
+                />
+                {/* Десктопная версия */}
+                <img
+                  src={image.desktop}
+                  alt={`slide-${i}`}
+                  loading='lazy'
+                  className='w-full h-full object-cover rounded-2xl'
+                />
+              </picture>
+            </Link>
           ))}
         </Slider>
       </div>

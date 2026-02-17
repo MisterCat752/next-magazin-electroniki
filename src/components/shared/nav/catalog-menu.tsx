@@ -105,7 +105,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
       {open && (
         <div
           className={cn(
-            'hidden md:flex absolute inset-x-0 mx-auto bg-gray-dark max-w-[1200px] w-full h-[480px] shadow-2xl z-30',
+            'hidden md:flex absolute inset-x-0 mx-auto bg-gray-dark max-w-[1200px] w-full h-[480px] shadow-2xl z-[888]',
             placeClassName || 'top-[84px]',
           )}
           onMouseLeave={() => setHovered(null)}
