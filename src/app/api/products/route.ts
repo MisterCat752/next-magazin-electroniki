@@ -44,8 +44,6 @@ export async function GET(req: Request) {
     const limit = Number(searchParams.get('limit') ?? 10);
 
     const skip = (page - 1) * limit;
-    if (!categorySlug)
-      return NextResponse.json({ error: 'Category required' }, { status: 400 });
 
     // Парсим specs и декодируем компоненты
     // Пример входа (клиент отправляет): encodeURIComponent(name):encodeURIComponent(value),...
@@ -66,23 +64,27 @@ export async function GET(req: Request) {
           })
           .filter((v): v is SpecFilter => v !== null)
       : [];
+    let categoryIds: string[] | undefined;
 
-    const category = await prisma.category.findUnique({
-      where: { slug: categorySlug },
-      select: { id: true },
-    });
+    if (categorySlug) {
+      const category = await prisma.category.findUnique({
+        where: { slug: categorySlug },
+        select: { id: true },
+      });
 
-    if (!category) {
-      return NextResponse.json({ products: [] });
+      if (!category) {
+        return NextResponse.json({ products: [] });
+      }
+
+      categoryIds = await getAllCategoryIds(prisma, category.id);
     }
 
-    // 🔥 получаем id текущей + всех подкатегорий
-    const categoryIds: string[] = await getAllCategoryIds(prisma, category.id);
-
     // 🔥 фильтр сразу по всем категориям
-    const whereClause: Prisma.ProductWhereInput = {
-      categoryId: { in: categoryIds },
-    };
+    const whereClause: Prisma.ProductWhereInput = {};
+
+    if (categoryIds) {
+      whereClause.categoryId = { in: categoryIds };
+    }
     // Variant-level specs
     if (specFilters.length > 0) {
       // Группируем по имени спецификации: внутри одной группы — OR по значениям,
@@ -116,7 +118,7 @@ export async function GET(req: Request) {
     });
     const products = await prisma.product.findMany({
       where: {
-        categoryId: { in: categoryIds },
+        ...whereClause,
         variants: {
           some: {
             price: {

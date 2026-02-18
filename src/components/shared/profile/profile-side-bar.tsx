@@ -6,6 +6,7 @@ import { LogOut } from './logOut';
 import { useFilterStore } from '@/store/filterStore';
 import { X } from 'lucide-react';
 import { usePathname } from 'next/navigation'; // ⭐ добавили
+import { useSession } from 'next-auth/react';
 
 interface Props {
   className?: string;
@@ -27,9 +28,10 @@ const sidebarItems = [
 export const ProfileSideBar: React.FC<Props> = ({ className }) => {
   const profileSideBar = useFilterStore((s) => s.profileSideBar);
   const toggleProfile = useFilterStore((s) => s.toggleProfile);
-
+  const { data: session, update } = useSession();
+  console.log(session, 'session side');
   const pathname = usePathname(); // ⭐ добавили
-
+  const isAdmin = session?.user.role === 'ADMIN';
   // ⭐ закрытие при переходе по ссылке
   useEffect(() => {
     if (!profileSideBar) {
@@ -64,7 +66,7 @@ export const ProfileSideBar: React.FC<Props> = ({ className }) => {
           <Link href={item.link}>{item.label}</Link>
         </div>
       ))}
-
+      {isAdmin && <Link href={'profile/admin/products'}>admin</Link>}
       <div className='p-4'>
         <LogOut />
       </div>
