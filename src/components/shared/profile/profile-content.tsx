@@ -10,7 +10,6 @@ interface Props {
 
 export const ProfileContent: React.FC<Props> = ({ className }) => {
   const { data: session } = useSession();
-  console.log(session, 'session');
   return (
     <main className='bg-[#000] w-full py-10 flex gap-4    justify-between '>
       <Container className='w-full'>
