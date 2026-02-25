@@ -14,9 +14,20 @@ const OPTIONS: Option[] = [
   { value: 'price_desc', label: 'Цена: по убыванию' },
 ];
 
-export function SortSelect() {
-  const sort = useFilterStore((s) => s.sort);
-  const setSort = useFilterStore((s) => s.setSort);
+interface Props {
+  categoryId: string;
+}
+
+export function SortSelect({ categoryId }: Props) {
+  const sort = useFilterStore(
+    (s) => s.filtersByCategory[categoryId]?.sort ?? null,
+  );
+
+  const setSort = useFilterStore(
+    (s) => (value: 'price_asc' | 'price_desc' | null) =>
+      s.setCategoryFilters(categoryId, { sort: value }),
+  );
+
   const [open, setOpen] = React.useState(false);
 
   const selectedLabel =
@@ -36,11 +47,7 @@ export function SortSelect() {
       </button>
 
       {open && (
-        <div
-          className={cn(
-            'absolute z-50 mt-2 w-full rounded-md bg-gray-dark-medium border border-gray-700 shadow-lg',
-          )}
-        >
+        <div className='absolute z-50 mt-2 w-full rounded-md bg-gray-dark-medium border border-gray-700 shadow-lg'>
           {OPTIONS.map((option) => (
             <button
               key={option.value}
