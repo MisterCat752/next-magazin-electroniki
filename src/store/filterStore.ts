@@ -1,81 +1,90 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface SpecFilter {
+export interface SpecFilter {
   name: string;
   value: string;
 }
 
-type SortType = 'price_asc' | 'price_desc' | null;
+export type SortType = 'price_asc' | 'price_desc' | null;
 
-interface FilterStore {
-  // filters
+export interface CategoryFilters {
   selectedSpecs: SpecFilter[];
   sort: SortType;
   priceRange: { min: number; max: number } | null;
-  // mobile ui
+}
+
+interface FilterStore {
+  filtersByCategory: Record<string, CategoryFilters>;
+
+  // mobile ui (глобально)
   mobileFiltersOpen: boolean;
   profileSideBar: boolean;
 
-  // actions
-  setPriceRange: (range: { min: number; max: number } | null) => void;
+  // category actions
+  setCategoryFilters: (
+    category: string,
+    data: Partial<CategoryFilters>,
+  ) => void;
 
-  setSort: (sort: SortType) => void;
-  toggleSpecFilter: (spec: SpecFilter) => void;
-  clearFilters: () => void;
+  clearCategoryFilters: (category: string) => void;
 
+  // mobile actions
+  toggleMobileFilters: () => void;
   openMobileFilters: () => void;
   closeMobileFilters: () => void;
-  toggleMobileFilters: () => void;
   toggleProfile: () => void;
 }
+
+const defaultCategoryState: CategoryFilters = {
+  selectedSpecs: [],
+  sort: null,
+  priceRange: null,
+};
 
 export const useFilterStore = create<FilterStore>()(
   persist(
     (set, get) => ({
-      selectedSpecs: [],
-      sort: null,
-      priceRange: null,
+      filtersByCategory: {},
+
       mobileFiltersOpen: true,
       profileSideBar: true,
 
-      setSort: (sort) => set({ sort }),
-      setPriceRange: (range) => set({ priceRange: range }),
-
-      clearFilters: () =>
-        set({
-          selectedSpecs: [],
-          sort: null,
-          priceRange: null,
-        }),
-      toggleSpecFilter: (spec) => {
-        const { selectedSpecs } = get();
-        const exists = selectedSpecs.some(
-          (s) => s.name === spec.name && s.value === spec.value,
-        );
+      setCategoryFilters: (category, data) => {
+        const current =
+          get().filtersByCategory[category] || defaultCategoryState;
 
         set({
-          selectedSpecs: exists
-            ? selectedSpecs.filter(
-                (s) => !(s.name === spec.name && s.value === spec.value),
-              )
-            : [...selectedSpecs, spec],
+          filtersByCategory: {
+            ...get().filtersByCategory,
+            [category]: {
+              ...current,
+              ...data,
+            },
+          },
+        });
+      },
+
+      clearCategoryFilters: (category) => {
+        set({
+          filtersByCategory: {
+            ...get().filtersByCategory,
+            [category]: defaultCategoryState,
+          },
         });
       },
 
       toggleMobileFilters: () =>
         set((state) => ({ mobileFiltersOpen: !state.mobileFiltersOpen })),
-      toggleProfile: () =>
-        set((state) => ({ profileSideBar: !state.profileSideBar })),
+
       openMobileFilters: () => set({ mobileFiltersOpen: true }),
       closeMobileFilters: () => set({ mobileFiltersOpen: false }),
+
+      toggleProfile: () =>
+        set((state) => ({ profileSideBar: !state.profileSideBar })),
     }),
     {
       name: 'filter-store',
-      partialize: (state) => ({
-        selectedSpecs: state.selectedSpecs,
-        sort: state.sort,
-      }),
     },
   ),
 );

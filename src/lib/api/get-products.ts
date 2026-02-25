@@ -25,8 +25,13 @@ export async function getProducts(params: {
   query.set('page', String(params.page ?? 1));
   query.set('limit', String(params.limit ?? 10));
   if (params.priceRange) {
-    query.set('minPrice', String(params.priceRange.min));
-    query.set('maxPrice', String(params.priceRange.max));
+    if (params.priceRange.min !== 0) {
+      query.set('minPrice', String(params.priceRange.min));
+    }
+
+    if (params.priceRange.max !== 999999999) {
+      query.set('maxPrice', String(params.priceRange.max));
+    }
   }
   const res = await fetch(`/api/products?${query.toString()}`);
   return res.json();

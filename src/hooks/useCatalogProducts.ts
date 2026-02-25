@@ -1,25 +1,49 @@
+'use client';
+
 import React from 'react';
 import { useFilterStore } from '@/store/filterStore';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-
 import { getProducts } from '@/lib/api/get-products';
 
 export const useCatalogProducts = (category: string) => {
-  const selectedSpecs = useFilterStore((s) => s.selectedSpecs);
-  const sort = useFilterStore((s) => s.sort);
+  const filtersByCategory = useFilterStore((s) => s.filtersByCategory);
+
+  const categoryState = filtersByCategory[category] || {
+    selectedSpecs: [],
+    sort: null,
+    priceRange: null,
+  };
+
+  const { selectedSpecs, sort, priceRange } = categoryState;
+
   const [page, setPage] = React.useState(1);
 
+  // Сбрасываем страницу при смене фильтров
+  React.useEffect(() => {
+    setPage(1);
+  }, [category, selectedSpecs, sort, priceRange]);
+
+  // Скролл вверх при смене страницы
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
+
+  // Стабильный ключ для specs
   const specsKey = React.useMemo(
     () => JSON.stringify(selectedSpecs),
     [selectedSpecs],
   );
 
-  React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page, sort, category]);
-  const priceRange = useFilterStore((s) => s.priceRange);
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['products', category, specsKey, sort, page, priceRange],
+    queryKey: [
+      'products',
+      category,
+      specsKey,
+      sort,
+      page,
+      priceRange?.min,
+      priceRange?.max,
+    ],
     queryFn: () =>
       getProducts({
         category,
@@ -27,10 +51,10 @@ export const useCatalogProducts = (category: string) => {
         sort,
         page,
         limit: 12,
-        priceRange,
+        priceRange: priceRange ?? null,
       }),
     placeholderData: keepPreviousData,
-    staleTime: 3_000,
+    staleTime: 3000,
   });
 
   return {
