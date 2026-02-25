@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useFilterStore } from '@/store/filterStore';
 import { cn } from '@/lib/utils';
 
@@ -23,9 +23,13 @@ export function SortSelect({ categoryId }: Props) {
     (s) => s.filtersByCategory[categoryId]?.sort ?? null,
   );
 
-  const setSort = useFilterStore(
-    (s) => (value: 'price_asc' | 'price_desc' | null) =>
-      s.setCategoryFilters(categoryId, { sort: value }),
+  const setCategoryFilters = useFilterStore((s) => s.setCategoryFilters);
+
+  const setSort = useCallback(
+    (value: 'price_asc' | 'price_desc' | null) => {
+      setCategoryFilters(categoryId, { sort: value });
+    },
+    [categoryId, setCategoryFilters],
   );
 
   const [open, setOpen] = React.useState(false);
