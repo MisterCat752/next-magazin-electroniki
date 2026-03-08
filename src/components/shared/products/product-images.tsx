@@ -36,7 +36,7 @@ export const ProductImages: React.FC<Props> = ({
         />
       </div>
       {/* Thumbnails */}
-      <div className='w-full min-w-0'>
+      <div className='w-full min-w-0 px-3 pb-2'>
         <Slider
           isThumbs
           direction='horizontal'

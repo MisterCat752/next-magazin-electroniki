@@ -19,10 +19,10 @@ interface Props {
 }
 
 const sidebarItems = [
-  { label: 'Личный кабинет', link: '/profile' },
-  { label: 'Мои заказы', link: '/profile/orders' },
-  { label: 'Настройки', link: '/profile/settings' },
-  { label: 'Список избраных', link: '/profile/favorites' },
+  { label: 'Profile', link: '/profile' },
+  { label: 'My Orders', link: '/profile/orders' },
+  { label: 'Settings', link: '/profile/settings' },
+  { label: 'Favorites', link: '/profile/favorites' },
 ];
 
 export const ProfileSideBar: React.FC<Props> = ({ className }) => {
@@ -45,7 +45,7 @@ export const ProfileSideBar: React.FC<Props> = ({ className }) => {
           : 'fixed top-0 left-0 w-full h-screen z-150 rounded-none',
       )}
     >
-      <h1 className='text-2xl my-4 font-bold'>Профиль пользователя</h1>
+      <h1 className='text-2xl my-4 font-bold'>Profile</h1>
 
       <X
         className='absolute block lg:hidden top-5 right-5 cursor-pointer'

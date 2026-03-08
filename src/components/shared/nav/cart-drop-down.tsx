@@ -36,12 +36,13 @@ export const CartDropDown: React.FC<Props> = ({ className }) => {
         </PopoverTrigger>
 
         <PopoverContent className='mt-7 w-full bg-gray-dark max-w-[520px]'>
-          <div className='text-white text-[18px] mb-5 font-medium'>
-            <p>Корзина</p>
+          <div className='text-white text-[18px] mb-5 font-medium flex items-center justify-between'>
+            <p>Cart</p>
           </div>
+
           {items.length === 0 && (
             <div className='flex items-center justify-center w-[320px] h-[100px] text-gray-400 text-sm'>
-              🛒 Корзина пуста
+              🛒 Your cart is empty
             </div>
           )}
 
@@ -59,14 +60,14 @@ export const CartDropDown: React.FC<Props> = ({ className }) => {
           {items.length > 0 && (
             <div className='mt-10 flex flex-col items-center justify-center gap-3'>
               <div className='text-white text-[18px] font-medium'>
-                <p>Итого: {total} MDL</p>
+                <p>Total: {total} MDL</p>
               </div>
               <Link href='/cart'>
                 <Button
                   variant='outline'
                   className='cursor-pointer hover:bg-gray-500 transition-all delay-75'
                 >
-                  В корзину
+                  Go to cart
                 </Button>
               </Link>
             </div>

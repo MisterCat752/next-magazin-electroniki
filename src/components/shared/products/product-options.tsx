@@ -77,8 +77,8 @@ export default function ProductOptions({
 
       <p className='text-xl font-bold mt-40'>
         {activeVariant
-          ? `${activeVariant.price.toLocaleString()} лей`
-          : 'Выберите характеристики'}
+          ? `${activeVariant.price.toLocaleString()} lei`
+          : 'choose variant'}
       </p>
 
       <Button
@@ -94,7 +94,7 @@ export default function ProductOptions({
         }
         className='bg-green mt-2 py-[24px] px-[16px] w-[281px] text-[16px] text-center rounded text-black font-semibold'
       >
-        Купить
+        Purchase
       </Button>
     </div>
   );

@@ -5,9 +5,8 @@ import Link from 'next/link';
 
 export default function HomeContent() {
   return (
-    <main className='p-6 space-y-10 bg-black'>
+    <main className='p-6 space-y-10 bg-black pt-30'>
       {/* Фото-слайдер */}
-      <h2 className='text-xl font-bold mt-20'>Фото-слайдер</h2>
       <div className='bg-gray-dark-medium max-w-[1450px] mx-auto p-3 rounded-2xl'>
         <Slider
           options={{ loop: true }}
@@ -56,7 +55,7 @@ export default function HomeContent() {
         {/* Последние товары */}
         <div className='my-10'>
           <ProductsSection
-            title='Последние товары'
+            title='Laptops'
             category='laptop'
             sort='createdAt_desc'
             queryKeySuffix='latest'
@@ -65,14 +64,14 @@ export default function HomeContent() {
         <div className='mt-10'>
           {/* Другие секции */}
           <ProductsSection
-            title='Самсунг'
+            title='Samsung phones'
             category='samsung'
             queryKeySuffix='samsung'
           />
         </div>
         <div className='mt-10'>
           <ProductsSection
-            title='Apple'
+            title='Apple phones'
             category='apple-phones'
             queryKeySuffix='apple'
           />

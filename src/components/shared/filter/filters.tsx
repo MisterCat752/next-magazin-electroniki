@@ -70,7 +70,7 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
 
         {/* PRICE */}
         <div>
-          <p className='font-bold mb-2'>Цена (MDL)</p>
+          <p className='font-bold mb-2'>Price (MDL)</p>
           <div className='flex gap-2'>
             <input
               type='number'
@@ -100,7 +100,7 @@ export const Filters: React.FC<Props> = ({ className, categoryId }) => {
           onClick={clearFilters}
           className='w-full py-2 bg-green text-black font-bold rounded'
         >
-          Очистить фильтры
+          Clear filters
         </button>
       </div>
     </div>

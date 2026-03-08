@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -14,23 +15,31 @@ export function LoginForm() {
     e.preventDefault();
     setError('');
 
-    const res = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
-    toast.success('Successfully logined in!');
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
 
-    if (res?.error) {
-      setError(res.error);
-    } else {
-      console.log('Успешный вход');
-      router.push('/profile'); // редирект после успешного входа
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (res?.error) {
+        setError(res.error);
+      } else {
+        toast.success('Successfully logged in!');
+        router.push('/profile');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Server error');
     }
   };
 
   return (
-    <div className='flex justify-center items-center  '>
+    <div className='flex justify-center items-center'>
       <form
         onSubmit={handleSubmit}
         className='flex flex-col gap-2 max-w-sm w-full'
@@ -40,20 +49,20 @@ export function LoginForm() {
           placeholder='Email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='border p-2 rounded'
+          className={`border p-2 rounded ${!email && error ? 'border-red-500' : ''}`}
         />
         <input
           type='password'
-          placeholder='Пароль'
+          placeholder='Password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className='border p-2 rounded'
+          className={`border p-2 rounded ${!password && error ? 'border-red-500' : ''}`}
         />
         <button
           type='submit'
           className='bg-blue-500 mt-5 text-white p-2 rounded'
         >
-          Войти
+          Sign In
         </button>
         {error && <p className='text-red-500'>{error}</p>}
       </form>

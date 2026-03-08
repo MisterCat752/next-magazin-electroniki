@@ -16,7 +16,7 @@ export default function Page() {
         body: formData,
       });
 
-      if (!res.ok) throw new Error('Ошибка обновления');
+      if (!res.ok) throw new Error('Update failed');
 
       return res.json();
     },
@@ -28,21 +28,21 @@ export default function Page() {
   const fields: FormField[] = [
     {
       name: 'fullName',
-      label: 'Имя',
+      label: 'Full Name',
       type: 'text',
-      placeholder: 'Введите имя',
+      placeholder: 'Enter your name',
     },
     {
       name: 'address',
-      label: 'Адрес',
+      label: 'Address',
       type: 'text',
-      placeholder: 'Введите адрес',
+      placeholder: 'Enter your address',
     },
     {
       name: 'phone',
-      label: 'Телефон',
+      label: 'Phone',
       type: 'text',
-      placeholder: 'Введите телефон',
+      placeholder: 'Enter your phone number',
     },
   ];
 
@@ -50,6 +50,8 @@ export default function Page() {
 
   return (
     <div className='p-8 bg-gray-dark w-full max-w-[800px] min-h-[500px] rounded-[16px]'>
+      <h1 className='text-2xl font-semibold text-white mb-6'>Edit Profile</h1>
+
       <DynamicForm
         fields={fields}
         defaultValues={{
@@ -57,7 +59,7 @@ export default function Page() {
           address: session.user?.address || '',
           phone: session.user?.phone || '',
         }}
-        submitLabel='Сохранить изменения'
+        submitLabel='Save Changes'
         onSubmit={(formData) => mutation.mutate(formData)}
       />
     </div>

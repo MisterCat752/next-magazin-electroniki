@@ -83,13 +83,10 @@ export const ProductCard: React.FC<Props> = ({
         {name}
       </Link>
 
-      <h2 className='text-[12px] text-gray  '>
-        6.3 | 48 Мп | 12 ГБ | Single SIM
-      </h2>
       {/* Нижняя часть карточки Кэшбэк 825 лей */}
       <div className='mt-auto flex flex-col gap-2 px-2'>
         <div className='flex items-center justify-between gap-2'>
-          <p className='text-[18px] text-white font-bold'>{price} лей</p>
+          <p className='text-[18px] text-white font-bold'>{price} Lei</p>
           <Button
             className={cn(
               '       rounded-[11px] bg-green cursor-pointer',

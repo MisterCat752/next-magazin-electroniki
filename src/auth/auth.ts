@@ -11,12 +11,14 @@ import { prisma } from '@/prisma/prisma-client';
 import bcrypt from 'bcryptjs';
 import type { User as PrismaUser } from '@prisma/client';
 import { JWT } from 'next-auth/jwt';
-// Расширяем JWT, добавляем id
+
+// Extend JWT with id and optional fields
 interface MyJWT extends JWT {
   id: string;
   role?: string;
   image?: string | null;
 }
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
@@ -31,19 +33,19 @@ export const authOptions: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         if (!credentials?.email || !credentials?.password)
-          throw new Error('Введите email и пароль');
+          throw new Error('Please enter both email and password');
 
         const user: PrismaUser | null = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
 
-        if (!user) throw new Error('Пользователь не найден');
+        if (!user) throw new Error('User not found');
 
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password,
         );
-        if (!isValid) throw new Error('Неверный пароль');
+        if (!isValid) throw new Error('Invalid credentials');
 
         return {
           id: String(user.id),
@@ -59,7 +61,7 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    // JWT callback
+    // JWT callback: attach custom fields to token
     async jwt({ token, user, trigger, session }): Promise<MyJWT> {
       if (user) {
         token.id = user.id;
@@ -69,16 +71,19 @@ export const authOptions: NextAuthOptions = {
         token.address = (user as User).address || null;
         token.phone = (user as User).phone || null;
       }
+
+      // Handle session updates
       if (trigger === 'update' && session) {
         if (session.name) token.name = session.name;
         if (session.image) token.image = session.image;
         if (session.address) token.address = session.address;
         if (session.phone) token.phone = session.phone;
       }
+
       return token as MyJWT;
     },
 
-    // Session callback
+    // Session callback: add custom fields to session
     async session({ session, token }): Promise<Session> {
       if (session.user) {
         session.user.id = (token as MyJWT).id;

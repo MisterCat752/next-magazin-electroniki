@@ -87,7 +87,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
         className='hidden md:flex items-center gap-2 px-4 py-2 bg-gray-medium text-white rounded'
         onClick={() => setOpen((v) => !v)}
       >
-        <span className='hidden font-bold lg:flex'>Каталог</span>
+        <span className='hidden font-bold lg:flex'>Category</span>
         <span className='flex font-bold lg:hidden'>
           <ChartBarStacked color='white' />
         </span>
@@ -113,7 +113,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
           {/* Левые категории */}
           <div className='max-w-[320px] border-r bg-gray-dark border-gray-300 h-full overflow-y-auto'>
             {isLoading && (
-              <div className='px-5 py-3 text-sm text-gray-500'>Загрузка...</div>
+              <div className='px-5 py-3 text-sm text-gray-500'>loading...</div>
             )}
 
             {categories.map((cat) => (

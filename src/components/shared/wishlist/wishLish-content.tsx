@@ -14,7 +14,7 @@ interface Props {
 export const WishLIshContent: React.FC<Props> = ({ className }) => {
   const items = useFavoriteStore((state) => state.items);
 
-  // ⭐ если пусто → показываем красивый экран
+  // ⭐ if empty → show nice empty state
   if (items.length === 0) {
     return (
       <div
@@ -27,28 +27,28 @@ export const WishLIshContent: React.FC<Props> = ({ className }) => {
           <Heart size={48} />
         </div>
 
-        <h2 className='text-xl font-semibold mb-2'>В избранном пока пусто</h2>
+        <h2 className='text-xl font-semibold mb-2'>Your wishlist is empty</h2>
 
         <p className='text-gray-400 mb-6 max-w-md'>
-          Добавляйте товары в избранное, чтобы быстро находить их позже
+          Add products to your wishlist to quickly find them later
         </p>
 
         <Link
           href='/category/smartphones'
           className='px-6 py-3 bg-white text-black rounded-xl font-medium hover:opacity-80 transition'
         >
-          Перейти в каталог
+          Go to catalog
         </Link>
       </div>
     );
   }
 
-  // ⭐ если есть товары → обычная сетка
+  // ⭐ if there are products → show grid
   return (
     <div
       className={cn(
         className,
-        'grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4 w-full',
+        'grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-4 w-full mt-2',
       )}
     >
       {items.map((item) => (

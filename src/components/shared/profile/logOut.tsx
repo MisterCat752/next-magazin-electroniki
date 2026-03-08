@@ -23,7 +23,7 @@ export const LogOut: React.FC<Props> = ({ className }) => {
       className='border-green text-green bg-gray-dark-medium hover:text-black hover:bg-green transition-all duration-[0.3s] cursor-pointer'
     >
       {' '}
-      Выйти
+      Logout
     </Button>
   );
 };

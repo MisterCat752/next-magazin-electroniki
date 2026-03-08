@@ -8,6 +8,7 @@ import { ProductImages } from './product-images';
 import { useProduct } from '@/hooks/useProduct';
 import { useProductVariants } from '@/hooks/useProductVariants';
 import { SimilarProducts } from './similar-product';
+import ProductViewSkeleton from './product-view-skeleton';
 
 export default function ProductView({ productId }: { productId: number }) {
   const { data: product, isLoading, isError } = useProduct(productId);
@@ -20,7 +21,7 @@ export default function ProductView({ productId }: { productId: number }) {
     product,
     selectedOptions,
   );
-  if (isLoading) return <p className='text-white  p-30 '>Загрузка товара...</p>;
+  if (isLoading) return <ProductViewSkeleton />;
   if (isError || !product)
     return <p className='text-black p-30'>Товар не найден</p>;
 

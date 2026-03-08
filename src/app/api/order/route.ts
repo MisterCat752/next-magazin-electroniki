@@ -59,3 +59,46 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Ошибка сервера' }, { status: 500 });
   }
 }
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const email = url.searchParams.get('email');
+
+    if (!email) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    }
+
+    const orders = await prisma.order.findMany({
+      where: { email },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        items: {
+          include: {
+            productVariant: {
+              include: {
+                product: true, // чтобы получить название продукта
+              },
+            },
+          },
+        },
+      },
+    });
+
+    // Преобразуем данные, чтобы передать name продукта в клиент
+    const formattedOrders = orders.map((order) => ({
+      ...order,
+      items: order.items.map((item) => ({
+        id: item.id,
+        variantId: item.variantId,
+        productName: item.productVariant.product.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+    }));
+
+    return NextResponse.json(formattedOrders);
+  } catch (err) {
+    console.error('Error fetching orders:', err);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}

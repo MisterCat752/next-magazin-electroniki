@@ -35,8 +35,6 @@ export const CartNavBarItem: React.FC<Props> = ({
       <div className='flex flex-col flex-1 gap-1'>
         <h2 className='text-white text-sm font-medium leading-tight'>{name}</h2>
 
-        <p className='text-gray-400 text-xs'>12 GB / 256 GB / Graygreen</p>
-
         {/* Counter */}
         <div className='flex items-center gap-2 mt-2'>
           <button

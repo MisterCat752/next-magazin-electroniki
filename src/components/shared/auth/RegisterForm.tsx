@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -13,18 +14,20 @@ export default function RegisterForm() {
     setError('');
     setSuccess('');
 
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, fullName }),
-    });
+    if (!fullName || !email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
 
-    const data = await res.json();
-
-    if (!res.ok) {
-      setError(data.error);
-    } else {
-      setSuccess('Регистрация успешна!');
+    try {
+      const res = await axios.post('/api/register', {
+        email,
+        password,
+        fullName,
+      });
+      setSuccess('Registration successful!');
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Server error');
     }
   };
 
@@ -32,27 +35,27 @@ export default function RegisterForm() {
     <form onSubmit={handleSubmit} className='flex flex-col gap-2 max-w-sm'>
       <input
         type='text'
-        placeholder='Имя'
+        placeholder='Full Name'
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
-        className='border p-2 rounded'
+        className={`border p-2 rounded ${!fullName && error ? 'border-red-500' : ''}`}
       />
       <input
         type='email'
         placeholder='Email'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className='border p-2 rounded'
+        className={`border p-2 rounded ${!email && error ? 'border-red-500' : ''}`}
       />
       <input
         type='password'
-        placeholder='Пароль'
+        placeholder='Password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className='border p-2 rounded'
+        className={`border p-2 rounded ${!password && error ? 'border-red-500' : ''}`}
       />
       <button type='submit' className='bg-blue-500 text-white p-2 rounded'>
-        Зарегистрироваться
+        Register
       </button>
       {error && <p className='text-red-500'>{error}</p>}
       {success && <p className='text-green-500'>{success}</p>}
