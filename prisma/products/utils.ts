@@ -12,6 +12,14 @@ export async function findOption(
   return result.id;
 }
 
-export function makeSku(slug: string, mem: string, color?: string) {
-  return `${slug}-${mem.replace(/\s/g, '')}-${color?.replace(/\s|\|/g, '')}`;
+export function makeSku(
+  slug: string,
+  mem?: string,
+  color?: string,
+  idx?: number,
+) {
+  const safeMem = mem ? mem.replace(/\s/g, '') : 'nomem';
+  const safeColor = color ? color.replace(/\s|\|/g, '') : 'nocolor';
+  const base = `${slug}-${safeMem}-${safeColor}`;
+  return idx !== undefined ? `${base}-${idx}` : base;
 }

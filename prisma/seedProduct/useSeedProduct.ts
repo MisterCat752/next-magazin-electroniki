@@ -41,7 +41,7 @@ export async function useSeedProduct(
 
   // Создаём все варианты параллельно через Promise.all
   await Promise.all(
-    productItem.variants.map(async (variant) => {
+    productItem.variants.map(async (variant, idx) => {
       const optionValueIds: number[] = [];
 
       if (variant.memory) {
@@ -79,7 +79,7 @@ export async function useSeedProduct(
       await prisma.productVariant.create({
         data: {
           productId: product.id,
-          sku: makeSku(productItem.slug, variant.memory),
+          sku: makeSku(productItem.slug, variant.memory, variant.color, idx),
           price: variant.price ?? 12099,
           stock: variant.stock ?? Math.floor(Math.random() * 20) + 1,
 
@@ -90,7 +90,7 @@ export async function useSeedProduct(
           },
 
           specifications: {
-            create: variant.specifications.map((spec) => ({
+            create: (variant.specifications || []).map((spec) => ({
               name: spec.name,
               value: spec.value,
               groupId: spec.groupId,

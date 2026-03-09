@@ -10,7 +10,7 @@ export const PC_SEED_CONFIG = (
     // asus
 
     {
-      name: 'Игровой компьютер Unity X05',
+      name: 'Gaming PC Unity X05',
       slug: 'Unity-X05',
       categoryId: categories.computers.id,
 
@@ -21,8 +21,8 @@ export const PC_SEED_CONFIG = (
 
       variants: (sections: any, model: any) =>
         buildPcVariants(sections, [
-          { ram: '16 ГБ', storage: '512 ГБ', price: 17999 },
-          { ram: '32 ГБ', storage: '512 ГБ', price: 18799 },
+          { ram: '16 GB', storage: '512 GB', price: 17999 },
+          { ram: '32 GB', storage: '512 GB', price: 18799 },
         ]),
     },
   ],

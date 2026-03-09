@@ -1,20 +1,21 @@
 export async function seedOptions(prisma: any) {
   const color = await prisma.option.create({
     data: {
-      name: 'Цвет',
+      name: 'Color',
       values: {
         create: [
-          'Зелёный',
-          'Чёрный',
-          'Красный',
-          'Голубой',
-          'Белый',
-          'Серый',
-          'Серебристый',
-          'Золотой',
-          'Тёмно-синий',
-          'Синий',
-          'Черный',
+          'Green',
+          'Green',
+          'Black',
+          'Red',
+          'Light Blue',
+          'White',
+          'Gray',
+          'Silver',
+          'Gold',
+          'Dark Blue',
+          'Blue',
+          'Black',
         ].map((v) => ({ value: v })),
       },
     },
@@ -23,36 +24,36 @@ export async function seedOptions(prisma: any) {
 
   const memory = await prisma.option.create({
     data: {
-      name: 'Память',
+      name: 'Storage / Memory',
       values: {
         create: [
-          '64 ГБ',
-          '128 ГБ',
-          '256 ГБ',
-          '512 ГБ',
+          '64 GB',
+          '128 GB',
+          '256 GB',
+          '512 GB',
 
-          '4 ГБ|64 ГБ',
-          '4 ГБ|128 ГБ',
-          '4 ГБ|256 ГБ',
-          '4 ГБ|512 ГБ',
+          '4 GB|64 GB',
+          '4 GB|128 GB',
+          '4 GB|256 GB',
+          '4 GB|512 GB',
 
-          '6 ГБ|128 ГБ',
-          '6 ГБ|256 ГБ',
-          '6 ГБ|512 ГБ',
+          '6 GB|128 GB',
+          '6 GB|256 GB',
+          '6 GB|512 GB',
 
-          '8 ГБ|128 ГБ',
-          '8 ГБ|256 ГБ',
-          '8 ГБ|512 ГБ',
+          '8 GB|128 GB',
+          '8 GB|256 GB',
+          '8 GB|512 GB',
 
-          '12 ГБ|256 ГБ',
-          '16 ГБ|512 ГБ',
-          '16 ГБ|1 ТБ',
-          '24 ГБ|512 ГБ',
-          '24 ГБ|1 ТБ',
-          '32 ГБ|512 ГБ',
-          '32 ГБ|1 ТБ',
-          '32 ГБ|2 ТБ',
-          '64 ГБ|2 ТБ',
+          '12 GB|256 GB',
+          '16 GB|512 GB',
+          '16 GB|1 TB',
+          '24 GB|512 GB',
+          '24 GB|1 TB',
+          '32 GB|512 GB',
+          '32 GB|1 TB',
+          '32 GB|2 TB',
+          '64 GB|2 TB',
         ].map((v) => ({
           value: v,
         })),
@@ -62,7 +63,7 @@ export async function seedOptions(prisma: any) {
   });
   const videoMemory = await prisma.option.create({
     data: {
-      name: 'Видеокарта',
+      name: 'Graphics Card',
       values: {
         create: [
           // 🟢 Встроенные
@@ -71,37 +72,37 @@ export async function seedOptions(prisma: any) {
           'AMD Radeon Graphics|Shared',
 
           // 🔵 NVIDIA GTX
-          'GeForce GTX 1650|4 ГБ',
-          'GeForce GTX 1660 Ti|6 ГБ',
+          'GeForce GTX 1650|4 GB',
+          'GeForce GTX 1660 Ti|6 GB',
 
           // 🔴 NVIDIA RTX 20
-          'GeForce RTX 2050|4 ГБ',
-          'GeForce RTX 2060|6 ГБ',
+          'GeForce RTX 2050|4 GB',
+          'GeForce RTX 2060|6 GB',
 
           // 🟣 NVIDIA RTX 30
-          'GeForce RTX 3050|4 ГБ',
-          'GeForce RTX 3050|6 ГБ',
-          'GeForce RTX 3060|6 ГБ',
-          'GeForce RTX 3060|8 ГБ',
-          'GeForce RTX 3070|8 ГБ',
-          'GeForce RTX 3080|8 ГБ',
+          'GeForce RTX 3050|4 GB',
+          'GeForce RTX 3050|6 GB',
+          'GeForce RTX 3060|6 GB',
+          'GeForce RTX 3060|8 GB',
+          'GeForce RTX 3070|8 GB',
+          'GeForce RTX 3080|8 GB',
 
           // 🟡 NVIDIA RTX 40
-          'GeForce RTX 4050|6 ГБ',
-          'GeForce RTX 4060|8 ГБ',
-          'GeForce RTX 4070|8 ГБ',
-          'GeForce RTX 4080|12 ГБ',
+          'GeForce RTX 4050|6 GB',
+          'GeForce RTX 4060|8 GB',
+          'GeForce RTX 4070|8 GB',
+          'GeForce RTX 4080|12 GB',
 
           // 🟡 NVIDIA RTX 50
-          'GeForce RTX 5060|8 ГБ',
-          'GeForce RTX 5070|8 ГБ',
-          'GeForce RTX 5080|16 ГБ',
-          'GeForce RTX 5090|24 ГБ',
+          'GeForce RTX 5060|8 GB',
+          'GeForce RTX 5070|8 GB',
+          'GeForce RTX 5080|16 GB',
+          'GeForce RTX 5090|24 GB',
 
           // 🔴 AMD RX
-          'Radeon RX 6600M|8 ГБ',
-          'Radeon RX 6700M|10 ГБ',
-          'Radeon RX 6800M|12 ГБ',
+          'Radeon RX 6600M|8 GB',
+          'Radeon RX 6700M|10 GB',
+          'Radeon RX 6800M|12 GB',
         ].map((v) => ({ value: v })),
       },
     },
@@ -110,7 +111,7 @@ export async function seedOptions(prisma: any) {
 
   const procesor = await prisma.option.create({
     data: {
-      name: 'Процесор',
+      name: 'Processor',
       values: {
         create: [
           // 🔴 AMD Ryzen

@@ -1,29 +1,30 @@
 export async function seedCategories(prisma: any) {
   const laptopPc = await prisma.category.create({
-    data: { name: 'Ноутбуки | ПК', slug: 'laptop-pc' },
+    data: { name: 'Laptops | PCs', slug: 'laptop-pc' },
   });
 
   const electronics = await prisma.category.create({
-    data: { name: 'Телефоны | Планшеты', slug: 'electronics' },
+    data: { name: 'Phones | Tablets', slug: 'electronics' },
   });
 
   // ======================
-  // 🖥 КОМПЬЮТЕРЫ
+  // 🖥 COMPUTERS
   // ======================
   const computers = await prisma.category.create({
-    data: { name: 'Компьютеры', slug: 'computers', parentId: laptopPc.id },
+    data: { name: 'Computers', slug: 'computers', parentId: laptopPc.id },
   });
 
   const laptop = await prisma.category.create({
     data: {
-      name: 'Ноутбуки',
+      name: 'Laptops',
       slug: 'laptop',
       parentId: laptopPc.id,
     },
   });
+
   const smartphones = await prisma.category.create({
     data: {
-      name: 'Смартфоны',
+      name: 'Smartphones',
       slug: 'smartphones',
       parentId: electronics.id,
     },
@@ -36,6 +37,7 @@ export async function seedCategories(prisma: any) {
       parentId: smartphones.id,
     },
   });
+
   const xiaomiPhones = await prisma.category.create({
     data: {
       name: 'Xiaomi',
@@ -43,6 +45,7 @@ export async function seedCategories(prisma: any) {
       parentId: smartphones.id,
     },
   });
+
   const motorolaPhones = await prisma.category.create({
     data: {
       name: 'Motorola',
@@ -50,6 +53,7 @@ export async function seedCategories(prisma: any) {
       parentId: smartphones.id,
     },
   });
+
   const ulefonePhones = await prisma.category.create({
     data: {
       name: 'Ulefone',
@@ -57,13 +61,15 @@ export async function seedCategories(prisma: any) {
       parentId: smartphones.id,
     },
   });
+
   const onePlusPhones = await prisma.category.create({
     data: {
       name: 'OnePlus',
-      slug: 'onePlus-phones',
+      slug: 'oneplus-phones',
       parentId: smartphones.id,
     },
   });
+
   const huaweiPhones = await prisma.category.create({
     data: {
       name: 'Huawei',
@@ -78,7 +84,7 @@ export async function seedCategories(prisma: any) {
 
   const gamingLaptops = await prisma.category.create({
     data: {
-      name: 'Игровые ноутбуки',
+      name: 'Gaming Laptops',
       slug: 'gaming-laptops',
       parentId: laptop.id,
     },

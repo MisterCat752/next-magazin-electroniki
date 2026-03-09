@@ -1,110 +1,113 @@
 import buildSpecs from '../buildSpec';
 
-// gaming pc
 const gamingPcBaseSpecs = (sections: any) => [
   // ======================
-  // 🖥 ОСНОВНЫЕ
+  // 🖥 BASE
   // ======================
   {
-    name: 'Тип устройства',
-    value: 'Игровой компьютер',
+    name: 'Device Type',
+    value: 'Gaming PC',
     groupId: sections.baseGroup.id,
   },
 
   // ======================
-  // ⚙️ ПРОЦЕССОР
+  // ⚙️ PROCESSOR
   // ======================
   {
-    name: 'Модель CPU',
+    name: 'CPU Model',
     value: 'AMD Ryzen 5 5500',
     groupId: sections.procesor.id,
   },
-  { name: 'Количество ядер', value: '6', groupId: sections.procesor.id },
-  { name: 'Количество потоков', value: '12', groupId: sections.procesor.id },
-  { name: 'Базовая частота', value: '3.6 ГГц', groupId: sections.procesor.id },
-  { name: 'Turbo частота', value: '4.2 ГГц', groupId: sections.procesor.id },
-  { name: 'Кэш L3', value: '16 МБ', groupId: sections.procesor.id },
-  { name: 'TDP', value: '65 Вт', groupId: sections.procesor.id },
+  { name: 'Core Count', value: '6', groupId: sections.procesor.id },
+  { name: 'Thread Count', value: '12', groupId: sections.procesor.id },
+  { name: 'Base Frequency', value: '3.6 GHz', groupId: sections.procesor.id },
+  { name: 'Turbo Frequency', value: '4.2 GHz', groupId: sections.procesor.id },
+  { name: 'L3 Cache', value: '16 MB', groupId: sections.procesor.id },
+  { name: 'TDP', value: '65 W', groupId: sections.procesor.id },
 
   // ======================
-  // 🎮 ВИДЕОКАРТА
+  // 🎮 GRAPHICS CARD
   // ======================
   {
-    name: 'Модель видеокарты',
+    name: 'GPU Model',
     value: 'GeForce RTX 3060',
     groupId: sections.graphic.id,
   },
-  { name: 'Объем видеопамяти', value: '12 ГБ', groupId: sections.graphic.id },
-  { name: 'Тип памяти', value: 'GDDR6', groupId: sections.graphic.id },
-  { name: 'Разрядность шины', value: '192 bit', groupId: sections.graphic.id },
+  { name: 'Video Memory', value: '12 GB', groupId: sections.graphic.id },
+  { name: 'Memory Type', value: 'GDDR6', groupId: sections.graphic.id },
+  { name: 'Bus Width', value: '192 bit', groupId: sections.graphic.id },
   {
-    name: 'Видео выходы',
+    name: 'Video Outputs',
     value: '1x HDMI, 3x DisplayPort',
     groupId: sections.graphic.id,
   },
 
   // ======================
-  // 💾 ОПЕРАТИВНАЯ ПАМЯТЬ
+  // 💾 RAM
   // ======================
-  { name: 'Объем RAM', value: '16 ГБ', groupId: sections.memory.id },
-  { name: 'Тип RAM', value: 'DDR4', groupId: sections.memory.id },
-  { name: 'Частота RAM', value: '3200 МГц', groupId: sections.memory.id },
-  { name: 'Конфигурация', value: '2 x 8 ГБ', groupId: sections.memory.id },
+  { name: 'RAM Size', value: '16 GB', groupId: sections.memory.id },
+  { name: 'RAM Type', value: 'DDR4', groupId: sections.memory.id },
+  { name: 'RAM Frequency', value: '3200 MHz', groupId: sections.memory.id },
+  { name: 'Configuration', value: '2 x 8 GB', groupId: sections.memory.id },
   {
-    name: 'Модель RAM',
+    name: 'RAM Model',
     value: 'Kingston FURY Beast',
     groupId: sections.memory.id,
   },
 
   // ======================
-  // 💽 НАКОПИТЕЛЬ
+  // 💽 STORAGE
   // ======================
-  { name: 'Объем SSD', value: '512 ГБ', groupId: sections.memory.id },
-  { name: 'Тип накопителя', value: 'M.2 NVMe', groupId: sections.memory.id },
-  { name: 'Модель SSD', value: 'GOODRAM PX500', groupId: sections.memory.id },
+  { name: 'SSD Capacity', value: '512 GB', groupId: sections.memory.id },
+  { name: 'Storage Type', value: 'M.2 NVMe', groupId: sections.memory.id },
+  { name: 'SSD Model', value: 'GOODRAM PX500', groupId: sections.memory.id },
 
   // ======================
-  // 🧩 МАТЕРИНСКАЯ ПЛАТА
+  // 🧩 MOTHERBOARD
   // ======================
   {
-    name: 'Модель',
+    name: 'Model',
     value: 'ASRock A520M-HDV',
     groupId: sections.motherboard.id,
   },
-  { name: 'Чипсет', value: 'AMD A520', groupId: sections.motherboard.id },
-  { name: 'Слоты RAM', value: '2', groupId: sections.motherboard.id },
-  { name: 'Макс. объем RAM', value: '64 ГБ', groupId: sections.motherboard.id },
+  { name: 'Chipset', value: 'AMD A520', groupId: sections.motherboard.id },
+  { name: 'RAM Slots', value: '2', groupId: sections.motherboard.id },
+  {
+    name: 'Max RAM Capacity',
+    value: '64 GB',
+    groupId: sections.motherboard.id,
+  },
   { name: 'LAN', value: '1 Gbit', groupId: sections.motherboard.id },
-  { name: 'Wi-Fi', value: 'Нет', groupId: sections.motherboard.id },
+  { name: 'Wi-Fi', value: 'No', groupId: sections.motherboard.id },
 
   // ======================
-  // ❄️ ОХЛАЖДЕНИЕ
+  // ❄️ COOLING
   // ======================
 
   // ======================
-  // 🔌 ПИТАНИЕ / КОРПУС
+  // 🔌 POWER / CASE
   // ======================
   {
-    name: 'Корпус',
+    name: 'Case',
     value: 'Gamemax Diamond CP BK',
     groupId: sections.power.id,
   },
-  { name: 'Мощность БП', value: '700 Вт', groupId: sections.power.id },
-  { name: 'Сертификат БП', value: 'Standard', groupId: sections.power.id },
+  { name: 'PSU Power', value: '700 W', groupId: sections.power.id },
+  { name: 'PSU Certification', value: 'Standard', groupId: sections.power.id },
   {
-    name: 'Модель БП',
+    name: 'PSU Model',
     value: 'Gamemax ECO Gamer GE-700',
     groupId: sections.power.id,
   },
-  { name: 'Количество вентиляторов', value: '6', groupId: sections.power.id },
+  { name: 'Number of Fans', value: '6', groupId: sections.power.id },
 ];
 
 const pcVariantSpecs = (
   sections: any,
   variant: { ram: string; storage: string },
 ) => [
-  { name: 'Объем RAM', value: variant.ram, groupId: sections.memory.id },
-  { name: 'Объем SSD', value: variant.storage, groupId: sections.memory.id },
+  { name: 'RAM Size', value: variant.ram, groupId: sections.memory.id },
+  { name: 'SSD Capacity', value: variant.storage, groupId: sections.memory.id },
 ];
 
 export const buildPcVariants = (
@@ -113,7 +116,7 @@ export const buildPcVariants = (
 ) =>
   variants.map((variant) => ({
     memory: `${variant.ram}|${variant.storage}`,
-    color: 'Чёрный',
+    color: 'Black',
     price: variant.price,
 
     specifications: buildSpecs({

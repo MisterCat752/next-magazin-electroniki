@@ -3,23 +3,23 @@ import { PrismaClient } from '@prisma/client';
 export async function seedSections(prisma: PrismaClient) {
   const base = await prisma.specSection.create({
     data: {
-      name: 'Основные',
-      groups: { create: [{ name: 'Основные' }] },
+      name: 'General',
+      groups: { create: [{ name: 'General' }] },
     },
     include: { groups: true },
   });
 
   const display = await prisma.specSection.create({
     data: {
-      name: 'Отображение',
-      groups: { create: [{ name: 'Отображение' }] },
+      name: 'Display',
+      groups: { create: [{ name: 'Display' }] },
     },
     include: { groups: true },
   });
   const memory = await prisma.specSection.create({
     data: {
-      name: 'Память',
-      groups: { create: [{ name: 'Память' }] },
+      name: 'Memory',
+      groups: { create: [{ name: 'Memory' }] },
     },
     include: { groups: true },
   });
@@ -32,8 +32,8 @@ export async function seedSections(prisma: PrismaClient) {
   });
   const photoVideo = await prisma.specSection.create({
     data: {
-      name: 'Фото Видео',
-      groups: { create: [{ name: 'Фото Видео' }] },
+      name: 'Photo & Video',
+      groups: { create: [{ name: 'Photo & Video' }] },
     },
     include: { groups: true },
   });
@@ -46,57 +46,57 @@ export async function seedSections(prisma: PrismaClient) {
   });
   const characteristics = await prisma.specSection.create({
     data: {
-      name: 'Характеристики',
-      groups: { create: [{ name: 'Характеристики' }] },
+      name: 'Specifications',
+      groups: { create: [{ name: 'Specifications' }] },
     },
     include: { groups: true },
   });
   const motherboard = await prisma.specSection.create({
     data: {
-      name: 'Материнская плата',
-      groups: { create: [{ name: 'Материнская плата' }] },
+      name: 'Motherboard',
+      groups: { create: [{ name: 'Motherboard' }] },
     },
     include: { groups: true },
   });
   const connection = await prisma.specSection.create({
     data: {
-      name: 'Связь',
-      groups: { create: [{ name: 'Связь' }] },
+      name: 'Connection',
+      groups: { create: [{ name: 'Connection' }] },
     },
     include: { groups: true },
   });
   const graphic = await prisma.specSection.create({
     data: {
-      name: 'Графика',
-      groups: { create: [{ name: 'Графика' }] },
+      name: 'Graphics',
+      groups: { create: [{ name: 'Graphics' }] },
     },
     include: { groups: true },
   });
   const connectivity = await prisma.specSection.create({
     data: {
-      name: 'Связь',
-      groups: { create: [{ name: 'Связь' }] },
+      name: 'Connectivity',
+      groups: { create: [{ name: 'Connectivity' }] },
     },
     include: { groups: true },
   });
   const extra = await prisma.specSection.create({
     data: {
-      name: 'Экстра',
-      groups: { create: [{ name: 'экстра' }] },
+      name: 'Extra',
+      groups: { create: [{ name: 'Extra' }] },
     },
     include: { groups: true },
   });
   const power = await prisma.specSection.create({
     data: {
-      name: 'Питание',
-      groups: { create: [{ name: 'Питание' }] },
+      name: 'Power',
+      groups: { create: [{ name: 'Power' }] },
     },
     include: { groups: true },
   });
   const multimedia = await prisma.specSection.create({
     data: {
-      name: 'Мультимедия',
-      groups: { create: [{ name: 'Мультимедия' }] },
+      name: 'Multimedia',
+      groups: { create: [{ name: 'Multimedia' }] },
     },
     include: { groups: true },
   });
