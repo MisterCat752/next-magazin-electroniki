@@ -57,10 +57,10 @@ The platform is optimized for fast loading, accessibility, and SEO. Lighthouse a
 
 | Metric                             | Score    |
 | ---------------------------------- | -------- |
-| **Performance**                    | 84       |
-| **Accessibility**                  | 100      |
+| **Performance**                    | 99      |
+| **Accessibility**                  | 84      |
 | **Best Practices**                 | 100      |
-| **SEO**                            | 99       |
+| **SEO**                            | 100       |
 | **First Contentful Paint (FCP)**   | 0.2–0.9s |
 | **Largest Contentful Paint (LCP)** | 0.8–2.9s |
 | **Total Blocking Time (TBT)**      | 10ms     |
