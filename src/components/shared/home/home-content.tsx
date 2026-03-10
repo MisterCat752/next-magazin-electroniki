@@ -1,81 +1,47 @@
 import { CategoryCard, Slider } from '@/components/shared';
-import { categories, HomeSliderImages } from '@/data';
+import { categories } from '@/data';
 import { ProductsSection } from './product-section';
-import Link from 'next/link';
+import { HomeSlider } from './home-slider';
+import { PhoneBanner } from './phone-banner';
 
 export default function HomeContent() {
+  const sections = [
+    { title: 'Laptops', category: 'laptop', queryKeySuffix: 'latest' },
+    { title: 'Samsung phones', category: 'samsung', queryKeySuffix: 'samsung' },
+    {
+      title: 'Apple phones',
+      category: 'apple-phones',
+      queryKeySuffix: 'apple',
+    },
+  ];
+
   return (
     <main className='p-6 space-y-10 bg-black pt-30'>
-      {/* Фото-слайдер */}
-      <div className='bg-gray-dark-medium max-w-[1450px] mx-auto p-3 rounded-2xl'>
-        <Slider
-          options={{ loop: true }}
-          itemClassName='
-      relative w-full  mr-4 rounded-2xl
-      h-[560px] 
-      sm:h-[820px] 
-      md:h-[820px] 
-      lg:h-[500px]
-    '
-        >
-          {HomeSliderImages.map((image, i) => (
-            <Link key={i} href={image.link}>
-              <picture>
-                {/* Мобильная версия до 768px */}
-                <source
-                  srcSet={image.mobile}
-                  media='(max-width: 998px)'
-                  type='image/webp'
-                />
-                {/* Десктопная версия */}
-                <img
-                  src={image.desktop}
-                  alt={`slide-${i}`}
-                  loading='lazy'
-                  className='w-full h-full object-cover rounded-2xl'
-                />
-              </picture>
-            </Link>
-          ))}
-        </Slider>
+      {/* Слайдер + баннер */}
+      <div className='flex flex-col lg:flex-row gap-4'>
+        <div className='flex-1 bg-gray-dark-medium p-3 rounded-2xl'>
+          <HomeSlider />
+        </div>
+        <PhoneBanner />
       </div>
+
+      {/* Категории */}
       <div className='mx-auto max-w-[1450px]'>
-        {/* Категории */}
         <h2 className='text-center text-2xl my-10 font-black text-white'>
           Categories
         </h2>
-        <Slider
-          itemClassName='flex-[0_0_33.333%] max-w-[33.333%] mr-2 
-                 md:flex-[0_0_20%] md:max-w-[200px]'
-        >
+        <Slider itemClassName='flex-[0_0_33.333%] max-w-[33.333%] mr-2 md:flex-[0_0_20%] md:max-w-[200px]'>
           {categories.map((c) => (
             <CategoryCard key={c.id} {...c} />
           ))}
         </Slider>
-        {/* Последние товары */}
-        <div className='my-10'>
-          <ProductsSection
-            title='Laptops'
-            category='laptop'
-            sort='createdAt_desc'
-            queryKeySuffix='latest'
-          />
-        </div>
-        <div className='mt-10'>
-          {/* Другие секции */}
-          <ProductsSection
-            title='Samsung phones'
-            category='samsung'
-            queryKeySuffix='samsung'
-          />
-        </div>
-        <div className='mt-10'>
-          <ProductsSection
-            title='Apple phones'
-            category='apple-phones'
-            queryKeySuffix='apple'
-          />
-        </div>
+
+        {/* Продукты */}
+        {sections.map((s) => (
+          <div key={s.category} className='mt-10'>
+            <ProductsSection {...s} />
+          </div>
+        ))}
       </div>
     </main>
   );

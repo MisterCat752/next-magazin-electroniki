@@ -15,7 +15,7 @@ export default function Page({ className }: Props) {
         'p-8 bg-gray-dark-medium w-full max-w-[800px] min-h-[500px] rounded-[16px]',
       )}
     >
-      <h1 className='text-white font-bold text-[24px] mb-4'>Ваши заказы</h1>
+      <h1 className='text-white font-bold text-[24px] mb-4'>Your orders</h1>
 
       <OrdersClient />
     </div>
