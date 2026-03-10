@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row } from './cart-row';
 
 type OrderSummaryProps = {
   productCost?: number;
@@ -22,25 +23,6 @@ export function CartSum({
 }: OrderSummaryProps) {
   const total = productCost - discount + deliveryCost - appliedBonus;
 
-  const Row = ({
-    label,
-    value,
-    isNegative,
-  }: {
-    label: React.ReactNode;
-    value: React.ReactNode;
-    isNegative?: boolean;
-  }) => (
-    <div className='flex items-center justify-between text-sm md:text-base'>
-      <div className='text-gray-300'>{label}</div>
-      <div
-        className={`font-medium ${isNegative ? 'text-red-500' : 'text-gray-100'}`}
-      >
-        {value}
-      </div>
-    </div>
-  );
-
   return (
     <aside
       className={`bg-[#0f0f0f] text-gray-200 rounded-xl p-6 md:p-8 shadow-md border border-transparent ${className}`}
@@ -53,8 +35,7 @@ export function CartSum({
         />
         <Row
           label='Discount'
-          value={`- ${formatAmount(discount)} ${currency}`}
-          isNegative
+          value={`  ${formatAmount(discount)} ${currency}`}
         />
         <Row
           label='Delivery Cost'
@@ -62,8 +43,7 @@ export function CartSum({
         />
         <Row
           label='Applied Bonus'
-          value={`- ${formatAmount(appliedBonus)} ${currency}`}
-          isNegative
+          value={`  ${formatAmount(appliedBonus)} ${currency}`}
         />
       </div>
 
