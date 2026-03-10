@@ -23,7 +23,6 @@ export const ProductsSection: React.FC<Props> = ({
     sort,
     queryKeySuffix,
   });
-  console.log(data, 'data');
   const showSkeleton = isLoading;
   const skeletonCount = 6;
   return (

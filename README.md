@@ -2,16 +2,13 @@
 
 ![Preview](public/preview/main.png)
 
-
-
-Live Demo: [View Demo](https://next-magazin-electroniki-i9b2.vercel.app/)
+Live Demo: [View Demo](https://next-magazin-electroniki-i9b2.vercel.app/)  
 A scalable full-stack electronics marketplace built with **Next.js** and **TypeScript**.
 
 The platform supports dynamic product variations, category-specific specifications, advanced filtering, authentication, and order management.  
 Both frontend and backend are implemented inside the Next.js application using API routes and Prisma ORM.
 
 ---
-
 
 ## 🚀 Tech Stack
 
@@ -50,18 +47,41 @@ Both frontend and backend are implemented inside the Next.js application using A
 
 ---
 
+## ⚡ Performance & SEO Metrics
+
+The platform is optimized for fast loading, accessibility, and SEO. Lighthouse audit results:
+
+| Metric                             | Score    |
+| ---------------------------------- | -------- |
+| **Performance**                    | 84       |
+| **Accessibility**                  | 100      |
+| **Best Practices**                 | 100      |
+| **SEO**                            | 99       |
+| **First Contentful Paint (FCP)**   | 0.2–0.9s |
+| **Largest Contentful Paint (LCP)** | 0.8–2.9s |
+| **Total Blocking Time (TBT)**      | 10ms     |
+| **Cumulative Layout Shift (CLS)**  | 0–0.001  |
+| **Speed Index**                    | 0.8–1.8s |
+
+> Optimizations include image lazy-loading, caching, minimized JS/CSS, and optimized fonts.
+
+![Lighthouse Audit Screenshot](public/preview/statistics.png)
+![Lighthouse Audit Screenshot](public/preview/statistics-mob.png)
+
+---
+
 ## 🏗 Architecture Overview
 
-Client Components
-↓
-React Query (server state)
-↓
-API Routes (Next.js)
-↓
-Business Logic
-↓
-Prisma ORM
-↓
+Client Components  
+↓  
+React Query (server state)  
+↓  
+API Routes (Next.js)  
+↓  
+Business Logic  
+↓  
+Prisma ORM  
+↓  
 Database
 
 The architecture is designed for scalability and easy addition of new categories, filters, and product types.

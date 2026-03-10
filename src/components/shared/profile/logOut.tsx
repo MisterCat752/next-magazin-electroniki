@@ -14,7 +14,6 @@ export const LogOut: React.FC<Props> = ({ className }) => {
   const hendleLogOut = () => {
     signOut();
     router.push('/');
-    console.log('User logged out');
   };
   return (
     <Button
