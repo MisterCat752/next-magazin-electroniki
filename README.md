@@ -10,18 +10,7 @@ Both frontend and backend are implemented inside the Next.js application using A
 
 ## 📸 Project Preview
 
-<div style="display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px;">
-
-<img src="public/preview/main.png" alt="Homepage" width="400" style="border-radius: 12px;">
-<img src="public/preview/open_cart_menu.png" alt="Products Section" width="400" style="border-radius: 12px;">
-<img src="public/preview/open_navbar_menu.png" alt="Cart Page" width="400" style="border-radius: 12px;">
-<img src="public/preview/open_search.png" alt="Orders Page" width="400" style="border-radius: 12px;">
-<img src="public/preview/catalog.png" alt="Orders Page" width="400" style="border-radius: 12px;">
-<img src="public/preview/product_detail.png" alt="Lighthouse Audit" width="400" style="border-radius: 12px;">
-
-</div>
- 
-> Scroll left/right to view all screenshots.
+![Preview](public/preview/main.png)
 
 ---
 

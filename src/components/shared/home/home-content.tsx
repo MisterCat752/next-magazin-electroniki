@@ -18,8 +18,8 @@ export default function HomeContent() {
   return (
     <main className='p-6 space-y-10 bg-black pt-30'>
       {/* Слайдер + баннер */}
-      <div className='flex flex-col lg:flex-row gap-4'>
-        <div className='flex-1 bg-gray-dark-medium p-3 rounded-2xl'>
+      <div className='flex max-w-[1450px] mx-auto flex-col lg:flex-row gap-4'>
+        <div className='flex-1  bg-gray-dark-medium p-3 rounded-2xl'>
           <HomeSlider />
         </div>
         <PhoneBanner />
