@@ -105,6 +105,19 @@ export const buildSamsungGalaxy256GbA56Variants = (
     modelName: `Galaxy A56 ${model}`,
     sections,
   });
+export const buildSamsungGalaxy512GbA56Variants = (
+  sections: any,
+  model: string,
+) =>
+  buildVariant({
+    memory: '8 GB',
+    storage: '512 GB',
+    color: 'Gray',
+    sim: 'Dual SIM',
+    price: 7369,
+    modelName: `Galaxy A56 ${model}`,
+    sections,
+  });
 
 export const buildSamsungGalaxy256GbA36Variants = (
   sections: any,
@@ -114,6 +127,19 @@ export const buildSamsungGalaxy256GbA36Variants = (
     memory: '8 GB',
     storage: '256 GB',
     color: 'Black',
+    sim: 'Dual SIM',
+    price: 5849,
+    modelName: `Galaxy A36 ${model}`,
+    sections,
+  });
+export const buildSamsungGalaxy512GbA36Variants = (
+  sections: any,
+  model: string,
+) =>
+  buildVariant({
+    memory: '8 GB',
+    storage: '512 GB',
+    color: 'Blue',
     sim: 'Dual SIM',
     price: 5849,
     modelName: `Galaxy A36 ${model}`,

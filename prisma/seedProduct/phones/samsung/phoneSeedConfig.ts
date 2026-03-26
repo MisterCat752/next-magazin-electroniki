@@ -9,6 +9,8 @@ import {
   buildSamsungGalaxy256GbA56Variants,
   buildSamsungGalaxy256GbS25FEVariants,
   buildSamsungGalaxy256GbS25Variants,
+  buildSamsungGalaxy512GbA36Variants,
+  buildSamsungGalaxy512GbA56Variants,
   buildSamsungGalaxy512GbS25FEVariants,
   buildSamsungGalaxy512GbS25Variants,
   buildSamsungGalaxyS24_256GbVariants,
@@ -24,63 +26,63 @@ export const SAMSUNG_SEED_CONFIG = (
 
     // 24
 
-    {
-      name: 'Samsung Galaxy S24',
-      slug: 'samsung-galaxy-s24',
-      model: 'Samsung Galaxy S24',
-      categoryId: categories.samsung.id,
-      imageUrl:
-        'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+    // {
+    //   name: 'Samsung Galaxy S24',
+    //   slug: 'samsung-galaxy-s24',
+    //   model: 'Samsung Galaxy S24',
+    //   categoryId: categories.samsung.id,
+    //   imageUrl:
+    //     'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
+    //   sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
 
-      variants: (sections: any, model: any) => [
-        ...buildSamsungGalaxyS24_256GbVariants(sections, model),
-      ],
-    },
+    //   variants: (sections: any, model: any) => [
+    //     ...buildSamsungGalaxyS24_256GbVariants(sections, model),
+    //   ],
+    // },
 
-    // 25
-    {
-      name: 'Samsung Galaxy S25 FE',
-      slug: 'samsung-galaxy-s25-fe',
-      model: 'S731',
-      categoryId: categories.samsung.id,
-      imageUrl:
-        'https://xstore.md/images/product/2025/12/samsung-galaxy-s24-xstore-md-42.webp',
-      sliderUrls: SLIDER_SAMSUNG_S24_GRAY,
+    // // 25
+    // {
+    //   name: 'Samsung Galaxy S25 FE',
+    //   slug: 'samsung-galaxy-s25-fe',
+    //   model: 'S731',
+    //   categoryId: categories.samsung.id,
+    //   imageUrl:
+    //     'https://xstore.md/images/product/2025/12/samsung-galaxy-s24-xstore-md-42.webp',
+    //   sliderUrls: SLIDER_SAMSUNG_S24_GRAY,
 
-      variants: (sections: any, model: any) => [
-        ...buildSamsungGalaxy256GbS25FEVariants(sections, model),
-        ...buildSamsungGalaxy512GbS25FEVariants(sections, model),
-      ],
-    },
-    {
-      name: 'Samsung Galaxy S25  ',
-      slug: 'samsung-galaxy-s25 ',
-      model: 'Samsung Galaxy S25   ',
-      categoryId: categories.samsung.id,
-      imageUrl:
-        'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+    //   variants: (sections: any, model: any) => [
+    //     ...buildSamsungGalaxy256GbS25FEVariants(sections, model),
+    //     ...buildSamsungGalaxy512GbS25FEVariants(sections, model),
+    //   ],
+    // },
+    // {
+    //   name: 'Samsung Galaxy S25  ',
+    //   slug: 'samsung-galaxy-s25 ',
+    //   model: 'Samsung Galaxy S25   ',
+    //   categoryId: categories.samsung.id,
+    //   imageUrl:
+    //     'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
+    //   sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
 
-      variants: (sections: any, model: any) => [
-        ...buildSamsungGalaxy256GbS25Variants(sections, model),
-        ...buildSamsungGalaxy512GbS25Variants(sections, model),
-      ],
-    },
-    {
-      name: 'Samsung Galaxy  S25 Ultra  ',
-      slug: 'samsung-galaxy-s25Ultra ',
-      model: 'Samsung Galaxy S25 Ultra   ',
-      categoryId: categories.samsung.id,
-      imageUrl:
-        'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
-      sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
+    //   variants: (sections: any, model: any) => [
+    //     ...buildSamsungGalaxy256GbS25Variants(sections, model),
+    //     ...buildSamsungGalaxy512GbS25Variants(sections, model),
+    //   ],
+    // },
+    // {
+    //   name: 'Samsung Galaxy  S25 Ultra  ',
+    //   slug: 'samsung-galaxy-s25Ultra ',
+    //   model: 'Samsung Galaxy S25 Ultra   ',
+    //   categoryId: categories.samsung.id,
+    //   imageUrl:
+    //     'https://xstore.md/images/product/2025/08/samsung-galaxy-s25-blueblack-xstore-md-42.webp',
+    //   sliderUrls: SLIDER_SAMSUNG_S25_BLACK,
 
-      variants: (sections: any, model: any) => [
-        ...buildSamsungGalaxy256GbS25Variants(sections, model),
-        ...buildSamsungGalaxy512GbS25Variants(sections, model),
-      ],
-    },
+    //   variants: (sections: any, model: any) => [
+    //     ...buildSamsungGalaxy256GbS25Variants(sections, model),
+    //     ...buildSamsungGalaxy512GbS25Variants(sections, model),
+    //   ],
+    // },
 
     // a model
     {
@@ -105,6 +107,7 @@ export const SAMSUNG_SEED_CONFIG = (
       sliderUrls: SLIDER_SAMSUNG_A56_LIGHTGRAY,
       variants: (sections: any, model: any) => [
         ...buildSamsungGalaxy256GbA56Variants(sections, model),
+        ...buildSamsungGalaxy512GbA56Variants(sections, model),
       ],
     },
     {
@@ -118,6 +121,7 @@ export const SAMSUNG_SEED_CONFIG = (
 
       variants: (sections: any, model: any) => [
         ...buildSamsungGalaxy256GbA36Variants(sections, model),
+        ...buildSamsungGalaxy512GbA36Variants(sections, model),
       ],
     },
   ],

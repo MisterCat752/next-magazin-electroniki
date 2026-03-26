@@ -14,7 +14,7 @@ import { buildLaptopVariant } from './newHelper';
 export const buildA15Variants = (sections: any, model: string) => [
   {
     memory: '8 GB|512 GB',
-
+    videoMemory: 'GeForce RTX 3060|8 GB',
     price: 11099,
     specifications: buildSpecs({
       presets: [
@@ -48,6 +48,11 @@ export const buildA15Variants = (sections: any, model: string) => [
           value: '1000:1',
           groupId: sections.displayGroup.id,
         },
+        {
+          name: 'GPU',
+          value: 'RTX 3060',
+          groupId: sections.graphic.id,
+        },
         { name: 'Brand', value: 'Asus', groupId: sections.baseGroup.id },
         { name: 'Model', value: model, groupId: sections.baseGroup.id },
         { name: 'RAM', value: '8 GB', groupId: sections.memory.id },
@@ -60,6 +65,7 @@ export const buildA15Variants = (sections: any, model: string) => [
 export const buildA17Variants = (sections: any, model: string) => [
   {
     memory: '16 GB|1 TB',
+    videoMemory: 'GeForce RTX 4060|8 GB',
 
     price: 15459,
     specifications: buildSpecs({
@@ -74,31 +80,23 @@ export const buildA17Variants = (sections: any, model: string) => [
           value: '1920 x 1080 (Full HD)',
           groupId: sections.displayGroup.id,
         },
-        {
-          name: 'Display Type',
-          value: 'IPS',
-          groupId: sections.displayGroup.id,
-        },
-        {
-          name: 'Refresh Rate',
-          value: '144 Hz',
-          groupId: sections.displayGroup.id,
-        },
-        {
-          name: 'Brightness',
-          value: '300 nits',
-          groupId: sections.displayGroup.id,
-        },
-        {
-          name: 'Contrast Ratio',
-          value: '1000:1',
-          groupId: sections.displayGroup.id,
-        },
+
         { name: 'Brand', value: 'Asus', groupId: sections.baseGroup.id },
         { name: 'Model', value: model, groupId: sections.baseGroup.id },
+
         { name: 'RAM', value: '16 GB', groupId: sections.memory.id },
         { name: 'SSD', value: '1 TB', groupId: sections.memory.id },
-        { name: 'GPU', value: 'RTX 4060', groupId: sections.baseGroup.id },
+
+        {
+          name: 'GPU',
+          value: 'RTX 4060',
+          groupId: sections.graphic.id,
+        },
+        {
+          name: 'VRAM',
+          value: '8 GB',
+          groupId: sections.graphic.id,
+        },
       ],
     }),
   },

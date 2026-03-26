@@ -7,12 +7,12 @@ import { PhoneBanner } from './phone-banner';
 export default function HomeContent() {
   const sections = [
     { title: 'Laptops', category: 'laptop', queryKeySuffix: 'latest' },
-    { title: 'Samsung phones', category: 'samsung', queryKeySuffix: 'samsung' },
     {
       title: 'Apple phones',
       category: 'apple-phones',
       queryKeySuffix: 'apple',
     },
+    { title: 'Samsung phones', category: 'samsung', queryKeySuffix: 'samsung' },
   ];
 
   return (
