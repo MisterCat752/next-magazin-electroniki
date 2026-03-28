@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { Heart, ShoppingCart } from 'lucide-react';
-import { CatalogMenu } from './nav/catalog-menu';
+import { CatalogMenu } from './nav/category-menu/catalog-menu';
 import { Login } from './auth/login';
 import { useCartStore } from '@/store/cartStore';
 import { useSession } from 'next-auth/react';

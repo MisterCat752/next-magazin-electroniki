@@ -18,17 +18,14 @@ export const useCatalogProducts = (category: string) => {
 
   const [page, setPage] = React.useState(1);
 
-  // Сбрасываем страницу при смене фильтров
   React.useEffect(() => {
     setPage(1);
   }, [category, selectedSpecs, sort, priceRange]);
 
-  // Скролл вверх при смене страницы
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page]);
 
-  // Стабильный ключ для specs
   const specsKey = React.useMemo(
     () => JSON.stringify(selectedSpecs),
     [selectedSpecs],

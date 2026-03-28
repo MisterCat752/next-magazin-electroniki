@@ -38,46 +38,6 @@ export async function seedCategories(prisma: any) {
     },
   });
 
-  const xiaomiPhones = await prisma.category.create({
-    data: {
-      name: 'Xiaomi',
-      slug: 'xiaomi-phones',
-      parentId: smartphones.id,
-    },
-  });
-
-  const motorolaPhones = await prisma.category.create({
-    data: {
-      name: 'Motorola',
-      slug: 'motorola-phones',
-      parentId: smartphones.id,
-    },
-  });
-
-  const ulefonePhones = await prisma.category.create({
-    data: {
-      name: 'Ulefone',
-      slug: 'ulefone-phones',
-      parentId: smartphones.id,
-    },
-  });
-
-  const onePlusPhones = await prisma.category.create({
-    data: {
-      name: 'OnePlus',
-      slug: 'oneplus-phones',
-      parentId: smartphones.id,
-    },
-  });
-
-  const huaweiPhones = await prisma.category.create({
-    data: {
-      name: 'Huawei',
-      slug: 'huawei-phones',
-      parentId: smartphones.id,
-    },
-  });
-
   const samsung = await prisma.category.create({
     data: { name: 'Samsung', slug: 'samsung', parentId: smartphones.id },
   });
@@ -135,11 +95,6 @@ export async function seedCategories(prisma: any) {
     gamingLaptops,
     laptopPc,
     laptop,
-    xiaomiPhones,
-    motorolaPhones,
-    ulefonePhones,
-    onePlusPhones,
-    huaweiPhones,
     computers,
   };
 }

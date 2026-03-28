@@ -13,7 +13,7 @@ export const CategoryContent: React.FC<Props> = ({ category }) => {
   const { products, totalPages, page, setPage, isLoading } =
     useCatalogProducts(category);
   return (
-    <main className='bg-[#000] py-30 flex relative gap-4 items-start justify-end'>
+    <main className='bg-[#000] py-30 flex h-[100vh] relative gap-4 items-start justify-end'>
       <Filters categoryId={category} />
 
       <div className='w-full px-2'>

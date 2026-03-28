@@ -7,10 +7,10 @@ import { Heart } from 'lucide-react';
 import { useFavoriteStore } from '@/store/favoriteStore';
 import { useSession } from 'next-auth/react';
 import { Container } from '@/components/layout/container';
-import { CatalogMenu } from './catalog-menu';
+import { CatalogMenu } from './category-menu/catalog-menu';
 import { SearchInput } from './search';
 import { Login } from '../auth/login';
-import { CartDropDown } from './cart-drop-down';
+import { CartDropDown } from './cart-menu/cart-drop-down';
 
 interface Props {
   className?: string;
