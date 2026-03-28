@@ -106,7 +106,7 @@ const pcVariantSpecs = (
   sections: any,
   variant: { ram: string; storage: string },
 ) => [
-  { name: 'RAM Size', value: variant.ram, groupId: sections.memory.id },
+  { name: 'RAM', value: variant.ram, groupId: sections.memory.id },
   { name: 'SSD Capacity', value: variant.storage, groupId: sections.memory.id },
 ];
 

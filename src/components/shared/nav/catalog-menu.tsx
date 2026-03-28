@@ -33,9 +33,8 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  const pathname = usePathname(); // ⭐ добавили
+  const pathname = usePathname();
 
-  // ⭐ закрытие при переходе по роуту
   useEffect(() => {
     if (open) {
       setOpen(false);
@@ -121,7 +120,7 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
             {!current || current.children?.length === 0 ? (
               <div />
             ) : (
-              current?.children?.map((sub) => (
+              [...(current.children || [])].reverse().map((sub) => (
                 <div key={sub.id}>
                   <Link
                     href={`/category/${sub.slug}`}
@@ -129,7 +128,6 @@ export function CatalogMenu({ placeClassName }: ClassNamePosition) {
                   >
                     {sub.name}
                   </Link>
-
                   <ul className='space-y-1'>
                     {sub.children?.map((child) => (
                       <NestedList key={child.id} node={child} />
