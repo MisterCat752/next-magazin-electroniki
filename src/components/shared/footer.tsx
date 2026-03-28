@@ -87,8 +87,8 @@ export function Footer() {
               src='https://www.svgrepo.com/show/452115/telegram.svg'
               alt=''
             />
-            <a href='https://t.me/Nigredo574' className='hover:underline'>
-              @Nigredo574
+            <a href='https://t.me/Seneca2' className='hover:underline'>
+              @Seneca2
             </a>
           </div>
           <div>📍 Chisinau, Moldova</div>
