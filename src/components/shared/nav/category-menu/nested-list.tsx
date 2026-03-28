@@ -1,5 +1,5 @@
+import { Category } from '@/hooks/useCatalogMenu';
 import Link from 'next/link';
-import { Category } from './catalog-menu';
 
 export const NestedList: React.FC<{ node: Category }> = ({ node }) => (
   <li>

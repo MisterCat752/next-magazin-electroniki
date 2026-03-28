@@ -5,8 +5,6 @@ import { prisma } from '@/prisma/prisma-client';
 import fs from 'fs';
 import path from 'path';
 
-export const config = { api: { bodyParser: false } };
-
 export async function PATCH(req: Request) {
   const session = await getServerSession(authOptions);
 
