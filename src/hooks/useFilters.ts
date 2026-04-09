@@ -40,9 +40,6 @@ export const useFilters = (categoryId: string) => {
 
   const isMounted = React.useRef(false);
 
-  // -----------------------------
-  // 🔥 URL → STORE (при смене категории)
-  // -----------------------------
   React.useEffect(() => {
     const specs: SpecFilter[] = [];
 
@@ -66,7 +63,6 @@ export const useFilters = (categoryId: string) => {
           : null,
     });
 
-    // синхронизируем инпуты
     setPriceMin(min ? Number(min) : null);
     setPriceMax(max ? Number(max) : null);
 
@@ -74,7 +70,7 @@ export const useFilters = (categoryId: string) => {
   }, [categoryId]);
 
   // -----------------------------
-  // 🔥 PRICE INPUT → STORE (debounce)
+  //   PRICE INPUT → STORE (debounce)
   // -----------------------------
   React.useEffect(() => {
     if (!isMounted.current) return;

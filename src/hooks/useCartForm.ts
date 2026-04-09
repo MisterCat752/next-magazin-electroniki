@@ -28,7 +28,6 @@ export const useCartForm = () => {
     email: false,
   });
 
-  // автозаполнение из профиля
   useEffect(() => {
     if (session?.user) {
       const nameParts = session.user.name?.split(' ') || [];

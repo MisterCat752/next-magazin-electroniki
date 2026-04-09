@@ -8,7 +8,6 @@ interface SliderProps {
   children: React.ReactNode;
   itemClassName?: string;
   options?: Parameters<typeof useEmblaCarousel>[0];
-  /** Включить режим "thumbs" */
   isThumbs?: boolean;
   selectedIndex?: number;
   onSelect?: (index: number) => void;
